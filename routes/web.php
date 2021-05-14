@@ -29,3 +29,5 @@ use Illuminate\Support\Facades\Route;
 //     Route::post('/login',[AdminController::class, 'login'])->name('loginPost');
 //     Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 // });
+
+
