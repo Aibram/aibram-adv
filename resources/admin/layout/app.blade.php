@@ -63,6 +63,9 @@
             border-radius:.2rem;
             margin: 0 5px;
         }
+        .filter-option{
+            text-align:right!important
+        }
     </style>
     <link href="{{asset('assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css')}}" rel="stylesheet" type="text/css" />
 

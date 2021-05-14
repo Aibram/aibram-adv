@@ -12,11 +12,6 @@
     <link href="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css" rel="stylesheet')}}" type="text/css" />
-    <style>
-        .filter-option{
-            text-align:right!important
-        }
-    </style>
 @endsection
 
 
@@ -158,44 +153,9 @@
     <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js')}}" type="text/javascript"></script>
-    <script>
-        $('#kt_touchspin_2_validate').TouchSpin({
-            buttondown_class: 'btn btn-secondary',
-            buttonup_class: 'btn btn-secondary',
-            min: 16,
-            max: 100,
-            step: 1,
-            boostat: 5,
-            maxboostedstep: 10,
-        });
-        var KTBootstrapSelect = function () {
-    
-        // Private functions
-        var demos = function () {
-            // minimum setup
-            $('.kt-selectpicker').selectpicker(
-                {
-                    noneSelectedText: '{{ __('base.none') }}'
-
-                }
-            );
-        }
-
-        return {
-            // public functions
-            init: function() {
-                demos(); 
-            }
-        };
-        }();
-
-        jQuery(document).ready(function() {
-            KTBootstrapSelect.init();
-        });
-    </script>
+    @include('admin::CustomFiles.touchSpin',['id'=>'kt_touchspin_2_validate'])
     @include('admin::CustomFiles.summernote_switch')
-
+    @include('admin::CustomFiles.selectPicker')
     <!--end:: Global Optional Vendors -->
 
 @endsection

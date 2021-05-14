@@ -98,33 +98,7 @@
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
     @include('admin::CustomFiles.summernote_switch')
-    <script>
-        var KTBootstrapSelect = function () {
-    
-        // Private functions
-        var demos = function () {
-            // minimum setup
-            $('.kt-selectpicker').selectpicker(
-                {
-                    noneSelectedText: '{{ __('base.none') }}'
-
-                }
-            );
-        }
-
-        return {
-            // public functions
-            init: function() {
-                demos(); 
-            }
-        };
-        }();
-
-        jQuery(document).ready(function() {
-            KTBootstrapSelect.init();
-        });
-    </script>
-
+    @include('admin::CustomFiles.selectPicker')
     <!--end:: Global Optional Vendors -->
 
 @endsection

@@ -46,17 +46,63 @@
             </div>
             <div class="kt-portlet__body">
                 <div class="kt-grid__item ">
-
-                    <div class="kt_tree">
-                        <ul>
-                          <li>Root node 1
-                            <ul>
-                              <li><a data-catId="2">Child node 1</a></li>
-                              <li><a data-catId="5">Child node 2</a></li>
-                            </ul>
-                          </li>
-                        </ul>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="kt_tree">
+                                <ul>
+                                  <li>السيارات
+                                    <ul>
+                                      <li><a data-catId="2">ميرسيدس</a></li>
+                                      <li><a data-catId="5">بى ام دبليو</a></li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-primary mb-3">
+                                <div class="card-header bg-primary text-white">تعديل الفئة</div>
+                                <div class="card-body">
+                                    <form id="frmEdit" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="name">الاسم</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="name" id="name" placeholder="الإسم">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="active">متاح</label>
+                                            <select name="active" id="active" class="form-control item-menu">
+                                                <option value="1">نعم</option>
+                                                <option value="0">لا</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="home">صفحة رئيسية</label>
+                                            <select name="home" id="home" class="form-control item-menu">
+                                                <option value="1">نعم</option>
+                                                <option value="0">لا</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="icon">الصورة الحالية</label>
+                                            <img src="" id="icon" width="100px" height="100px" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="photo">الصورة</label>
+                                            <input name="photo" id="photo" type="file">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i>تعديل</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> إضافة</button>
+                                </div>
+                            </div>
+            
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -74,14 +120,7 @@
     <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/custom/jstree/jstree.bundle.js')}}" type="text/javascript"></script>
-
-    @include('admin::CustomFiles.summernote_switch')
-    <script>
-        $(".kt_tree").jstree();
-        
-    </script>
-    <!--end:: Global Optional Vendors -->
+    @include('admin::CustomFiles.tree-view')
 
 @endsection
 

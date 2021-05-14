@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class ConfigurationServiceProvider extends ServiceProvider
@@ -24,6 +25,6 @@ class ConfigurationServiceProvider extends ServiceProvider
     public function boot()
     {
         // date_default_timezone_set('Africa/Cairo');
-        \Schema::defaultStringLength(191);
+        Schema::defaultStringLength(125);
     }
 }
