@@ -4,7 +4,6 @@
 /resources/views/vendor/
 /public/vendor/
 /storage/*.key
-/storage/app
 /storage/dotenv-editor/
 /vendor
 .env
