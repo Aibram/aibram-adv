@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NoAuth\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,10 @@ use Illuminate\Support\Facades\Route;
 //     // authenticated staff routes here 
 //      Route::get('dashboard',[LoginController::class, 'adminDashboard']);
 // });
+
+Route::group( ['name' => 'ajax.','prefix'=>'ajax'],function(){
+    Route::get('/cat-jstree',[CategoryController::class,'getCatList'])->name('catList');
+    Route::get('/cat-jstree/one',[CategoryController::class,'getSingleCatList'])->name('getSingleCatList');
+    Route::post('/insert-cat-jstree',[CategoryController::class,'insertCat'])->name('insertCat');
+    Route::put('/update-cat-jstree',[CategoryController::class,'updateCat'])->name('updateCat');
+});

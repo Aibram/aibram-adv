@@ -27,14 +27,11 @@ class AdminController extends BaseController
 
     public function dashboard(Request $request)
     {
-        // dd(Auth::guard('admin')->user());
-        $usersChart = 5;
-        $delegatorChart = 5;
-        $userCount = 5;
-        $delegatorCount = 5;
-        $delegationCount = 5;
-        $adCount = 5;
-        return view($this->fullView.'.dashboard',compact('usersChart','delegatorChart','userCount','delegatorCount','delegationCount','adCount'));
+        $usersCount = 5;
+        $categoriesCount = 5;
+        $citiesCount = 5;
+        $adsCount = 5;
+        return view($this->fullView.'.dashboard',compact('usersCount','categoriesCount','citiesCount','adsCount'));
     }
 
     public function showProfile(Request $request)

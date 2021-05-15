@@ -6,7 +6,7 @@
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo" style="margin: auto">
             <a href="{{route('admin.home')}}">
-                <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold" style="color: #fff;font-size: 30px" align="center">{{config('app.name')}}</span>
+                <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold" style="color: #fff;font-size: 30px" align="center">A</span>
             </a>
         </div>
         <div class="kt-aside__brand-tools">
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 @can('categories.index', 'admin')
-                    <li class="kt-menu__item " aria-haspopup="true">
+                    {{-- <li class="kt-menu__item " aria-haspopup="true">
                         <a href="{{route('admin.categories.index')}}" class="kt-menu__link ">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -96,7 +96,7 @@
                             </span>
                             <span class="kt-menu__link-text">{{__('base.sidebar.categories')}}</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endcan
                 @can('users.index', 'admin')
                     <li class="kt-menu__item " aria-haspopup="true">

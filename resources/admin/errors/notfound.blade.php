@@ -25,7 +25,7 @@
 
         <!--Begin::Row-->
 
-        <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet kt-portlet--mobile" id="block_cat">
             <div class="kt-portlet__head kt-portlet__head--lg">
                 <div class="kt-portlet__head-label">
 										<span class="kt-portlet__head-icon">
@@ -48,55 +48,51 @@
                 <div class="kt-grid__item ">
                     <div class="row">
                         <div class="col-6">
-                            <div class="kt_tree">
-                                <ul>
-                                  <li>السيارات
-                                    <ul>
-                                      <li><a data-catId="2">ميرسيدس</a></li>
-                                      <li><a data-catId="5">بى ام دبليو</a></li>
-                                    </ul>
-                                  </li>
-                                </ul>
+                            <div class="kt_tree" id="treeCard">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card border-primary mb-3">
-                                <div class="card-header bg-primary text-white">تعديل الفئة</div>
+                            <div class="card border-primary mb-3" id="formCard">
+                                <div class="card-header bg-primary text-white">الفئة</div>
                                 <div class="card-body">
                                     <form id="frmEdit" class="form-horizontal">
+                                        <input type="hidden" class="item-menu" name="parent_id" id="parent_id">
                                         <div class="form-group">
                                             <label for="name">الاسم</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control item-menu" name="name" id="name" placeholder="الإسم">
+                                                <input type="text" class="form-control item-menu" name="name" id="name">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="active">متاح</label>
-                                            <select name="active" id="active" class="form-control item-menu">
-                                                <option value="1">نعم</option>
-                                                <option value="0">لا</option>
-                                            </select>
+                                            <label for="name">التفاصيل </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="desc" id="desc">
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="home">صفحة رئيسية</label>
-                                            <select name="home" id="home" class="form-control item-menu">
-                                                <option value="1">نعم</option>
-                                                <option value="0">لا</option>
-                                            </select>
+                                            <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.status')}}</label>
+                                            <input data-switch="true" class="item-menu" type="checkbox" name="status" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.home')}}</label>
+                                            <input data-switch="true" class="item-menu" type="checkbox" name="home" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.main')}}</label>
+                                            <input data-switch="true" class="item-menu" type="checkbox" name="main" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="icon">الصورة الحالية</label>
-                                            <img src="" id="icon" width="100px" height="100px" />
+                                            <img src="" class="item-menu" id="icon" width="100px" height="100px" />
                                         </div>
                                         <div class="form-group">
                                             <label for="photo">الصورة</label>
-                                            <input name="photo" id="photo" type="file">
+                                            <input name="image" id="photo" type="file">
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="button" id="btnUpdate" class="btn btn-primary" disabled><i class="fas fa-sync-alt"></i>تعديل</button>
-                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fas fa-plus"></i> إضافة</button>
+                                    <button type="button" id="btnUpdate" class="btn btn-primary"><i class="fas fa-sync-alt"></i>تعديل</button>
                                 </div>
                             </div>
             
@@ -113,14 +109,14 @@
 @section('scripts')
 
     <!--begin:: Global Optional Vendors -->
-    <script src="{{asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}'" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
-    @include('admin::CustomFiles.tree-view')
-
 @endsection
 
+@section('custom_scripts')
+    @include('admin::CustomFiles.selectPicker')
+    @include('admin::CustomFiles.tree-view')
+@endsection

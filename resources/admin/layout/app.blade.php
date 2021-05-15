@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html lang="en" direction="rtl" style="direction: rtl;">
 
 <!-- begin::Head -->
@@ -90,7 +92,7 @@
 <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
     <div class="kt-header-mobile__logo">
         <a href="{{route('admin.home')}}">
-            <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold" style="color: #fff;font-size: 30px" align="center">Aibram</span>
+            <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold" style="color: #fff;font-size: 30px" align="center">A</span>
         </a>
     </div>
     <div class="kt-header-mobile__toolbar">
@@ -152,6 +154,8 @@
 
 <!--begin:: Global Mandatory Vendors -->
 <script src="{{asset('assets/vendors/general/jquery/dist/jquery.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/general/popper.js/dist/umd/popper.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/general/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/general/js-cookie/src/js.cookie.js')}}" type="text/javascript"></script>
@@ -162,16 +166,19 @@
 <script src="{{asset('assets/vendors/general/perfect-scrollbar/dist/perfect-scrollbar.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/general/sticky-js/dist/sticky.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/general/wnumb/wNumb.js')}}" type="text/javascript"></script>
+
 <script src="{{asset('assets/vendors/general/bootstrap-select/dist/js/bootstrap-select.js')}}" type="text/javascript"></script>
 
+@yield('scripts')
 <script src="{{asset('assets/js/demo1/scripts.bundle.js')}}" type="text/javascript"></script>
+@yield('custom_scripts')
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 <!--end::Global Theme Bundle -->
 
 @toastr_js
 @toastr_render
 
-@yield('scripts')
+
 <script>
     $('[data-switch=true]').bootstrapSwitch();
 </script>

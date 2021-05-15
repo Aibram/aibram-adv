@@ -13,4 +13,9 @@ class CategoryRepository extends BaseAbstract implements CategoryRepositoryInter
     {
         parent::__construct($model);
     }
+
+    public function getTreeView($parent_id)
+    {
+        return $this->allBy(['parent_id' => $parent_id])->map->formatTreeJS();
+    }
 }

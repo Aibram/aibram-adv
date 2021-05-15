@@ -75,45 +75,15 @@
 @endsection
 
 @section('scripts')
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\CountryCreate'); !!}
 
     <!--begin:: Global Optional Vendors -->
-    <script src="{{asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}'" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
-    @include('admin::CustomFiles.summernote_switch')
-    <script>
-        var KTBootstrapSelect = function () {
-    
-        // Private functions
-        var demos = function () {
-            // minimum setup
-            $('.kt-selectpicker').selectpicker(
-                {
-                    noneSelectedText: '{{ __('base.none') }}'
-
-                }
-            );
-        }
-
-        return {
-            // public functions
-            init: function() {
-                demos(); 
-            }
-        };
-        }();
-
-        jQuery(document).ready(function() {
-            KTBootstrapSelect.init();
-        });
-    </script>
-
     <!--end:: Global Optional Vendors -->
 
 @endsection
 
+@section('custom_scripts')
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\CountryCreate'); !!}
+@endsection

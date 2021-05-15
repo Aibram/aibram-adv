@@ -78,6 +78,8 @@
     <script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="{{asset('vendor/datatables/buttons.server-side.js')}}"></script>
-    {!! $dataTable->scripts() !!}
 @endsection
 
+@section('custom_scripts')
+    {!! $dataTable->scripts() !!}
+@endsection

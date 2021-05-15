@@ -20,6 +20,17 @@ class Category extends BaseModel
         'status',
         'no_ads',
     ];
+    public function formatTreeJS(){
+        return [
+            "id" => $this->id,
+            "icon" => "fa fa-folder icon-lg kt-font-info",
+            "text" => $this->name,
+            "state" => [
+                "selected" => false
+            ],
+            "children" => $this->children()->count()>0?true:false,
+        ];
+    }
 
     public function registerMediaGroups()
     {

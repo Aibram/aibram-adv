@@ -44,6 +44,7 @@ class PostInstallCommand extends Command
         $this->call('config:cache');
         $this->call('env');
         $this->call('key:generate',['--ansi' => true]);
+        $this->call('config:clear');
         $this->info("Migrating DB .................");
         $this->call('down');
         $this->call('up');
@@ -53,6 +54,7 @@ class PostInstallCommand extends Command
         $this->call('passport:install');
         $this->info("Linking Storage to public Folder .................");
         $this->call('storage:link');
+        $this->call('config:cache');
         return 1;
     }
 }

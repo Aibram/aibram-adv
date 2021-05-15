@@ -141,8 +141,7 @@
 @endsection
 
 @section('scripts')
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\AdminUpdateProfile','#change_profile_form'); !!}
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\AdminUpdatePasswordAjax','#change_password_form'); !!}
+    
 
     <!--begin:: Global Optional Vendors -->
     <script src="{{asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}" type="text/javascript"></script>
@@ -154,3 +153,7 @@
     <!--end::Page Scripts -->
 @endsection
 
+@section('custom_scripts')
+{!! JsValidator::formRequest('App\Http\Requests\Admin\AdminUpdateProfile','#change_profile_form'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\Admin\AdminUpdatePasswordAjax','#change_password_form'); !!}
+@endsection

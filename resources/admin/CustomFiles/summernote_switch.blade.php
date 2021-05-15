@@ -1,3 +1,4 @@
+<script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/summernote-rtl-plugin-master/summernote-ext-rtl.js')}}" type="text/javascript"></script>
 <script>
     var myElement = $('.summernote');

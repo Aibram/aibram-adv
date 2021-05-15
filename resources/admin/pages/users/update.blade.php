@@ -139,21 +139,19 @@
 @endsection
 
 @section('scripts')
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\UserUpdate'); !!}
 
     <!--begin:: Global Optional Vendors -->
-    <script src="{{asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}'" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
-    @include('admin::CustomFiles.touchSpin',['id'=>'kt_touchspin_2_validate'])
-    @include('admin::CustomFiles.summernote_switch')
-    @include('admin::CustomFiles.selectPicker')
-
     <!--end:: Global Optional Vendors -->
 
 @endsection
 
+@section('custom_scripts')
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\UserUpdate'); !!}
+    @include('admin::CustomFiles.touchSpin',['id'=>'kt_touchspin_2_validate'])
+    @include('admin::CustomFiles.selectPicker')
+@endsection
