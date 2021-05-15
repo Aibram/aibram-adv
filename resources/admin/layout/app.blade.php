@@ -53,6 +53,7 @@
     <link href="{{asset('assets/css/demo1/skins/aside/dark.rtl.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/animate.css/animate.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('aassets/vendors/general/toastr/build/toastr.css')}}" type="text/css" />
+    <link href="{{asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
 
     <!--begin::Page Vendors Styles(used by this page) --><!--end::Layout Skins -->
 
@@ -178,7 +179,8 @@
 @toastr_js
 @toastr_render
 
-
+<script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
 <script>
     $('[data-switch=true]').bootstrapSwitch();
 </script>
