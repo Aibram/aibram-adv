@@ -28,4 +28,6 @@ Route::group( ['name' => 'ajax.','prefix'=>'ajax'],function(){
     Route::get('/cat-jstree/one',[CategoryController::class,'getSingleCatList'])->name('getSingleCatList');
     Route::post('/insert-cat-jstree',[CategoryController::class,'insertCat'])->name('insertCat');
     Route::put('/update-cat-jstree',[CategoryController::class,'updateCat'])->name('updateCat');
+
+    
 });

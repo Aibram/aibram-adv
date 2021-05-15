@@ -144,10 +144,10 @@
     <script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <!--end:: Global Optional Vendors -->
-
 @endsection
 
 @section('custom_scripts')
+
     {!! JsValidator::formRequest('App\Http\Requests\Admin\UserUpdate'); !!}
     @include('admin::CustomFiles.touchSpin',['id'=>'kt_touchspin_2_validate'])
     @include('admin::CustomFiles.selectPicker')
