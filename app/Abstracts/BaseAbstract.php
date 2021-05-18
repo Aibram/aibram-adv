@@ -131,11 +131,12 @@ abstract class BaseAbstract implements BaseInterface
         return $data->pluck($column, $key)->all();
     }
 
-    public function allBy(array $condition, array $with = [], array $select = ['*'])
+    public function allBy(array $condition, array $with = [], array $select = ['*'],$ordering=[],$scopes=[])
     {
         $this->applyConditions($condition);
-
+        $this->setScopes($scopes);
         $data = $this->make($with)->select($select);
+        $data = $this->orderBy($ordering);
         return $data->get();
     }
 
@@ -201,10 +202,11 @@ abstract class BaseAbstract implements BaseInterface
         return $data;
     }
 
-    public function updateById(String $id, array $data)
+    public function updateById(String $id, array $data,$checkStatus=true)
     {
         $model = $this->findById($id);
-        $this->checkRequestCheckBoxExists($data);
+        if($checkStatus)
+            $this->checkRequestCheckBoxExists($data);
         $model->update($data);
         $this->resetModel();
         toastr()->success(__('base.success.updated'), __('base.success.done'));
@@ -216,6 +218,14 @@ abstract class BaseAbstract implements BaseInterface
     public function select(array $select = ['*'], array $condition = [])
     {
         $data = $this->model->where($condition)->select($select);
+        return $data;
+    }
+    public function orderBy(array $columns = [])
+    {
+        $data = $this->model;
+        foreach ($columns as $column => $direction) {
+            $data = $data->orderBy($column, $direction);
+        }
         return $data;
     }
 
@@ -235,13 +245,12 @@ abstract class BaseAbstract implements BaseInterface
         return true;
     }
 
-    public function deleteByHashId(String $hashid)
+    public function deleteById(String $id)
     {
-        $item = $this->findByHashId($hashid);
+        $item = $this->findById($id);
         $resp = $item->delete();
         $this->resetModel();
         toastr()->success(__('base.success.deleted'), __('base.success.done'));
-
         return $resp;
     }
 
@@ -311,6 +320,19 @@ abstract class BaseAbstract implements BaseInterface
         } else {
             $model = $newModel;
         }
+    }
+
+    protected function setScopes($scopes=[], &$model = null)
+    {
+        if (!$model) {
+            $newModel = $this->model;
+        } else {
+            $newModel = $model;
+        }
+        foreach ($scopes as $method => $args) {
+            $newModel->$method(implode(', ', $args));
+        }
+
     }
 
     public function advancedGet(array $params = [])

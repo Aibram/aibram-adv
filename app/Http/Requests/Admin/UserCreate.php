@@ -25,7 +25,7 @@ class UserCreate extends FormRequest
     {
         return [
             'mobile' => 'required|unique:users',
-            'username' => 'required|unique:users',
+            'name' => 'required',
             'city_id' => 'required|exists:cities,id',
             'age' => 'required',
             'gender' => 'required',

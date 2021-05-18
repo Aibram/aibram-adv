@@ -52,7 +52,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-6">
                                     <label>{{__('pages.users.columns.username')}}</label>
-                                    <input name="username" type="text" class="form-control" value="{{$data->username}}">
+                                    <input name="name" type="text" class="form-control" value="{{$data->name}}">
                                 </div>
                                 <div class="col-lg-6">
                                     <label>{{__('pages.users.columns.mobile')}}</label>

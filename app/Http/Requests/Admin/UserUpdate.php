@@ -29,9 +29,8 @@ class UserUpdate extends FormRequest
                 'required',
                 Rule::unique('users')->ignore($this->route()->parameter('user'))
             ],
-            'username' => [
-                'required',
-                Rule::unique('users')->ignore($this->route()->parameter('user'))
+            'name' => [
+                'required'
             ],
             'city_id' => 'required|exists:cities,id',
             'age' => 'required',

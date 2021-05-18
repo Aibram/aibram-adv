@@ -8,6 +8,8 @@ interface BaseInterface
 {
     public function getModel();
     
+    public function orderBy(array $columns = []);
+    
     public function getTable();
     
     public function getFirstBy(array $condition = [], array $select = ['*'], array $with = []);
@@ -24,7 +26,7 @@ interface BaseInterface
     
     public function pluck($column, $key = null);
     
-    public function allBy(array $condition, array $with = [], array $select = ['*']);
+    public function allBy(array $condition, array $with = [], array $select = ['*'],$ordering=[],$scopes=[]);
     
     public function create(array $data);
     
@@ -32,7 +34,7 @@ interface BaseInterface
     
     public function delete(Model $model);
 
-    public function deleteByHashId(String $hashid);
+    public function deleteById(String $id);
 
     public function attachMedia($file,&$model = null,$mediaGroup='');
 
@@ -44,7 +46,7 @@ interface BaseInterface
     
     public function update(array $condition, array $data);
 
-    public function updateById(String $id, array $data);
+    public function updateById(String $id, array $data,$checkStatus=true);
     
     public function select(array $select = ['*'], array $condition = []);
     

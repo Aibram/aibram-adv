@@ -110,7 +110,7 @@ class BaseController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->deleteByHashId($id);
+        $this->repository->deleteById($id);
         return redirect()->route($this->route.'.index');
     }
 }

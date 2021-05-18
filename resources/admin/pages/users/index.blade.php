@@ -22,9 +22,11 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="{{route('admin.users.create')}}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
-                        {{__('pages.users.new')}}
-                    </a>
+                    @can('users.create', 'admin')
+                        <a href="{{route('admin.users.create')}}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
+                            {{__('pages.users.new')}}
+                        </a>
+                    @endcan
                 </div>
             </div>
         </div>

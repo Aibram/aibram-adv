@@ -186,6 +186,7 @@ return [
         App\Providers\ObserversServiceProvider::class,
         App\Providers\RepositoriesServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FacadesServiceProvider::class,
 
     ],
 
@@ -239,6 +240,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'SMSConst' => App\Constants\SMS::class,
+        'APIResponse' => App\Facades\APIResponse::class,
+        'SMS' => App\Facades\SMSService::class,
+        'RandomCode' => App\Facades\RandomCode::class,
 
     ],
 

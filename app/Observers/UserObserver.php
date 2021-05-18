@@ -16,7 +16,7 @@ class UserObserver
     {
         $country = $user->city->country;
         $user->country_id = $country->id;
-        $user->ext = $country->ext;
+        // $user->ext = $country->ext;
     }
 
     /**

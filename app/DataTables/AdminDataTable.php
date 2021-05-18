@@ -35,7 +35,7 @@ class AdminDataTable extends BaseDatatable
                         'model_name'=>$model->getTable(),
                         'viewPrefix' => 'admin.',
                         'actions'=>[
-                            // 'view'=>'admins.show',
+                            'delete'=>'admins.destroy',
                             'edit'=>'admins.edit',
                         ]
                     ]);

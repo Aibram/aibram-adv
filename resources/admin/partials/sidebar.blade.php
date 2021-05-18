@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 @can('categories.index', 'admin')
-                    {{-- <li class="kt-menu__item " aria-haspopup="true">
+                    <li class="kt-menu__item " aria-haspopup="true">
                         <a href="{{route('admin.categories.index')}}" class="kt-menu__link ">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -96,7 +96,7 @@
                             </span>
                             <span class="kt-menu__link-text">{{__('base.sidebar.categories')}}</span>
                         </a>
-                    </li> --}}
+                    </li>
                 @endcan
                 @can('users.index', 'admin')
                     <li class="kt-menu__item " aria-haspopup="true">

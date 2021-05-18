@@ -1,34 +1,22 @@
 @extends('admin::layout.app')
 
 @section('css')
+
     <!--begin:: Global Optional Vendors -->
     <link href="{{asset('assets/vendors/custom/vendors/line-awesome/css/line-awesome.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/vendors/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/vendors/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/vendors/general/summernote/dist/summernote.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/vendors/custom/jstree/jstree.bundle.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 
 @section('content')
-    <div class="kt-subheader kt-grid__item" id="kt_subheader">
-        <div class="kt-container kt-container--fluid ">
-            <div class="kt-subheader__main">
-                <h3 class="kt-subheader__title">
-                    {{__('pages.categories.get')}}
-                </h3>
-            </div>
-            <div class="kt-subheader__toolbar">
-                <div class="kt-subheader__wrapper">
-                    <a href="{{route('admin.categories.create')}}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
-                        {{__('pages.categories.new')}}
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- end:: Content Head -->
@@ -37,14 +25,13 @@
 
         <!--Begin::Row-->
 
-        <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet kt-portlet--mobile" id="portlet_card">
             <div class="kt-portlet__head kt-portlet__head--lg">
                 <div class="kt-portlet__head-label">
-										<span class="kt-portlet__head-icon">
-											<i class="kt-font-brand flaticon2-line-chart"></i>
-										</span>
                     <h3 class="kt-portlet__head-title">
-                        {{__('pages.categories.all')}}
+                        @can('categories.create', 'admin')
+                            <button type="button" id="btnCreate" class="btn btn-primary">{{__('pages.categories.main_new')}}</button>
+                        @endcan
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
@@ -57,7 +44,72 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                {!! $dataTable->table(['class' => 'table table-bordered']) !!}
+                <div class="kt-grid__item ">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="kt_tree" id="treeCard">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-primary mb-3" id="formCard">
+                                <div class="card-header bg-primary text-white">الفئة</div>
+                                <div class="card-body">
+                                    <form id="frmEdit" class="form-horizontal">
+                                        <input type="hidden" class="item-menu" name="parent_id" id="parent_id">
+                                        <div class="form-group">
+                                            <label for="name">الاسم</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="name" id="name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">التفاصيل </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control item-menu" name="desc" id="desc">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.status')}}</label>
+                                            <select name="status" id="status" class="form-control item-menu">
+                                                <option value="1">{{__('base.activated')}}</option>
+                                                <option value="0">{{__('base.deactivated')}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.home')}}</label>
+                                            <select name="home" id="home" class="form-control item-menu">
+                                                <option value="1">{{__('base.activated')}}</option>
+                                                <option value="0">{{__('base.deactivated')}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.main')}}</label>
+                                            <select name="main" id="main" class="form-control item-menu">
+                                                <option value="1">{{__('base.activated')}}</option>
+                                                <option value="0">{{__('base.deactivated')}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="icon">الصورة الحالية</label>
+                                            <img src="" class="item-menu" id="photo" width="100px" height="100px" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="photo">الصورة</label>
+                                            <input name="image" class="item-menu" id="image" type="file">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    @can('categories.edit', 'admin')
+                                        <button type="button" id="btnUpdate" class="btn btn-primary"><i class="fas fa-sync-alt"></i>تعديل</button>
+                                    @endcan
+                                </div>
+                            </div>
+            
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -65,19 +117,16 @@
 @endsection
 
 @section('scripts')
+
     <!--begin:: Global Optional Vendors -->
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/custom/js/vendors/sweetalert2.init.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/tooltip.js/dist/umd/tooltip.min.js')}}" type="text/javascript"></script>
-    <!--end:: Global Optional Vendors -->
-
-
-    <!--begin::Page Vendors(used by this page) -->
-    <script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
-    <script src="{{asset('vendor/datatables/buttons.server-side.js')}}"></script>
-    {!! $dataTable->scripts() !!}
+    <script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
+    <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
 @endsection
 
+@section('custom_scripts')
+    @include('admin::CustomFiles.selectPicker')
+    @include('admin::CustomFiles.tree-view')
+@endsection

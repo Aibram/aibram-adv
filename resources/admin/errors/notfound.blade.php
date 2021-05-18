@@ -25,7 +25,7 @@
 
         <!--Begin::Row-->
 
-        <div class="kt-portlet kt-portlet--mobile" id="block_cat">
+        <div class="kt-portlet kt-portlet--mobile" id="portlet_card">
             <div class="kt-portlet__head kt-portlet__head--lg">
                 <div class="kt-portlet__head-label">
 										<span class="kt-portlet__head-icon">
@@ -57,6 +57,7 @@
                                 <div class="card-body">
                                     <form id="frmEdit" class="form-horizontal">
                                         <input type="hidden" class="item-menu" name="parent_id" id="parent_id">
+                                        <input type="hidden" class="item-menu" name="admin_id" id="admin_id" value="{{Auth::guard('admin')->id()}}">
                                         <div class="form-group">
                                             <label for="name">الاسم</label>
                                             <div class="input-group">
@@ -71,23 +72,23 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.status')}}</label>
-                                            <input data-switch="true" class="item-menu" type="checkbox" name="status" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
+                                            <input data-switch="true" class="item-menu" type="checkbox" id="status" name="status" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.home')}}</label>
-                                            <input data-switch="true" class="item-menu" type="checkbox" name="home" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
+                                            <input data-switch="true" class="item-menu" type="checkbox" id="home" name="home" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.main')}}</label>
-                                            <input data-switch="true" class="item-menu" type="checkbox" name="main" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
+                                            <input data-switch="true" class="item-menu" type="checkbox" id="main" name="main" data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="icon">الصورة الحالية</label>
-                                            <img src="" class="item-menu" id="icon" width="100px" height="100px" />
+                                            <img src="" class="item-menu" id="photo" width="100px" height="100px" />
                                         </div>
                                         <div class="form-group">
                                             <label for="photo">الصورة</label>
-                                            <input name="image" id="photo" type="file">
+                                            <input name="image" class="item-menu" id="image" type="file">
                                         </div>
                                     </form>
                                 </div>

@@ -13,7 +13,7 @@ return [
     ],
     'policies' => [
         'index',
-        'show',
+        // 'show',
         'create',
         'edit',
         'destroy'

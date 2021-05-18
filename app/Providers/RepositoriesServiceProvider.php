@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Interfaces\ActivationCodeRepositoryInterface;
 use App\Interfaces\AdminRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\CityRepositoryInterface;
 use App\Interfaces\CountryRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Repositories\ActivationCodeRepository;
 use App\Repositories\AdminRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CityRepository;
@@ -38,5 +40,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(CityRepositoryInterface::class,CityRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class,CategoryRepository::class);
         $this->app->bind(AdminRepositoryInterface::class,AdminRepository::class);
+        $this->app->bind(ActivationCodeRepositoryInterface::class,ActivationCodeRepository::class);
     }
 }

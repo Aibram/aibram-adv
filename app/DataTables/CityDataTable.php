@@ -39,6 +39,7 @@ class CityDataTable extends BaseDatatable
                         'viewPrefix' => 'admin.',
                         'actions'=>[
                             // 'view'=>'cities.show',
+                            'delete'=>'cities.destroy',
                             'edit'=>'cities.edit',
                         ]
                     ]);

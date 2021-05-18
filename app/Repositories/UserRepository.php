@@ -3,14 +3,19 @@
 namespace App\Repositories;
 
 use App\Abstracts\BaseAbstract;
+use App\Facades\RandomCode;
+use App\Facades\SMSService;
 use App\Interfaces\UserRepositoryInterface;
+use App\Models\ActivationCode;
 use App\Models\User;
 
 class UserRepository extends BaseAbstract implements UserRepositoryInterface
 {
-    public function __construct(User $model)
+    protected $actModel;
+    public function __construct(User $model,ActivationCode $actModel)
     {
         parent::__construct($model);
+        $this->actModel = $actModel;
     }
 
     public function createFullUser(array $data){
@@ -29,4 +34,23 @@ class UserRepository extends BaseAbstract implements UserRepositoryInterface
         }
         return $user;
     }
+
+    public function createUserApi(array $data){
+        $model = $this->create($data);
+        $code=RandomCode::getCode(4);
+        $smsReponse=SMSService::sendMessage($data['mobile'],__('base.user.code'),'Aibram');
+        $this->actModel->create([
+            'code' => $code
+        ]);
+        if(isset($data['photo'])){
+            $model = $this->attachMedia($data['photo'],$model,$this->model->mainImageCollection);
+        }
+        
+        return [
+            'model' => $model,
+            'code' => $code,
+            'smsReponse' => $smsReponse
+        ];
+    }
+
 }

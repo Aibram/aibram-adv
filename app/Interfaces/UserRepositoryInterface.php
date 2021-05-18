@@ -10,4 +10,5 @@ interface UserRepositoryInterface extends BaseInterface
 
     public function updateFullUser($id,array $data);
 
+    public function createUserApi(array $data);
 }

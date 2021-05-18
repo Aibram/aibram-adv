@@ -41,6 +41,7 @@ class CountryDataTable extends BaseDatatable
                         'actions'=>[
                             // 'view'=>'countries.show',
                             'edit'=>'countries.edit',
+                            'delete'=>'countries.destroy',
                         ]
                     ]);
             });

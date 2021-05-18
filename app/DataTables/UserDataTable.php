@@ -13,9 +13,8 @@ class UserDataTable extends BaseDatatable
         parent::__construct('usersdatatable-table',[
             'id'           =>  'id',
             'photo'        =>  __('pages.users.columns.photo'),
-            'username'     =>  __('pages.users.columns.username'),
+            'name'         =>  __('pages.users.columns.username'),
             'mobile'       =>  __('pages.users.columns.mobile'),
-            'ext'          =>  __('pages.users.columns.ext'),
             'country'      =>  __('pages.users.columns.country'),
             'city'         =>  __('pages.users.columns.city'),
             'gender'       =>  __('pages.users.columns.gender'),
@@ -54,6 +53,7 @@ class UserDataTable extends BaseDatatable
                         'actions'=>[
                             // 'view'=>'users.show',
                             'edit'=>'users.edit',
+                            'delete'=>'users.destroy',
                         ]
                     ]);
             });

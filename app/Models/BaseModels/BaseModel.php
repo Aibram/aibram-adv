@@ -12,6 +12,7 @@ use App\Traits\MediaTrait;
 class BaseModel extends Model
 {
     use HasHashid, HashidRouting,MediaTrait;
+    protected $appends = ['photo','secondary-photos'];
     
     protected function serializeDate(\DateTimeInterface $date)
     {
@@ -26,5 +27,15 @@ class BaseModel extends Model
     public function getDescStatusAttribute()
     {
         return $this->status > 0? __('base.deactivated') : __('base.activated');
+    }
+
+    public function getPhotoAttribute()
+    {
+        return $this->getMainImage();
+    }
+
+    public function getSecondaryPhotosAttribute()
+    {
+        return $this->getSecondaryImages();
     }
 }
