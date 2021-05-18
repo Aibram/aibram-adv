@@ -83,11 +83,8 @@
                                     <div class="kt-checkbox-inline">
                                         @foreach($permissionItem['children'] as $child)
                                             <label class="kt-checkbox kt-checkbox--success">
-                                                @if($child == "index")
-                                                    <input type="checkbox" name="permissions[{{$permissionItem['name'].'.'.$child}}]"> {{__('base.'.$child).' '. trans_choice('base.'.$permissionItem['name'], 2)}}
-                                                @else
-                                                    <input type="checkbox" name="permissions[{{$permissionItem['name'].'.'.$child}}]"> {{__('base.'.$child).' '. trans_choice('base.'.$permissionItem['name'], 1)}}
-                                                @endif
+                                                @php($count = $child == "index" ? 2:1)
+                                                <input type="checkbox" name="permissions[{{$permissionItem['name'].'.'.$child}}]"> {{__('base.'.$child).' '. trans_choice('base.'.$permissionItem['name'], $count)}}
                                                 <span></span>
                                             </label>
                                         @endforeach
