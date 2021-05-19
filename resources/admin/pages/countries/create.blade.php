@@ -50,7 +50,11 @@
                         <div class="kt-portlet__body">
                             <div class="form-group">
                                 <label>{{__('pages.countries.columns.name')}}</label>
-                                <input name="name" class="form-control" aria-describedby="emailHelp">
+                                <input name="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>{{__('pages.countries.columns.ext')}}</label>
+                                <input name="ext" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.status')}}</label>

@@ -435,4 +435,13 @@ abstract class BaseAbstract implements BaseInterface
 
         return $result;
     }
+
+    public function CheckSingleMediaAndAssign($data,$model,$property,$collection,$update=false){
+        if(isset($data[$property]) && $data[$property]!='undefined' && $data[$property]!='null'){
+            if($update){
+                $this->detachMedia($user,null,$collection);
+            }
+            $this->attachMedia($data[$property],$model,$collection);
+        }
+    }
 }

@@ -21,7 +21,7 @@ class UserController extends BaseController
     public function store()
     {
         $request = app($this->storeRequest);
-        $this->repository->createFullUser($request->validated());
+        $this->repository->createFullUser($request->all());
         return redirect()->route($this->route.'.index');
     }
     

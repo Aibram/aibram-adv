@@ -17,11 +17,11 @@ class CityController extends Controller
     
     public function index(Request $request)
     {
-        return APIResponse::successResponse('',$this->repository->allBy($request->all()));
+        return APIResponse::sendResponse('',$this->repository->allBy($request->all()));
     }
     
     public function view(Request $request,$id)
     {
-        return APIResponse::successResponse('',$this->repository->findById($id));
+        return APIResponse::sendResponse('',$this->repository->findById($id));
     }
 }

@@ -53,6 +53,18 @@
                                 <label>{{__('pages.cities.columns.name')}}</label>
                                 <input name="name" class="form-control" aria-describedby="emailHelp" value="{{$data->name}}">
                             </div>
+                            @if (config('app.default_country'))
+                                <input type="hidden" name="country_id" value="{{getfirstCountry()->id}}">
+                            @else
+                                <div class="form-group">
+                                    <label>{{__('pages.cities.columns.country')}}</label>
+                                    <select class="form-control kt-selectpicker" name="country_id">
+                                        @foreach(allCountries() as $country)
+                                            <option @if($data->country_id==$country->id) selected @endif value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.status')}}</label>
                                 <input data-switch="true" type="checkbox" name="status" @if($data->status==1) checked @endif data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">

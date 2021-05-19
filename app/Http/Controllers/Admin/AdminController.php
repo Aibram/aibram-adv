@@ -10,6 +10,10 @@ use App\Http\Requests\Admin\AdminUpdateProfile as AdminAdminUpdateProfile;
 use App\Http\Requests\AdminUpdatePassword;
 use App\Http\Requests\AdminUpdateProfile;
 use App\Interfaces\AdminRepositoryInterface;
+use App\Models\Advertisement;
+use App\Models\Category;
+use App\Models\City;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
@@ -27,10 +31,10 @@ class AdminController extends BaseController
 
     public function dashboard(Request $request)
     {
-        $usersCount = 5;
-        $categoriesCount = 5;
-        $citiesCount = 5;
-        $adsCount = 5;
+        $usersCount = getCount($request->all(),User::active(1));
+        $categoriesCount = getCount($request->all(),Category::active(1));
+        $citiesCount = getCount($request->all(),City::active(1));
+        $adsCount = getCount($request->all(),Advertisement::active(1));
         return view($this->fullView.'.dashboard',compact('usersCount','categoriesCount','citiesCount','adsCount'));
     }
 

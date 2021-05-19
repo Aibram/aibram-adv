@@ -54,6 +54,10 @@
                                 <input name="name" class="form-control" value="{{$data->name}}">
                             </div>
                             <div class="form-group">
+                                <label>{{__('pages.countries.columns.ext')}}</label>
+                                <input name="ext" class="form-control" value="{{$data->ext}}">
+                            </div>
+                            <div class="form-group">
                                 <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.columns.status')}}</label>
                                 <input data-switch="true" type="checkbox" name="status" @if($data->status==1) checked @endif data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
                             </div>

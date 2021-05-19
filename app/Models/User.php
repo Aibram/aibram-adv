@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     public $fillable = [
-        'username'
+        'name'
         ,'mobile'
         ,'ext'
         ,'country_id'

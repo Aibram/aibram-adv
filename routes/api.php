@@ -44,7 +44,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('categories', [CommonCategoryController::class,'index']);
     Route::get('categories/{id} ', [CommonCategoryController::class,'view']);
     // Route::post('login', [AuthController::class,'login']);
-    // Route::post('register', [AuthController::class,'register']);
+    Route::post('register', [AuthController::class,'register']);
     // Route::post('resend_code', [AuthController::class,'resendCode']);
     // Route::post('verify_code', [AuthController::class,'verifyCode']);
     // Route::post('forget_password_send_code', [AuthController::class,'forgetPasswordSendCode']);

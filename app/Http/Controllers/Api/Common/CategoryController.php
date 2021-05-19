@@ -17,11 +17,11 @@ class CategoryController extends Controller
     
     public function index(Request $request)
     {
-        return APIResponse::successResponse('',$this->repository->allBy($request->all(),['children'],['*'],['ordering'=>'asc']));
+        return APIResponse::sendResponse('',$this->repository->allBy($request->all(),['children'],['*'],['ordering'=>'asc']));
     }
     
     public function view(Request $request,$id)
     {
-        return APIResponse::successResponse('',$this->repository->findById($id,['children']));
+        return APIResponse::sendResponse('',$this->repository->findById($id,['children']));
     }
 }

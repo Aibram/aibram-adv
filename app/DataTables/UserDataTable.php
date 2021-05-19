@@ -38,6 +38,9 @@ class UserDataTable extends BaseDatatable
             ->editColumn('city',function (User $model) {
                 return $model->city->name;
             })
+            ->editColumn('gender',function (User $model) {
+                return getGenderTypes()[$model->gender];
+            })
             ->editColumn('photo',function (User $model) {
                 return '<span class="kt-userpic kt-margin-t-5">
                             <img src="'.$model->getFirstMediaUrl($model->mainImageCollection, 'user_thumb').'" alt="user">

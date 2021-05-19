@@ -79,7 +79,7 @@
                             <h2 class="kt-font-sucess">{{__('pages.permissions')}}</h2>
                             @foreach(getPermissions() as $permissionItem)
                                 <div class="form-group">
-                                    <label>{{__('base.'.$permissionItem['name'])}}</label>
+                                    <label>{{trans_choice('base.'.$permissionItem['name'],2)}}</label>
                                     <div class="kt-checkbox-inline">
                                         @foreach($permissionItem['children'] as $child)
                                             <label class="kt-checkbox kt-checkbox--success">

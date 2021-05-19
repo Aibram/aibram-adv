@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class VerifyCodeRequest extends FormRequest
+class ResendCodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +23,8 @@ class VerifyCodeRequest extends FormRequest
      */
     public function rules()
     {
-        return 
-        [
-            'mobile'  =>  ['required', 'string', Rule::exists('users', 'mobile')->where('activated', 0)],
-            'code'  =>  ['required', 'string', Rule::exists('activation_codes', 'code')->where('finished', 0)]
+        return [
+            'mobile' => 'required|exists:users',
         ];
     }
 }

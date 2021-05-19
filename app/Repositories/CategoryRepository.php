@@ -33,10 +33,7 @@ class CategoryRepository extends BaseAbstract implements CategoryRepositoryInter
         $id = $data['id'];
         unset($data['id']);
         $user = $this->updateById($id,$data,false);
-        if(isset($data['image']) && $data['image']!='undefined' && $data['image']!='null'){
-            $user = $this->detachMedia($user,null,$this->model->mainImageCollection);
-            $user = $this->attachMedia($data['image'],$user,$this->model->mainImageCollection);
-        }
+        $this->CheckSingleMediaAndAssign($data,$user,'image',$this->model->mainImageCollection,true);
     }
 
     public function findByIdAdmin($adminId,$id){

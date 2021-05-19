@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="icon">الصورة الحالية</label>
-                                            <img src="" class="item-menu" id="photo" width="100px" height="100px" />
+                                            <img src="{{asset('placeholder.jpg')}}" class="item-menu" id="photo" width="100px" height="100px" />
                                         </div>
                                         <div class="form-group">
                                             <label for="photo">الصورة</label>

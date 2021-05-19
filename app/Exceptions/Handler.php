@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Facades\APIResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\Exceptions\MissingScopeException;
@@ -42,20 +43,17 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (MissingScopeException $e, $request) {
-            return response()->json([
-                'message' => 'Unauthenticated',
-            ], 401);
+            return APIResponse::sendResponse(__('base.error.notAuth'),__('base.error.unauth'),403);
         });
 
         $this->renderable(function (ValidationException $e, $request) {
             $first_element=array_key_first($e->errors());
             $error = $e->errors()[$first_element][0];
             if($request->expectsJson()){
-                return response()->json([
-                    'message' => __('base.error.validation'),
-                    'errors' => $error
-                ],$e->status
-                );
+                if($request->has('_jsvalidation'))
+                    return response()->json([$error]);
+                else
+                    return APIResponse::sendResponse(__('base.error.validation'),$error,401);
             }
             else{
                 toastr()->error($error, __('base.error.validation'));
@@ -66,11 +64,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if($request->expectsJson()){
-                return response()->json([
-                    'message' => __('base.error.notfound')
-                    ]
-                    ,404
-                );
+                return APIResponse::sendResponse(__('base.error.notfound'),__('base.error.notfound'),401);
             }
             else{
                 toastr()->error(__('base.error.notfound_desc'), __('base.error.notfound'));

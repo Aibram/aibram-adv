@@ -47,6 +47,11 @@ class Category extends BaseModel
         return $query->where('home',$value);
     }
 
+    public function scopeParent($query)
+    {
+        return $query->where('parent_id',null);
+    }
+
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class, 'advertisement_id', 'id');

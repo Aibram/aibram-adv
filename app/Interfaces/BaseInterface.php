@@ -72,6 +72,7 @@ interface BaseInterface
     
     public function checkRequestCheckBoxExists(&$data,$column = "status");
 
+    public function CheckSingleMediaAndAssign($data,$model,$property,$collection,$update=false);
 
 
 }

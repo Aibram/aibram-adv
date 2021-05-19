@@ -65,6 +65,25 @@ if (!function_exists('allCountries')) {
     }
 }
 
+if (!function_exists('getCount')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getCount($filters,$model)
+    {
+        $count = $model;
+        if(isset($filters['from_date'])){
+            $count = $count->whereRaw('created_at >= ?',[$filters['from_date']." 00:00:00"]);
+        }
+        if(isset($filters['to_date'])){
+            $count = $count->whereRaw('created_at <= ?',[$filters['to_date']." 23:59:59"]);
+        }
+        return $count->count();
+    }
+}
+
 if (!function_exists('getGenderTypes')) {
 
     function getGenderTypes()

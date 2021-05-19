@@ -41,7 +41,7 @@
                 {
                     ...ajaxJson,
                     success: function(data){
-                        if(!data.status){
+                        if(data.status!=200){
                             //Toaster Error
                             toastr.error(data.message)
                         }
@@ -74,6 +74,8 @@
                     break;
                 case 'IMG':
                     // Set the value for Img list
+                    if(!newVal)
+                        newVal = "{{asset('placeholder.jpg')}}"
                     $(elem).attr("src",newVal);
                 break;
             }
@@ -164,7 +166,7 @@
                                 obj = inst.get_node(data.reference);
                             inst.create_node(obj, {}, "last", function (new_node) {
                                 try {
-                                    inst.edit(new_node,"rrr",function(){
+                                    inst.edit(new_node,"تصنيف جديد",function(){
                                         blockPage()
                                         sendAjaxReq({
                                             parent_id: obj.id,
@@ -230,6 +232,21 @@
             }
         );
         $("#btnUpdate").click(function(){
+            itemClass = '.item-menu';
+            var fd = new FormData();
+            var req = {}
+            $(itemClass).each(function(i, obj){
+                req[obj.id] = getItemVal(obj,obj.tagName);
+            });
+            req['admin_id'] = "{{Auth::guard('admin')->id()}}";
+            console.log($(".kt_tree").jstree("get_selected"));
+            req['id'] = $(".kt_tree").jstree("get_selected")[0];
+            sendAjaxReq(req,'PUT','{{route("updateCat")}}',function(){
+                clearInput(itemClass)
+                (".kt_tree").jstree().deselect_all(true);
+            });
+        });
+        $("form").submit(function(e){
             itemClass = '.item-menu';
             var fd = new FormData();
             var req = {}

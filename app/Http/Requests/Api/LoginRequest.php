@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Rules\CheckOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -13,7 +14,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'mobile'        => 'required|exists:users',
+            'password'  =>  ['required', 'string', 'min:8', new CheckOldPassword(auth('admin')->user()->password)],
         ];
     }
 }
