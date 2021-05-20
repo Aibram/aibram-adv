@@ -27,7 +27,7 @@ class UserObserver
      */
     public function updating(User $user)
     {
-        $user->country_id = $user->city->id;
+        $user->country_id = $user->city->country->id;
     }
 
     /**
