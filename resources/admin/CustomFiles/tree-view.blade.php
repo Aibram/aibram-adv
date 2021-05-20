@@ -268,7 +268,7 @@
         "text": ""
         }, "last", function(new_node) {
             // console.log(new_node)
-            $(".kt_tree").jstree().edit(new_node,"rrr",function(){
+            $(".kt_tree").jstree().edit(new_node,"تصنيف جديد",function(){
                 console.log(new_node)
                 blockPage()
                 sendAjaxReq({
