@@ -59,7 +59,8 @@ class UserRepository extends BaseAbstract implements UserRepositoryInterface
             'finished' => 1
         ]);
         $model->codes()->create([
-            'code' => $code
+            'code' => $code,
+            'provider' => $data['provider']
         ]);
         toastr()->success(__('frontend.verify_code.code'), $code);
         return [

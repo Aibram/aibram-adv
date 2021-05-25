@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/owl.carousel.css')}}" />
 
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/main-rtl.css')}}" />
-
+    
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/responsive.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/font-awesome.min.css')}}" />
     @toastr_css

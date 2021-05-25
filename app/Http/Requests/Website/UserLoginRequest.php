@@ -30,12 +30,4 @@ class UserLoginRequest extends FormRequest
             'password'      =>  ['required', 'string', 'min:8'],
         ];
     }
-
-    public function messages()
-    {
-        return
-            [
-                'mobile.exists'  =>  __('validation.exists_cond.mobile')
-            ];
-    }
 }

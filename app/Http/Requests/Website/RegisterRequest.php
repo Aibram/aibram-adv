@@ -36,12 +36,4 @@ class RegisterRequest extends FormRequest
             // 'photo' => 'required|image|max:2048',
         ];
     }
-
-    public function messages()
-    {
-        return
-            [
-                'mobile.unique'  =>  __('validation.exists_cond.mobile')
-            ];
-    }
 }

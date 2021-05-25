@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
 {
-    //
+    public function all()
+    {
+        return view('pages.ads');
+    }
 }

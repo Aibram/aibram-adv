@@ -16,8 +16,8 @@
                   لتصفح اسرع حمل تطبيقتنا للاندرويد و الايفون
                 </p>
                 <div class="buttons d-flex justify-content-start mt-3">
-                  <a href=""><img src="assets/img/google.png" /></a>
-                  <a href=""><img src="assets/img/apple.png" /></a>
+                  <a href=""><img src="{{asset('frontend/assets/img/google.png')}}" /></a>
+                  <a href=""><img src="{{asset('frontend/assets/img/apple.png')}}" /></a>
                 </div>
               </div>
               <ul class="mt-3 footer-social">

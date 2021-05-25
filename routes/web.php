@@ -29,13 +29,13 @@ Route::name('frontend.')->group(function(){
         Route::post('/forget-password',[AuthController::class,'forgetPassword'])->name('forgetPasswordPost');
         Route::get('/',[FrontendController::class,'home'])->name('home');
         Route::get('/categories',[FrontendController::class,'categories'])->name('categories');
-        Route::get('/contact',[FrontendController::class,'categories'])->name('contact');
-        Route::get('/about',[FrontendController::class,'categories'])->name('about');
+        Route::get('/contact',[FrontendController::class,'contact'])->name('contact');
+        Route::get('/about',[FrontendController::class,'about'])->name('about');
+        Route::get('/ads',[AdvertisementController::class,'all'])->name('ad.all');
     });
     Route::middleware('auth:user')->group(function(){
         Route::name('ad.')->group(function(){
             Route::get('/create',[AdvertisementController::class,'create'])->name('create');
-            Route::get('/ads',[AdvertisementController::class,'create'])->name('all');
             Route::get('/ads/{slug}',[AdvertisementController::class,'one'])->name('details');
             Route::post('/create',[AdvertisementController::class,'insert'])->name('insert');
             Route::get('/update/{id}',[AdvertisementController::class,'edit'])->name('edit');
