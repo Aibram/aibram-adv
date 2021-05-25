@@ -24,7 +24,7 @@ class AuthenticationException extends Exception
      */
     public function render($request)
     {
-        if($request->expectsJson()){
+        if($request->is('api/*')){
             return APIResponse::sendResponse($this->message,$this->data,403);
         }
         else{

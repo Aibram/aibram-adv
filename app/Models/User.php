@@ -75,6 +75,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Advertisement::class, 'advertisement_id', 'id');
     }
+
+    public function codes()
+    {
+        return $this->hasMany(ActivationCode::class, 'user_id', 'id');
+    }
     public function city()
     {
         return $this->belongsTo(City::class,'city_id','id');

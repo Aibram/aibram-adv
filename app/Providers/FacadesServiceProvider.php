@@ -17,11 +17,11 @@ class FacadesServiceProvider extends ServiceProvider
         App::bind('api.resp',function() {
             return new \App\Facades\Accessors\APIResponse;
         });
-        App::bind('sms',function() {
-            return new \App\Facades\Accessors\SMSService;
-        });
         App::bind('random.code',function() {
             return new \App\Facades\Accessors\RandomCode;
+        });
+        App::bind('code.sender',function() {
+            return new \App\Facades\Accessors\CodeSender;
         });
     }
 

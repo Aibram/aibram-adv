@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="57" height="57" viewBox="0 0 57 57">
+  <defs>
+    <clipPath id="clip-double-check">
+      <rect width="57" height="57"/>
+    </clipPath>
+  </defs>
+  <g id="double-check" clip-path="url(#clip-double-check)">
+    <path id="Icon_awesome-check-double" data-name="Icon awesome-check-double" d="M51.086,17.683,47.08,13.677a2.418,2.418,0,0,0-3.429,0L19.424,37.9,8.155,26.625a2.418,2.418,0,0,0-3.429,0L.71,30.641a2.43,2.43,0,0,0,0,3.439l16.994,17a2.418,2.418,0,0,0,3.429,0L51.076,21.122A2.439,2.439,0,0,0,51.086,17.683ZM18.281,28.406a1.606,1.606,0,0,0,2.286,0L41.607,7.345a1.624,1.624,0,0,0,0-2.286L37.035.476a1.606,1.606,0,0,0-2.286,0L19.424,15.8l-5.6-5.614a1.606,1.606,0,0,0-2.286,0L6.951,14.77a1.624,1.624,0,0,0,0,2.286Z" transform="translate(2.607 2.602)" fill="#8e9fa7"/>
+  </g>
+</svg>

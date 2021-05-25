@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ForgetPasswordRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class ForgetPasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,17 @@ class ForgetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'mobile'        =>  'required|string|exists:users,mobile',
+            'code'          =>  ['required', 'string', Rule::exists('activation_codes', 'code')->where('finished', 0)],
+            'password'      =>  ['required', 'string', 'min:8']
         ];
+    }
+
+    public function messages()
+    {
+        return
+            [
+                'code.exists'    =>  __('validation.exists_cond.code')
+            ];
     }
 }

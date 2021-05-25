@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'filename' => '{timestamp}_{app}_collection.json',
+    'filename' => '{app}.json',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'auth_middleware' => 'auth:api',
+    'auth_middleware' => 'auth:user-api',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
         ],
         [
             'key' => 'Content-Type',
-            'value' => 'application/json',
+            'value' => 'multipart/form-data',
         ],
     ],
 

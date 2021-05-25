@@ -242,7 +242,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'SMSConst' => App\Constants\SMS::class,
         'APIResponse' => App\Facades\APIResponse::class,
-        'SMS' => App\Facades\SMSService::class,
+        'CodeSender' => App\Facades\CodeSender::class,
         'RandomCode' => App\Facades\RandomCode::class,
 
     ],

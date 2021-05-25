@@ -24,10 +24,18 @@ class VerifyCodeRequest extends FormRequest
      */
     public function rules()
     {
-        return 
-        [
-            'mobile'  =>  ['required', 'string', Rule::exists('users', 'mobile')->where('activated', 0)],
-            'code'  =>  ['required', 'string', Rule::exists('activation_codes', 'code')->where('finished', 0)]
-        ];
+        return
+            [
+                'id'  =>  ['required',Rule::exists('users', 'id')->where('activated', 0)],
+                'code'  =>  ['required', 'string', Rule::exists('activation_codes', 'code')->where('finished', 0)]
+            ];
+    }
+
+    public function messages()
+    {
+        return
+            [
+                'code.exists'    =>  __('validation.exists_cond.code')
+            ];
     }
 }

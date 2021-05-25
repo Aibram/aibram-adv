@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Passport\Exceptions\MissingScopeException;
 
 class Authenticate extends Middleware
 {
@@ -16,13 +18,15 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        // dd('asdfsdf');
-        if (! $request->expectsJson()) {
+        if (! $request->is('api/*')) {
             
             if (!Auth::Guard('admin')->check() && Route::is('admin.*')) {
                 return route('admin.login');
             }
             return route('login');
+        }
+        else{
+            throw new AuthenticationException(__('base.error.notAuth'),__('base.error.unauth'),403);
         }
     }
 }

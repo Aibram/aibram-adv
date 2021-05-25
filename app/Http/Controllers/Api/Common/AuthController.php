@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Common;
 
 use App\Facades\APIResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ForgetPasswordRequest;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Requests\Api\ResendCodeRequest;
@@ -19,42 +20,37 @@ class AuthController extends Controller
     public function __construct(UserRepositoryInterface $repository){
         $this->repository = $repository;
     }
-    /**
-     * Create user
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse [string] message
-     * @throws \Exception
-     */
+    
     public function register(RegisterRequest $request)
     {
         $resp = $this->repository->createUserApi($request->validated());
-        list($model,$code,$smsReponse) = $resp;
-        return APIResponse::sendResponse($smsReponse,$resp);   
+        return APIResponse::sendResponse($resp['smsReponse'],$resp);   
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function resendCode(ResendCodeRequest $request)
     {
-        $resp = $this->repository->sendCode($request->validated());
-        list($code,$smsReponse) = $resp;
-        return APIResponse::sendResponse($smsReponse,$resp); 
+        $resp = $this->repository->reSendCode($request->validated());
+        return APIResponse::sendResponse($resp['smsReponse'],$resp); 
     }
 
     public function login(LoginRequest $request)
     {
-        return APIResponse::sendResponse(__('base.login.sucess'),$this->repository->loginByPassword($request->validated())); 
+        return APIResponse::sendResponse(__('base.login.sucess'),$this->repository->loginByPasswordApi($request->validated())); 
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function verifyCode(VerifyCodeRequest $request)
     {
         return APIResponse::sendResponse(__('base.login.verified'),$this->repository->verifyCode($request->validated())); 
     }
+
+    public function forgetPassword(ForgetPasswordRequest $request)
+    {
+        return APIResponse::sendResponse(__('base.password.reset_success'),$this->repository->forgetPassword($request->validated())); 
+    }
+
+    public function getUserByProperty(Request $request)
+    {
+        return APIResponse::sendResponse(__('base.success.success'),$this->repository->getFirstBy($request->all(),['*'],['city','country'])); 
+    }
+    
 }

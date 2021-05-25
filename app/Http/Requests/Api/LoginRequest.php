@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Api;
 
-use App\Rules\CheckOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LoginRequest extends FormRequest
 {
@@ -25,8 +25,17 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile'        => 'required|exists:users',
-            'password'  =>  ['required', 'string', 'min:8', new CheckOldPassword(auth('admin')->user()->password)],
+            'ext'           =>  ['required', Rule::exists('countries', 'ext')->whereNull('deleted_at')],
+            'mobile'        =>  ['required', 'string', Rule::exists('users', 'mobile')->where('ext', $this->get('ext'))],
+            'password'      =>  ['required', 'string', 'min:8'],
         ];
+    }
+
+    public function messages()
+    {
+        return
+            [
+                'mobile.exists'  =>  __('validation.exists_cond.mobile')
+            ];
     }
 }

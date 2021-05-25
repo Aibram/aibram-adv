@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -24,12 +25,23 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'required|unique:users',
-            'name' => 'required',
-            'city_id' => 'required|exists:cities,id',
-            'age' => 'required',
-            'gender' => 'required',
+            'ext'           =>  ['required', Rule::exists('countries', 'ext')->whereNull('deleted_at')],
+            'mobile'        =>  ['required', 'string', Rule::unique('users', 'mobile')->where('ext', $this->get('ext'))],
+            'name'          => 'required',
+            'agree'          => 'required',
+            'city_id'       => 'required|exists:cities,id',
+            'age'           => 'required',
+            'gender'        => 'required',
             'password'      => 'required|min:8',
+            // 'photo' => 'required|image|max:2048',
         ];
+    }
+
+    public function messages()
+    {
+        return
+            [
+                'mobile.unique'  =>  __('validation.exists_cond.mobile')
+            ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Abstracts;
 
 use App\Interfaces\BaseInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Optix\Media\MediaUploader;
 
 abstract class BaseAbstract implements BaseInterface
@@ -443,5 +444,9 @@ abstract class BaseAbstract implements BaseInterface
             }
             $this->attachMedia($data[$property],$model,$collection);
         }
+    }
+    public function passwordCheck($hashedPassword, $password)
+    {
+        return Hash::check($password, $hashedPassword);
     }
 }

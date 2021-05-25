@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Advertisement;
 use App\Models\City;
 use App\Models\Country;
 
@@ -150,5 +151,19 @@ if (!function_exists('getPermissions')) {
             $index++;
         }
         return $returnedPermissions;
+    }
+}
+if (!function_exists('getAds')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getAds($conditions,$count,$order="id",$orderDirection="desc")
+    {
+        return Advertisement::where($conditions)
+        ->orderBy($order,$orderDirection)
+        ->take($count)
+        ->get();
     }
 }

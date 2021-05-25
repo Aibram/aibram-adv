@@ -43,13 +43,15 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('cities/{id} ', [CityController::class,'view']);
     Route::get('categories', [CommonCategoryController::class,'index']);
     Route::get('categories/{id} ', [CommonCategoryController::class,'view']);
-    // Route::post('login', [AuthController::class,'login']);
+    Route::post('login', [AuthController::class,'login']);
     Route::post('register', [AuthController::class,'register']);
-    // Route::post('resend_code', [AuthController::class,'resendCode']);
-    // Route::post('verify_code', [AuthController::class,'verifyCode']);
-    // Route::post('forget_password_send_code', [AuthController::class,'forgetPasswordSendCode']);
-    // Route::post('forget_password', [AuthController::class,'forgetPassword']);
-    // Route::get('get_user', [AuthController::class,'getUserByProperty']);
-
-
+    Route::post('resend_code', [AuthController::class,'resendCode']);
+    Route::post('verify_code', [AuthController::class,'verifyCode']);
+    Route::post('forget_password', [AuthController::class,'forgetPassword']);
+    Route::get('get_user', [AuthController::class,'getUserByProperty']);
+    Route::group(['middleware'=>['auth:user-api','scope:user-api']],function () {
+        Route::get('curr_user', [UserController::class,'currentUser']);
+        Route::post('reset_password', [UserController::class,'resetPassword']);
+        Route::post('update_profile', [UserController::class,'updateProfile']);
+    });
 });

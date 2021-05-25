@@ -74,5 +74,6 @@ interface BaseInterface
 
     public function CheckSingleMediaAndAssign($data,$model,$property,$collection,$update=false);
 
+    public function passwordCheck($hashedPassword, $password);
 
 }

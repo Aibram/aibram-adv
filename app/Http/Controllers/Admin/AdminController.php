@@ -7,8 +7,6 @@ use App\Http\Requests\Admin\AdminCreate;
 use App\Http\Requests\Admin\AdminUpdate;
 use App\Http\Requests\Admin\AdminUpdatePassword as AdminAdminUpdatePassword;
 use App\Http\Requests\Admin\AdminUpdateProfile as AdminAdminUpdateProfile;
-use App\Http\Requests\AdminUpdatePassword;
-use App\Http\Requests\AdminUpdateProfile;
 use App\Interfaces\AdminRepositoryInterface;
 use App\Models\Advertisement;
 use App\Models\Category;
@@ -16,7 +14,6 @@ use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Permission;
 
 class AdminController extends BaseController
 {

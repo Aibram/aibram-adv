@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Rules\CheckOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ResetPasswordRequest extends FormRequest
@@ -13,7 +14,7 @@ class ResetPasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,8 @@ class ResetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'old_password'  =>  ['required', 'string', 'min:8', new CheckOldPassword(auth('user-api')->user()->password)],
+            'password'      =>  ['required', 'string', 'min:8']
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ResendCodeRequest extends FormRequest
 {
@@ -24,7 +25,15 @@ class ResendCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'required|exists:users',
+            'mobile'  =>  ['required', 'string', Rule::exists('users', 'mobile')],
         ];
     }
+
+    // public function messages()
+    // {
+    //     return
+    //         [
+    //             'mobile.exists'  =>  __('validation.exists_cond.mobile')
+    //         ];
+    // }
 }

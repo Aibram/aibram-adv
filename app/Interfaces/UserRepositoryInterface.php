@@ -12,12 +12,21 @@ interface UserRepositoryInterface extends BaseInterface
 
     public function createUserApi(array $data);
 
-    public function sendCode($data);
+    public function sendCode($model,$data);
 
-    public function forceLogin($user);
+    public function reSendCode($data);
 
-    public function loginByPassword($data);
+    public function forceLoginApi($user);
+
+    public function loginByPasswordApi($data);
     
     public function verifyCode($data);
+
+    public function checkCode($data);
+
+    public function forgetPassword($data);
+
+    public function activateUser($data);
+
     
 }

@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\BaseModels\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class ActivationCode extends Model
+class ActivationCode extends BaseModel
 {
     use HasFactory;
+
+    protected $fillable = [
+        'code', 'finished'
+    ];
 }
