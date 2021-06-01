@@ -64,6 +64,11 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = \Illuminate\Support\Facades\Hash::make($value);
     }
+
+    public function getFullPhoneAttribute()
+    {
+        return $this->ext.$this->mobile;
+    }
     
     public function userComments(){
         return $this

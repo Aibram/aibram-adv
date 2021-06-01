@@ -43,7 +43,7 @@ class UserDataTable extends BaseDatatable
             })
             ->editColumn('photo',function (User $model) {
                 return '<span class="kt-userpic kt-margin-t-5">
-                            <img src="'.$model->getFirstMediaUrl($model->mainImageCollection, 'user_thumb').'" alt="user">
+                            <img src="'.$model->photo.'" alt="user">
                         </span>';
             })
             ->editColumn('action',function (Model $model) {

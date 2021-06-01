@@ -63,10 +63,12 @@
                                     <label>{{__('pages.users.columns.city_country_name')}}</label>
                                     <select class="form-control kt-selectpicker" data-live-search="true" name="city_id">
                                         @foreach(allCountries() as $country)
-                                            <optgroup label="{{$country->name}}">
-                                                @foreach($country->city()->active(1)->get() as $city)
-                                                    <option value="{{$city->id}}">{{$city->name}}</option>
-                                                @endforeach
+                                            <optgroup label="mmm">
+                                                <optgroup label="{{$country->name}}">
+                                                    @foreach($country->city()->active(1)->get() as $city)
+                                                        <option value="{{$city->id}}">{{$city->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
                                             </optgroup>
                                         @endforeach
                                     </select>

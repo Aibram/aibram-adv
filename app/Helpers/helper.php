@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Advertisement;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\User;
 
 if (!function_exists('isJson')) {
 
@@ -54,6 +56,18 @@ if (!function_exists('getfirstCountry')) {
     }
 }
 
+if (!function_exists('getCitiesOfYemen')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getCitiesOfYemen()
+    {
+        return Country::where(['ext'=>'967'])->first()->city;
+    }
+}
+
 if (!function_exists('allCountries')) {
 
     /**
@@ -63,6 +77,82 @@ if (!function_exists('allCountries')) {
     function allCountries($status=1)
     {
         return Country::active($status)->get();
+    }
+}
+if (!function_exists('toWhatsappGateway')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function toWhatsappGateway($mobile)
+    {
+        return 'https://api.whatsapp.com/send?phone='.$mobile;
+    }
+}
+
+if (!function_exists('allUsers')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function allUsers($status=1)
+    {
+        return User::active($status)->get();
+    }
+}
+
+if (!function_exists('getAds')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getAds($where,$exceptId=null,$take=5,$orderBy="created_at",$orderDirection="desc")
+    {
+        $advs = Advertisement::active(1)->where($where);
+        if($exceptId){
+            $advs->where('id','<>',$exceptId);
+        }
+        $advs->orderBy($orderBy,$orderDirection);
+        return $advs->take(5)->get();
+    }
+}
+
+if (!function_exists('allCategories')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function allCategories($isParent=true)
+    {
+        return Category::active(1)->myparent($isParent)->get();
+    }
+}
+
+if (!function_exists('ratedBefore')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function ratedBefore($user,$ad)
+    {
+        return $user?$ad->ratedUsers()->where(['user_id'=>$user->id])->count() > 0 : true;
+    }
+}
+
+if (!function_exists('favoritedBefore')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function favoritedBefore($user,$ad)
+    {
+        return $user?$ad->userFavoriteList()->where(['user_id'=>$user->id])->count() > 0 : true;
     }
 }
 
@@ -151,19 +241,5 @@ if (!function_exists('getPermissions')) {
             $index++;
         }
         return $returnedPermissions;
-    }
-}
-if (!function_exists('getAds')) {
-
-    /**
-     * @param $query
-     * @return string
-     */
-    function getAds($conditions,$count,$order="id",$orderDirection="desc")
-    {
-        return Advertisement::where($conditions)
-        ->orderBy($order,$orderDirection)
-        ->take($count)
-        ->get();
     }
 }

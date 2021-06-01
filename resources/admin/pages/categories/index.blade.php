@@ -12,7 +12,25 @@
     <link href="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/jstree/jstree.bundle.css')}}" rel="stylesheet" type="text/css" />
-
+    <link href="{{asset('assets/bootstrap-iconpicker/css/fontawesome-iconpicker.css')}}" rel="stylesheet" type="text/css" />
+    <style>
+        .input-group-addon{
+            display: inline-table;
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle;
+            padding: 11px 15px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-left: unset!important;
+            border-radius: 4px;
+        }
+    </style>
 @endsection
 
 
@@ -52,20 +70,27 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card border-primary mb-3" id="formCard">
-                                <div class="card-header bg-primary text-white">الفئة</div>
+                                <div class="card-header bg-primary text-white">{{__('pages.categories.get')}}</div>
                                 <div class="card-body">
                                     <form id="frmEdit" class="form-horizontal">
                                         <input type="hidden" class="item-menu" name="parent_id" id="parent_id">
                                         <div class="form-group">
-                                            <label for="name">الاسم</label>
+                                            <label for="name">{{__('pages.categories.columns.name')}}*</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="name" id="name">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="name">التفاصيل </label>
+                                            <label for="name">{{__('pages.categories.columns.desc')}}* </label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control item-menu" name="desc" id="desc">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">{{__('pages.categories.columns.icon')}} </label>
+                                            <div class="input-group">
+                                                <input type="text" data-placement="bottomRight" class="form-control item-menu icp icp-auto" name="icon" id="icon" value="fas fa-bars" readonly/>
+                                                <span class="input-group-addon"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -90,11 +115,11 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="icon">الصورة الحالية</label>
+                                            <label for="icon">{{__('pages.categories.columns.curr_photo')}}</label>
                                             <img src="{{asset('placeholder.jpg')}}" class="item-menu" id="photo" width="100px" height="100px" />
                                         </div>
                                         <div class="form-group">
-                                            <label for="photo">الصورة</label>
+                                            <label for="photo">{{__('pages.categories.columns.photo')}}</label>
                                             <input name="image" class="item-menu" id="image" type="file">
                                         </div>
                                     </form>
@@ -124,6 +149,7 @@
     <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/bootstrap-iconpicker/js/fontawesome-iconpicker.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('custom_scripts')

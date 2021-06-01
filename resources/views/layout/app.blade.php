@@ -22,6 +22,7 @@
     
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/responsive.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/font-awesome.min.css')}}" />
+    @yield('custom_css')
     @toastr_css
     <style>
         .invalid-feedback{

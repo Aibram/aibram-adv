@@ -14,7 +14,7 @@ trait MediaTrait
     public $secondaryImagesCollection ='secondary';
 
     public function getMainImage(){
-        return $this->getFirstMediaUrl($this->mainImageCollection);
+        return !empty($this->getFirstMediaUrl($this->mainImageCollection)) ? $this->getFirstMediaUrl($this->mainImageCollection) : asset('600.png');
     }
     public function getSecondaryImages(){
         return $this->getMedia($this->secondaryImagesCollection)

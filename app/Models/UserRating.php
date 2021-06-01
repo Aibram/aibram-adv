@@ -17,4 +17,14 @@ class UserRating extends BaseModel
         'stars',
         'comment',
     ];
+
+    public function advertisement()
+    {
+        return $this->belongsTo(Advertisement::class,'advertisement_id','id');
+    }
+
+    public function ratedUser()
+    {
+        return $this->belongsTo(User::class,'rated_user_id','id');
+    }
 }

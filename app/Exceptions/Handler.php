@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Facades\APIResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\Exceptions\MissingScopeException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -68,9 +69,13 @@ class Handler extends ExceptionHandler
             }
             else{
                 toastr()->error(__('base.error.notfound_desc'), __('base.error.notfound'));
-                return response()->view('admin::errors.notfound', [], 404);
+                if(Route::is('admin.*')){
+                    return response()->view('admin::errors.notfound', [], 404);
+                }
+                else{
+                    return response()->view('pages.notfound', [], 404);
+                }
             }
-            
         });
     }
 }

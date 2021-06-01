@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\UserController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function(){
@@ -23,6 +23,7 @@ Route::name('admin.')->group(function(){
             'cities' => CityController::class,
             'users' => UserController::class,
             'admins' => AdminController::class,
+            'advertisements' => AdvertisementController::class,
         ]);
         Route::get('/home', [AdminController::class, 'dashboard'])->name('home');
         Route::name('admins.profile.')->group(function(){

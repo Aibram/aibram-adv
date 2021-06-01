@@ -10,6 +10,7 @@ return [
     'error' => [
         'validation' => 'مشكلة فى التحقق',
         'error' => 'حدث خطأما',
+        'notAuthorized' => 'عفوا غير مسموح بالدخول للصفحة',
         'notfound' => 'لا يوجد نتيجة',
         'notfound_desc' => 'عفوا لم يتم ايجاد اى نتيجة',
         'notLoggedIn' => 'خطأ فى البيانات',

@@ -23,7 +23,7 @@ class Authenticate extends Middleware
             if (!Auth::Guard('admin')->check() && Route::is('admin.*')) {
                 return route('admin.login');
             }
-            return route('login');
+            return route('frontend.login');
         }
         else{
             throw new AuthenticationException(__('base.error.notAuth'),__('base.error.unauth'),403);

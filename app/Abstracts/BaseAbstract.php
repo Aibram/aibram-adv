@@ -60,7 +60,7 @@ abstract class BaseAbstract implements BaseInterface
 
     public function findById($id, array $with = [])
     {
-        $data = $this->make($with)->where('id', $id)->first();
+        $data = $this->findOrFail($id,$with);
         $this->resetModel();
         return $data;
     }
@@ -443,6 +443,17 @@ abstract class BaseAbstract implements BaseInterface
                 $this->detachMedia($model,null,$collection);
             }
             $this->attachMedia($data[$property],$model,$collection);
+        }
+    }
+
+    public function CheckMultipleMedia($data,$model,$property,$collection,$update=false){
+        if(isset($data[$property])){
+            if($update){
+                $this->detachMedia($model,null,$collection);
+            }
+            foreach($data[$property] as $media){
+                $this->attachMedia($media,$model,$collection);
+            }
         }
     }
     public function passwordCheck($hashedPassword, $password)

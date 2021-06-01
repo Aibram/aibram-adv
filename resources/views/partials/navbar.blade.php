@@ -58,7 +58,7 @@
             <a class="nav-link" href="{{route('frontend.categories')}}"> {{__('frontend.nav.categories')}} </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('frontend.ad.all')}}"> {{__('frontend.nav.ads')}} </a>
+            <a class="nav-link" href="{{route('frontend.ads')}}"> {{__('frontend.nav.ads')}} </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('frontend.contact')}}"> {{__('frontend.nav.contact_us')}} </a>

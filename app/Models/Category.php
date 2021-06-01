@@ -13,6 +13,7 @@ class Category extends BaseModel
     public $fillable = [
         'name',
         'desc',
+        'icon',
         'parent_id',
         'home',
         'main',
@@ -47,9 +48,9 @@ class Category extends BaseModel
         return $query->where('home',$value);
     }
 
-    public function scopeParent($query)
+    public function scopeMyparent($query,$value)
     {
-        return $query->where('parent_id',null);
+        return $value ? $query->whereNull('parent_id') : $query->whereNotNull('parent_id');
     }
 
     public function advertisements()

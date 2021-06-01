@@ -65,5 +65,8 @@ class Kernel extends HttpKernel
         // 'guard.verified' => \App\Http\Middleware\EnsureCustomGuardIsVerified::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+        'sensitve.auth' => \App\Http\Middleware\SensitveAuthWebsiteMiddleware::class,
+        'suspended.user' => \App\Http\Middleware\SuspendedUserMiddleware::class,
+        'topic.owner' => \App\Http\Middleware\TopicOwnerMiddleware::class,
     ];
 }

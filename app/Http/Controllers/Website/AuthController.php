@@ -64,7 +64,9 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $resp = $this->repository->createUserApi($request->all());
+        $data = $request->all();
+        $data['provider'] = "web";
+        $resp = $this->repository->createUserApi($data);
         $request->session()->put('auth_user', $resp['user']->id);
         $request->session()->put('mobile', $request->mobile);
         $request->session()->put('ext', $request->ext);

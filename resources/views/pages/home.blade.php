@@ -67,187 +67,44 @@
 @section('content')
     <section class="featured section-padding">
         <div class="container">
-            <h1 class="section-title">أحدث الاعلانات</h1>
+            <h1 class="section-title">{{ __('frontend.home.recent_ads') }}</h1>
             <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                    <div class="featured-box">
-                        <div class="figure">
-                            <div class="icon">
-                                <span class="bg-green"><i class="fa fa-heart-o"></i></span>
+                @foreach (getAds([],null,6) as $item)
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                        <div class="featured-box">
+                            <div class="figure">
+                                <div class="icon">
+                                    <span class="bg-green"><i class="fa fa-heart-o"></i></span>
+                                </div>
+                                <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}"><img class="img-fluid" src="{{$item->photo}}"
+                                        alt="" /></a>
                             </div>
-                            <a href="ads-details.html"><img class="img-fluid" src="assets/img/featured/img-1.jpg"
-                                    alt="" /></a>
-                        </div>
-                        <div class="feature-content">
-                            <div class="product">
-                                <a href="adlistinglist.html">الكترونيات </a>
-                            </div>
-                            <h4><a href="ads-details.html">كانون اس اكس باورشوت ...</a></h4>
-                            <div class="meta-tag">
-                                <span>
-                                    <a href="profile.html"><i class="fa fa-user"></i>زين ال عمران</a>
-                                </span>
-                                <span>
-                                    <a><i class="fa fa-map-marker"></i> الدمام</a>
-                                </span>
+                            <div class="feature-content">
+                                <div class="product">
+                                    <a href="{{route('frontend.ads')}}">{{$item->category_name}} </a>
+                                </div>
+                                <h4><a href="{{route('frontend.ads')}}">{{$item->title}}</a></h4>
+                                <div class="meta-tag">
+                                    <span>
+                                        <a href="{{route('frontend.profile',['id'=>$item->user_id])}}"><i class="fa fa-user"></i>{{$item->user->name}}</a>
+                                    </span>
+                                    <span>
+                                        <a><i class="fa fa-map-marker"></i> {{$item->city_name}}</a>
+                                    </span>
 
-                                <span>
-                                    <a><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                </span>
+                                    <span>
+                                        <a><i class="fa fa-clock-o"></i> {{$item->created_at->diffForHumans()}}</a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                    <div class="featured-box">
-                        <div class="figure">
-                            <div class="icon">
-                                <span class="bg-green"><i class="fa fa-heart-o"></i></span>
-                            </div>
-                            <a href="ads-details.html"><img class="img-fluid" src="assets/img/featured/img-2.jpg"
-                                    alt="" /></a>
-                        </div>
-                        <div class="feature-content">
-                            <div class="product">
-                                <a href="adlistinglist.html">الكترونيات </a>
-                            </div>
-                            <h4><a href="ads-details.html">أبل ماك بوك برو ...</a></h4>
-                            <div class="meta-tag">
-                                <span>
-                                    <a href="profile.html"><i class="fa fa-user"></i> ابو فهد</a>
-                                </span>
-                                <span>
-                                    <a><i class="fa fa-map-marker"></i> مكة</a>
-                                </span>
-
-                                <span>
-                                    <a><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                    <div class="featured-box">
-                        <div class="figure">
-                            <div class="icon">
-                                <span class="bg-green"><i class="fa fa-heart-o"></i></span>
-                            </div>
-                            <a href="ads-details.html"><img class="img-fluid" src="assets/img/featured/img-3.jpg"
-                                    alt="" /></a>
-                        </div>
-                        <div class="feature-content">
-                            <div class="product">
-                                <a href="adlistinglist.html">سيارات</a>
-                            </div>
-                            <h4><a href="ads-details.html">مرسيدس بنز E200 ...</a></h4>
-                            <div class="meta-tag">
-                                <span>
-                                    <a href="profile.html"><i class="fa fa-user"></i> ابو محمد المهدي</a>
-                                </span>
-                                <span>
-                                    <a><i class="fa fa-map-marker"></i>المدينة</a>
-                                </span>
-
-                                <span>
-                                    <a><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                    <div class="featured-box">
-                        <div class="figure">
-                            <div class="icon">
-                                <span class="bg-green"><i class="fa fa-heart-o"></i></span>
-                            </div>
-                            <a href="ads-details.html"><img class="img-fluid" src="assets/img/featured/img-1.jpg"
-                                    alt="" /></a>
-                        </div>
-                        <div class="feature-content">
-                            <div class="product">
-                                <a href="adlistinglist.html">الكترونيات </a>
-                            </div>
-                            <h4><a href="ads-details.html">كانون اس اكس باورشوت ...</a></h4>
-                            <div class="meta-tag">
-                                <span>
-                                    <a href="profile.html"><i class="fa fa-user"></i>زين ال عمران</a>
-                                </span>
-                                <span>
-                                    <a><i class="fa fa-map-marker"></i> الدمام</a>
-                                </span>
-
-                                <span>
-                                    <a><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                    <div class="featured-box">
-                        <div class="figure">
-                            <div class="icon">
-                                <span class="bg-green"><i class="fa fa-heart-o"></i></span>
-                            </div>
-                            <a href="ads-details.html"><img class="img-fluid" src="assets/img/featured/img-3.jpg"
-                                    alt="" /></a>
-                        </div>
-                        <div class="feature-content">
-                            <div class="product">
-                                <a href="adlistinglist.html">سيارات</a>
-                            </div>
-                            <h4><a href="ads-details.html">مرسيدس بنز E200 ...</a></h4>
-                            <div class="meta-tag">
-                                <span>
-                                    <a href="profile.html"><i class="fa fa-user"></i> ابو محمد المهدي</a>
-                                </span>
-                                <span>
-                                    <a><i class="fa fa-map-marker"></i>المدينة</a>
-                                </span>
-
-                                <span>
-                                    <a><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                    <div class="featured-box">
-                        <div class="figure">
-                            <div class="icon">
-                                <span class="bg-green"><i class="fa fa-heart-o"></i></span>
-                            </div>
-                            <a href="ads-details.html"><img class="img-fluid" src="assets/img/featured/img-2.jpg"
-                                    alt="" /></a>
-                        </div>
-                        <div class="feature-content">
-                            <div class="product">
-                                <a href="adlistinglist.html">الكترونيات </a>
-                            </div>
-                            <h4><a href="ads-details.html">أبل ماك بوك برو ...</a></h4>
-                            <div class="meta-tag">
-                                <span>
-                                    <a href="profile.html"><i class="fa fa-user"></i> ابو فهد</a>
-                                </span>
-                                <span>
-                                    <a href="#"><i class="fa fa-map-marker"></i> مكة</a>
-                                </span>
-
-                                <span>
-                                    <a href="#"><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="section-btn text-center mt-4">
-                <a class="btn btn-common btn-lg text-white px-3">
+                <a href="{{route('frontend.ads')}}" class="btn btn-common btn-lg text-white px-3">
                     <i class="lni-arrow-down"></i>
-                    <span class="">شاهد المزيد</span></a>
+                    <span class="">{{ __('frontend.home.see_more') }}</span></a>
             </div>
         </div>
     </section>
@@ -256,160 +113,48 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                    <h3 class="section-title">الاعلانات المميزة</h3>
+                    <h3 class="section-title">{{ __('frontend.home.featured_ads') }}</h3>
                     <div id="new-products" class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img class="img-fluid" src="assets/img/product/img1.jpg" alt="" />
-                                    <div class="overlay">
-                                        <div>
-                                            <a class="btn btn-common" href="ads-details.html">عرض التفاصيل</a>
+                        @foreach (getAds(['home'=>1],null,6) as $item)
+                            <div class="item">
+                                <div class="product-item">
+                                    <div class="carousel-thumb">
+                                        <img class="img-fluid" src="{{$item->photo}}" alt="" />
+                                        <div class="overlay">
+                                            <div>
+                                                <a class="btn btn-common" href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">عرض التفاصيل</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title">
-                                        <a href="ads-details.html">أبل ماك بوك برو ...</a>
-                                    </h3>
-                                    <a href="adlistinglist.html">الكترونيات</a>
-                                    <div class="icon">
-                                        <span><i class="fa fa-heart-o"></i></span>
-                                    </div>
-                                    <div class="card-text">
-                                        <div class="float-left">
-                                            <span class="icon-wrap">
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star"></i>
-                                            </span>
-                                            <span class="count-review"> (8 تقييم) </span>
-                                        </div>
-                                        <div class="float-right">
-                                            <a class="address" href="#"><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                            <a class="address" href="#"><i class="fa fa-map-marker"></i> الخبر</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img class="img-fluid" src="assets/img/product/img2.jpg" alt="" />
-                                    <div class="overlay">
-                                        <div>
-                                            <a class="btn btn-common" href="ads-details.html">عرض التفاصيل</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title">
-                                        <a href="ads-details.html">كانون اس اكس باورشوت ...</a>
-                                    </h3>
-                                    <a href="adlistinglist.html">الكترونيات</a>
-                                    <div class="icon">
-                                        <span><i class="fa fa-heart-o"></i></span>
-                                    </div>
-                                    <div class="card-text">
-                                        <div class="float-left">
-                                            <span class="icon-wrap">
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star"></i>
-                                            </span>
-                                            <span class="count-review"> (8 تقييم) </span>
-                                        </div>
-                                        <div class="float-right">
-                                            <a class="address" href="#"><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                            <a class="address" href="#"><i class="fa fa-map-marker"></i> الخبر</a>
+                                    <div class="product-content">
+                                        <h3 class="product-title">
+                                            <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title}}</a>
+                                        </h3>
+                                        <a href="{{route('frontend.ads')}}">{{$item->category_name}}</a>
+                                        <a href="{{route('frontend.ad.add_to_fav',['id'=>$item->id])}}" class="icon">
+                                            <span><i class="fa fa-heart-o"></i></span>
+                                        </a>
+                                        <div class="card-text">
+                                            <div class="float-left">
+                                                <span class="icon-wrap">
+                                                    @for ($i = 0; $i < $item->avg_rate; $i++)
+                                                        <i class="lni-star-filled"></i>
+                                                    @endfor
+                                                    @for ($i = 0; $i < 5 - $item->avg_rate; $i++)
+                                                        <i class="lni-star"></i>
+                                                    @endfor
+                                                </span>
+                                                <span class="count-review"> ({{$item->no_ratings}} {{ __('frontend.home.rating') }}) </span>
+                                            </div>
+                                            <div class="float-right">
+                                                <a class="address" href="{{route('frontend.ads')}}{{route('frontend.ads')}}"><i class="fa fa-clock-o"></i> {{$item->created_at->diffForHumans()}}</a>
+                                                <a class="address" href="{{route('frontend.ads')}}"><i class="fa fa-map-marker"></i> {{$item->city_name}}</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img class="img-fluid" src="assets/img/product/img3.jpg" alt="" />
-                                    <div class="overlay">
-                                        <div>
-                                            <a class="btn btn-common" href="ads-details.html">عرض التفاصيل</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title">
-                                        <a href="ads-details.html">ايفون اكس</a>
-                                    </h3>
-                                    <a href="adlistinglist.html">الكترونيات</a>
-                                    <div class="icon">
-                                        <span><i class="fa fa-heart-o"></i></span>
-                                    </div>
-                                    <div class="card-text">
-                                        <div class="float-left">
-                                            <span class="icon-wrap">
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star"></i>
-                                            </span>
-                                            <span class="count-review"> (8 تقييم) </span>
-                                        </div>
-                                        <div class="float-right">
-                                            <a class="address" href="#"><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                            <a class="address" href="#"><i class="fa fa-map-marker"></i> الخبر</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img class="img-fluid" src="assets/img/product/img4.jpg" alt="" />
-                                    <div class="overlay">
-                                        <div>
-                                            <a class="btn btn-common" href="ads-details.html">عرض التفاصيل</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title">
-                                        <a href="ads-details.html">شنطة حريمي</a>
-                                    </h3>
-                                    <a href="adlistinglist.html">ملابس</a>
-                                    <div class="icon">
-                                        <span><i class="fa fa-heart-o"></i></span>
-                                    </div>
-                                    <div class="card-text">
-                                        <div class="float-left">
-                                            <span class="icon-wrap">
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star"></i>
-                                            </span>
-                                            <span class="count-review"> (8 تقييم) </span>
-                                        </div>
-                                        <div class="float-right">
-                                            <a class="address" href="#"><i class="fa fa-clock-o"></i> منذ ساعتين</a>
-                                            <a class="address" href="#"><i class="fa fa-map-marker"></i> الخبر</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

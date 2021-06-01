@@ -11,11 +11,16 @@ use App\Models\AdProperty;
 use App\Models\AdComment;
 use App\Models\AdStatus;
 use App\Models\ChatList;
-
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
 class Advertisement extends BaseModel
 {
-    use SoftDeletes,Taggable,Sluggable,HasFactory;
+    use SoftDeletes,Taggable,Sluggable,HasFactory,SluggableScopeHelpers;
+    protected $morphClass = 'Advertisement';
+
+    protected $casts = [
+        'avg_rate' => 'integer',
+    ];
 
     public $fillable = [
         'title',
@@ -64,6 +69,11 @@ class Advertisement extends BaseModel
     public function scopeHome($query,$value)
     {
         return $query->where('home',$value);
+    }
+
+    public function getAdMobileAttribute()
+    {
+        return $this->mobile ?? $this->user->ext.$this->user->mobile;
     }
 
     public function category()
@@ -127,5 +137,9 @@ class Advertisement extends BaseModel
             ->belongsToMany(User::class, 'user_ratings', 'advertisement_id', 'user_id')
             ->withPivot(['rated_user_id','stars','comment'])
             ->withTimestamps();
+    }
+    public function reports()
+    {
+        return $this->morphMany(Report::class, 'reportable');
     }
 }

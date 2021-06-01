@@ -23,6 +23,10 @@ class FacadesServiceProvider extends ServiceProvider
         App::bind('code.sender',function() {
             return new \App\Facades\Accessors\CodeSender;
         });
+        App::bind('seo.init',function() {
+            return new \App\Facades\Accessors\SeoInit;
+        });
+        
     }
 
     /**

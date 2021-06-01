@@ -145,7 +145,7 @@
                         </div>
                     </div>
 
-                    <div class="adds-wrapper">
+                    <div class="m-wrapper">
                         <div class="tab-content">
                             <div id="list-view" class="tab-pane fade active show">
                                 <div class="row">

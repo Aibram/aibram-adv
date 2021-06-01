@@ -10,6 +10,6 @@ class ActivationCode extends BaseModel
     use HasFactory;
 
     protected $fillable = [
-        'code', 'finished'
+        'code','provider', 'finished'
     ];
 }

@@ -1,4 +1,5 @@
 <script src="{{asset('assets/vendors/custom/jstree/jstree.bundle.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/ajaxReq.js')}}" type="text/javascript"></script>
 
     <script>
         // console.log($.jstree.defaults.core);
@@ -8,52 +9,6 @@
                 state: 'success',
                 message: '{{__("pages.categories.click_first")}}'
         })
-        function sendAjaxReq(req,method="POST",route,callback){
-            var ajaxJson = {
-                url: route,
-            }
-            if(method!="GET"){
-                var fd = new FormData();
-                for(key in req){
-                    fd.append( key,req[key] );
-                }
-                fd.append('ajax', true);
-                fd.append('_token', "{{csrf_token()}}");
-                if(method == "PUT"){
-                    fd.append('_method', "put");
-                    method = "POST"
-                }
-                if(method == "DELETE"){
-                    fd.append('_method', "delete");
-                    method = "POST"                
-                }
-                ajaxJson['data'] = fd
-                ajaxJson['processData'] = false
-                ajaxJson['contentType'] = false
-            }
-            else{
-                ajaxJson['dataType'] = 'json'
-                ajaxJson['data'] = req
-            }
-            ajaxJson['type'] = method
-            console.log(ajaxJson);
-            $.ajax(
-                {
-                    ...ajaxJson,
-                    success: function(data){
-                        if(data.status!=200){
-                            //Toaster Error
-                            toastr.error(data.message)
-                        }
-                        else{
-                            //Toaster Success
-                            toastr.success(data.message)
-                            callback(data.data)
-                        }
-                    }
-                }
-            )
-        }
         function unblockSection(id){
             KTApp.unblock(id);
         }
@@ -65,8 +20,10 @@
                 case 'INPUT':
                     if (elem.type && elem.type === 'checkbox')
                         $(elem).prop("checked", newVal);
-                    else
+                    else{
                         $(elem).val(newVal);
+                        newVal && newVal.includes("fa-") && $('.icp-auto').data('iconpicker').update(newVal, true);
+                    }
                     break; 
                 case 'SELECT':
                     // Set the value for select list
@@ -87,7 +44,7 @@
                     if (elem.type && elem.type === 'checkbox')
                         val = $(elem).is(":checked");
                     else if(elem.type && elem.type === 'file')
-                        val = $(elem)[0].files[0]
+                        val = $(elem)[0].files[0]?$(elem)[0].files[0]:null
                     else
                         val = $(elem).val();
                     break; 

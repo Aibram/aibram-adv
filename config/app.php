@@ -240,10 +240,13 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Advertisement' => 'App\Models\Advertisement',
+        'Comment' => 'App\Models\AdComment',
         'SMSConst' => App\Constants\SMS::class,
         'APIResponse' => App\Facades\APIResponse::class,
         'CodeSender' => App\Facades\CodeSender::class,
         'RandomCode' => App\Facades\RandomCode::class,
+        'SeoInit' => App\Facades\SeoInit::class,
 
     ],
 

@@ -9,7 +9,18 @@ class FrontendController extends Controller
 {
     public function home()
     {
+        // dd(getAds([],null,6)[0]->toArray());
         return view('pages.home');
+    }
+
+    public function profile($id,Request $request)
+    {
+        return view('pages.profile');
+    }
+
+    public function dashboard(Request $request)
+    {
+        return view('pages.dashboard');
     }
 
     public function categories()
@@ -20,10 +31,5 @@ class FrontendController extends Controller
     public function about()
     {
         return view('pages.about');
-    }
-
-    public function contact()
-    {
-        return view('pages.contact');
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AdComment extends BaseModel
 {
     use HasFactory,SoftDeletes;
+    protected $morphClass = 'Comment';
     public $fillable = [
          'comment'
         ,'user_id'
@@ -25,5 +26,15 @@ class AdComment extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function reports()
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(AdComment::class, 'parent_id', 'id');
     }
 }

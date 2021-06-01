@@ -26,8 +26,7 @@ class CategoryUpdate extends FormRequest
         return [
             'name' => ['required'],
             'desc' => ['required'],
-            'image' => 'image|max:2048',
+            'image' => 'max:2048',
         ];
-        
     }
 }
