@@ -34,7 +34,7 @@ class UserRepository extends BaseAbstract implements UserRepositoryInterface
     {
         // dd($data);
         // $this->checkRequestCheckBoxExists($data,'activated');
-        $user = $this->updateById($id, $data);
+        $user = $this->updateById($id, $data,false);
         $this->CheckSingleMediaAndAssign($data, $user, 'photo', $this->model->mainImageCollection, true);
         return $user;
     }

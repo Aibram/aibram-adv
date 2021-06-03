@@ -19,11 +19,14 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->is('api/*')) {
-            
-            if (!Auth::Guard('admin')->check() && Route::is('admin.*')) {
-                return route('admin.login');
+            if (strpos(url()->current(),"/admin/")) {
+                if(!Auth::Guard('admin')->check())
+                    return route('admin.login');
             }
-            return route('frontend.login');
+            else{
+                if(!Auth::Guard('user')->check())
+                    return route('frontend.login');
+            }
         }
         else{
             throw new AuthenticationException(__('base.error.notAuth'),__('base.error.unauth'),403);

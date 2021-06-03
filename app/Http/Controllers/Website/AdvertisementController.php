@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Facades\SeoInit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\AdvertisementCreate;
+use App\Http\Requests\Website\AdvertisementUpdate;
 use App\Interfaces\AdvertisementRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use Illuminate\Http\Request;
@@ -22,9 +23,11 @@ class AdvertisementController extends Controller
         $this->repository = $repository;
         $this->commentRepo = $commentRepo;
     }
-    public function all()
+    public function all(Request $request)
     {
-        return view('pages.ads');
+        $ads = $this->repository->filterAds($request->only(['city_id','category_id','title']),1,$request->get('page',1));
+        SeoInit::list('Aibram','مرحبًا بكم في أكبر منصة للاعلانات',route('frontend.ads'),asset('frontend/assets/img/hero-area.jpg'),['Aibram','Ads','ads','categories']);
+        return view('pages.ads',compact('ads'));
     }
 
     public function create()
@@ -42,30 +45,31 @@ class AdvertisementController extends Controller
     public function one($slug,Request $request){
         $ad = $this->repository->firstBySlug($slug);
         $comments = $this->commentRepo->allBy(['parent_id'=>null],['replies'],['*'],['created_at'=>'desc']);
-        SeoInit::init($ad->title,$ad->desc,route('frontend.ad.details',['slug'=>$ad->slug]),$ad->created_at->toW3CString(),asset($ad->photo),$ad->tagList);
+        SeoInit::one($ad->title,$ad->desc,route('frontend.ad.details',['slug'=>$ad->slug]),$ad->created_at->toW3CString(),asset($ad->photo),$ad->tagList);
         return view('pages.ad-details',compact('ad','comments'));
     }
 
     public function edit($id,Request $request){
         $ad = $this->repository->findById($id);
         if(!$this->checkAuthorized($ad)){
-            return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
+            return redirect()->back();
         }
         return view('pages.ad-edit',compact('ad'));
     }
 
-    public function update($id,Request $request){
-        $ad = $this->repository->updateById($id,['status' => 0]);
+    public function update($id,AdvertisementUpdate $request){
+        $ad = $this->repository->findById($id);
         if(!$this->checkAuthorized($ad)){
-            return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
+            return redirect()->back();
         }
-        return redirect()->route('frontend.dashboard');
+        $ad = $this->repository->updateAd($id,$request->all());
+        return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
     }
 
     public function delete($id,Request $request){
         $ad = $this->repository->findById($id);
         if(!$this->checkAuthorized($ad)){
-            return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
+            return redirect()->back();
         }
         return view('pages.ad-delete',compact('ad'));
     }
@@ -73,7 +77,7 @@ class AdvertisementController extends Controller
     public function destroy($id,Request $request){
         $ad = $this->repository->updateById($id,['status' => 0],false);
         if(!$this->checkAuthorized($ad)){
-            return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
+            return redirect()->back();
         }
         return redirect()->route('frontend.dashboard');
     }
@@ -82,12 +86,21 @@ class AdvertisementController extends Controller
         $ad = $this->repository->findById($id);
         $ad->userFavoriteList()->save(auth()->guard('user')->user());
         toastr()->success(__('base.success.created'), __('base.success.done'));
-        return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
+        return redirect()->back();
+    }
+    
+    public function remove_from_favorites($id,Request $request){
+        $ad = $this->repository->findById($id);
+        $ad->userFavoriteList()->detach(auth()->guard('user')->user()->id);
+        toastr()->success(__('base.success.created'), __('base.success.done'));
+        return redirect()->back();
     }
 
     public function chat($id,Request $request){
         $ad = $this->repository->findById($id);
-        $this->sameUser($ad);
+        if(!$this->sameUser($ad)){
+            return redirect()->back();
+        }
         return view('pages.chat',compact('ad'));
     }
 
@@ -143,7 +156,8 @@ class AdvertisementController extends Controller
     private function sameUser($model){
         if($model->user_id == auth()->guard('user')->user()->id){
             toastr()->error(__('base.error.notAuthorized'), __('base.error.notAuthorized'));
-            return redirect()->route('frontend.ad.details',['slug'=>$model->slug]);
+            return false;
         }
+        return true;
     }
 }

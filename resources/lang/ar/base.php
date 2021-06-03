@@ -24,6 +24,10 @@ return [
         'admins' => 'المشرفين والرؤساء',
         'countries' => 'البلاد',
         'cities' => 'المدن',
+        'advertisements' => 'الاعلانات',
+    ],
+    'not_found' => [
+        'went_wrong' => 'حدث خطأ ما',
     ],
     'appName' => 'Aibram',
     'deactivated' => 'غير مفعل',
@@ -38,7 +42,7 @@ return [
     'sure_remove' => 'هل انت متأكد من المسح',
     'yes_remove' => 'نعم امسح',
     'no_remove' => 'لا تمسح',
-    
+    'choose_icon' => 'اختر الايقونة',
     'categories' => 'التصنيفات|تصنيف',
     'users' => 'المستخدمين|مستخدم',
     'admins' => 'المشرفين|مشرف',

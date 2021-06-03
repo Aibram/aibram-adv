@@ -76,6 +76,11 @@ class Advertisement extends BaseModel
         return $this->mobile ?? $this->user->ext.$this->user->mobile;
     }
 
+    public function getTitleFormattedAttribute()
+    {
+        return strlen($this->title)>30 ? $this->title.'...' : $this->title ;
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id','id');

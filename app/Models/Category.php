@@ -39,6 +39,28 @@ class Category extends BaseModel
              ->performConversions('category_icon');
     }
 
+    public function getIconFormattedAttribute()
+    {
+        return $this->icon ? explode(" ",$this->icon)[0]:'fa-bars';
+    }
+
+    public function getCategoryHierarchyIdsAttribute()
+    {
+        return implode(",",$this->getCategoryHierarchyIds($this->id,[]));
+    }
+    /**
+        * @return array
+    */
+    private function getCategoryHierarchyIds($category_id,$list)
+    {
+        array_push($list,$category_id);
+        $children = Category::find($category_id)->activeChildren;
+        foreach($children as $child){
+            $list = $this->getCategoryHierarchyIds($child->id,$list);
+        }
+        return $list;
+    }
+
     public function scopeMain($query,$value)
     {
         return $query->where('main',$value);
@@ -61,6 +83,11 @@ class Category extends BaseModel
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    public function activeChildren()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id')->active(1);
     }
 
     public function parent()

@@ -184,8 +184,17 @@
                                 </div>
                                 <input id="uploadedSecondaryHidden" class="tg-fileinput" style="opacity: 1" type="file"  name="photos[]" multiple/>
                                 <input id="uploadedSecondary" class="tg-fileinput" type="file" name="images[]" accept="image/*" multiple/>
+                                <input id="oldPhotos" type="hidden" name="oldphotos" accept="image/*" value=""/>
                             </label>
                             <div class="uploaded-images d-flex my-3 flex-wrap" id="secondPhotos">
+                                @foreach ($ad->getMedia('secondary') as $media)
+                                    <div class="img-container">
+                                        <div class="img-cancel" data-date="old" data-index="{{$media->id}}" onclick="updateFileInput(this)">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                        <img src="{{$media->getUrl('')}}" />
+                                    </div>
+                                @endforeach
                             </div>
                             <label class="form-control upload d-flex align-items-center" for="uploadedPrimary">
                                 <div class="placeholder d-flex justify-content-between w-100">
@@ -196,6 +205,9 @@
                                 <input id="uploadedPrimary" class="tg-fileinput" type="file" name="photo" accept="image/*"/>
                             </label>
                             <div class="uploaded-images d-flex my-3 flex-wrap" id="primaryPhoto">
+                                <div class="img-container old_photo">
+                                    <img src="{{$ad->photo}}" />
+                                </div>
                             </div>
                             <div class="text-center mt-5">
                                 <button type="submit" class="btn btn-common log-btn btn-block">{{ __('frontend.ad_edit.update_ad') }}</button>
@@ -209,7 +221,7 @@
 @endsection
 
 @section('custom_js')
-    {!! JsValidator::formRequest('App\Http\Requests\Website\AdvertisementCreate'); !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Website\AdvertisementUpdate'); !!}
     @include('admin::CustomFiles.form-repeater')
     @include('admin::CustomFiles.tag-input')
     <script>
@@ -266,7 +278,7 @@
                     $(previewSelector).empty()
                 const files = event.target.files
                 for(var i=0; i<files.length;i++){
-                    var imgCancel = `<div class="img-cancel" onclick="updateFileInput(this)">
+                    var imgCancel = `<div class="img-cancel" data-date="new" onclick="updateFileInput(this)">
                                     <i class="fa fa-times"></i>
                                 </div>`
                     $(previewSelector).append(
@@ -294,16 +306,24 @@
         function updateFileInput(elem){
             index = $('.img-cancel').index(elem)
             console.log(index);
-            files = $('#uploadedSecondaryHidden').prop('files');
-            console.log("oldfiles",files);
-            var newFileList = Array.from(files);
-            newFileList.splice(index,1);
-            const dT = new ClipboardEvent('').clipboardData || new DataTransfer();
-            for (let file of newFileList) { dT.items.add(file); }
-            $('#uploadedSecondaryHidden').prop('files',dT.files);
-            // document.querySelector('#uploadedSecondaryHidden').files = dT.files;
+            if($(elem).data('date')=="new"){
+                files = $('#uploadedSecondaryHidden').prop('files');
+                console.log("oldfiles",files);
+                var newFileList = Array.from(files);
+                newFileList.splice(index,1);
+                const dT = new ClipboardEvent('').clipboardData || new DataTransfer();
+                for (let file of newFileList) { dT.items.add(file); }
+                $('#uploadedSecondaryHidden').prop('files',dT.files);
+            }
+            else{
+                var indeses = $("#oldPhotos").val() 
+                var arr = indeses ? indeses.split(",") : []
+                arr.push($(elem).data('index'))
+                $("#oldPhotos").val(arr.join(","))
+            }
             console.log("newfiles",$('#uploadedSecondaryHidden').prop('files'));
             $(elem).parent().remove();
+            
         }
         
         size = chainSelect('select#cat', '#subCat');

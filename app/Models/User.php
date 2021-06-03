@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
     public function advertisements()
     {
-        return $this->hasMany(Advertisement::class, 'advertisement_id', 'id');
+        return $this->hasMany(Advertisement::class, 'user_id', 'id');
     }
 
     public function codes()
@@ -121,7 +121,7 @@ class User extends Authenticatable
     }
     public function ratedAdvs(){
         return $this
-            ->belongsToMany(Advertisement::class, 'user_ratings', 'advertisement_id', 'user_id')
+            ->belongsToMany(Advertisement::class, 'user_ratings', 'user_id', 'advertisement_id')
             ->withPivot(['rated_user_id','stars','comment'])
             ->withTimestamps();
     }

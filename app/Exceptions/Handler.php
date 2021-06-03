@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ValidationException $e, $request) {
             $first_element=array_key_first($e->errors());
             $error = $e->errors()[$first_element][0];
-            if($request->expectsJson()){
+            if(strpos(url()->current(),"/api/")){
                 if($request->has('_jsvalidation'))
                     return response()->json([$error]);
                 else
@@ -64,16 +64,17 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
-            if($request->expectsJson()){
+            if(strpos(url()->current(),"/api/")){
                 return APIResponse::sendResponse(__('base.error.notfound'),__('base.error.notfound'),401);
             }
             else{
                 toastr()->error(__('base.error.notfound_desc'), __('base.error.notfound'));
-                if(Route::is('admin.*')){
-                    return response()->view('admin::errors.notfound', [], 404);
+                
+                if(!strpos(url()->current(),"/admin/")){
+                    return response()->view('pages.notfound', [], 404);
                 }
                 else{
-                    return response()->view('pages.notfound', [], 404);
+                    return response()->view('admin::errors.notfound', [], 404);
                 }
             }
         });

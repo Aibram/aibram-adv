@@ -5,6 +5,9 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+
 
 if (!function_exists('isJson')) {
 
@@ -65,6 +68,17 @@ if (!function_exists('getCitiesOfYemen')) {
     function getCitiesOfYemen()
     {
         return Country::where(['ext'=>'967'])->first()->city;
+    }
+}
+
+if (!function_exists('getFullLink')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getFullLink($to, array $params = [], array $additional = []) {
+        return Str::finish(url($to, $additional), '?') . Arr::query($params);
     }
 }
 
@@ -129,6 +143,18 @@ if (!function_exists('allCategories')) {
     function allCategories($isParent=true)
     {
         return Category::active(1)->myparent($isParent)->get();
+    }
+}
+
+if (!function_exists('categoriesFilter')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function categoriesFilter($parentId=null)
+    {
+        return Category::active(1)->where(['parent_id'=>$parentId])->get();
     }
 }
 

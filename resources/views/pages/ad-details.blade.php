@@ -57,7 +57,7 @@
                                     <div class="agent-title w-100 mb-0 p-0">
                                         <ul class="agent-photo">
                                             <li>
-                                                <a href="{{route('frontend.profile',['id'=>$ad->user_id])}}" class="d-flex align-items-center">
+                                                <a href="{{getFullLink(route('frontend.profile',['id'=>$ad->user_id]),['id'=>$ad->id])}}" class="d-flex align-items-center">
                                                     <img src="{{ $ad->user->photo }}" /><span class="text-blue">
                                                         {{ $ad->user->name }}</span>
                                                 </a>
@@ -264,19 +264,19 @@
                                 @foreach (getAds(['category_id'=>$ad->category_id],$ad->id) as $item)
                                     <li>
                                         <div class="widget-thumb">
-                                            <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}"><img src="{{$item->photo}}" alt="" /></a>
+                                            <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}"><img src="{{$item->photo}}" alt="{{$item->title}}" style="height:80px"/></a>
                                         </div>
                                         <div class="widget-content">
-                                            <h4><a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title}}</a></h4>
+                                            <h4><a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title_formatted}}</a></h4>
                                             <div class="meta-tag">
                                                 <span>
-                                                    <a href="{{route('frontend.profile',['id'=>$item->user_id])}}"><i class="fa fa-user"></i> {{$item->user->name}}</a>
+                                                    <a href="{{getFullLink(route('frontend.profile',['id'=>$ad->user_id]),['id'=>$item->id])}}"><i class="fa fa-user"></i> {{$item->user->name}}</a>
                                                 </span>
                                                 <span>
                                                     <a href="{{route('frontend.ads')}}"><i class="fa fa-map-marker fa-map-marker"></i>{{$item->city_name}}</a>
                                                 </span>
                                                 <span>
-                                                    <a href="{{route('frontend.ads')}}"><i class="fa fa-tag"></i> {{$item->category_name}}</a>
+                                                    <a href="{{getFullLink(route('frontend.ads'),['category_id'=>$item->category->category_hierarchy_ids])}}"><i class="fa fa-tag"></i> {{$item->category_name}}</a>
                                                 </span>
                                             </div>
                                         </div>

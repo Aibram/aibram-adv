@@ -25,10 +25,10 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="{{auth()->guard('user')->user()->photo}}" />
+              <img src="{{auth()->guard('user')->user()->photo}}" style="width: 30px;height:30px"/>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item text-bold" href="{{route('frontend.dashboard')}}"
+              <a class="dropdown-item text-bold" href="{{route('frontend.dashboard.all')}}"
                 >{{__('frontend.nav.dashboard')}}</a
               >
               <a class="dropdown-item color-danger" href="{{route('frontend.login')}}"
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="notification desktop-hidden">
-            <a href="{{route('frontend.dashboard')}}"
+            <a href="{{route('frontend.dashboard.all')}}"
               ><div class="icon">
                 <div class="circle">{{auth()->guard('user')->user()->unreadNotifications()->count()}}</div>
                 <i class="fa fa-bell"></i>
@@ -78,11 +78,11 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="{{auth()->guard('user')->user()->photo}}" />
+              <img src="{{auth()->guard('user')->user()->photo}}" style="width: 30px;height:30px"/>
             </button>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item text-bold" href="{{route('frontend.dashboard')}}"
+              <a class="dropdown-item text-bold" href="{{route('frontend.dashboard.all')}}"
                 >{{__('frontend.nav.dashboard')}}</a
               >
               <a class="dropdown-item color-danger" href="{{route('frontend.logout')}}"
@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="notification mobile-hidden ml-3">
-            <a href="{{route('frontend.dashboard')}}"
+            <a href="{{route('frontend.dashboard.all')}}"
               ><div class="icon">
                 <div class="circle">{{auth()->guard('user')->user()->unreadNotifications()->count()}}</div>
                 <i class="fa fa-bell"></i>

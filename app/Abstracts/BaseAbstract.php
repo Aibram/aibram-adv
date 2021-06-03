@@ -93,7 +93,7 @@ abstract class BaseAbstract implements BaseInterface
         return $newModel;
     }
 
-    public function detachMedia(&$model = null,$media=null,$mediaGroup=''){
+    public function detachMedia(&$model = null,$media=null,$mediaGroup=null){
         if (!$model) {
             $newModel = $this->model;
         } else {

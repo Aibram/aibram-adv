@@ -76,17 +76,18 @@
                                 <div class="icon">
                                     <span class="bg-green"><i class="fa fa-heart-o"></i></span>
                                 </div>
-                                <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}"><img class="img-fluid" src="{{$item->photo}}"
-                                        alt="" /></a>
+                                <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">
+                                    <img class="img-fluid" src="{{$item->photo}}" alt="{{$item->title}}" style="width: 350px;height:225px"/>
+                                </a>
                             </div>
                             <div class="feature-content">
                                 <div class="product">
-                                    <a href="{{route('frontend.ads')}}">{{$item->category_name}} </a>
+                                    <a href="{{getFullLink(route('frontend.ads'),['category_id'=>$item->category->category_hierarchy_ids])}}">{{$item->category_name}} </a>
                                 </div>
-                                <h4><a href="{{route('frontend.ads')}}">{{$item->title}}</a></h4>
+                                <h4><a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title_formatted}}</a></h4>
                                 <div class="meta-tag">
                                     <span>
-                                        <a href="{{route('frontend.profile',['id'=>$item->user_id])}}"><i class="fa fa-user"></i>{{$item->user->name}}</a>
+                                        <a href="{{getFullLink(route('frontend.profile',['id'=>$item->user_id]),['id'=>$item->id])}}"><i class="fa fa-user"></i>{{$item->user->name}}</a>
                                     </span>
                                     <span>
                                         <a><i class="fa fa-map-marker"></i> {{$item->city_name}}</a>
@@ -119,7 +120,7 @@
                             <div class="item">
                                 <div class="product-item">
                                     <div class="carousel-thumb">
-                                        <img class="img-fluid" src="{{$item->photo}}" alt="" />
+                                        <img class="img-fluid" src="{{$item->photo}}" alt="{{$item->title}}" style="width: 340px;height:225px"/>
                                         <div class="overlay">
                                             <div>
                                                 <a class="btn btn-common" href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">عرض التفاصيل</a>
@@ -128,9 +129,9 @@
                                     </div>
                                     <div class="product-content">
                                         <h3 class="product-title">
-                                            <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title}}</a>
+                                            <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title_formatted}}</a>
                                         </h3>
-                                        <a href="{{route('frontend.ads')}}">{{$item->category_name}}</a>
+                                        <a href="{{getFullLink(route('frontend.ads'),['category_id'=>$item->category->category_hierarchy_ids])}}">{{$item->category_name}}</a>
                                         <a href="{{route('frontend.ad.add_to_fav',['id'=>$item->id])}}" class="icon">
                                             <span><i class="fa fa-heart-o"></i></span>
                                         </a>
@@ -147,8 +148,8 @@
                                                 <span class="count-review"> ({{$item->no_ratings}} {{ __('frontend.home.rating') }}) </span>
                                             </div>
                                             <div class="float-right">
-                                                <a class="address" href="{{route('frontend.ads')}}{{route('frontend.ads')}}"><i class="fa fa-clock-o"></i> {{$item->created_at->diffForHumans()}}</a>
-                                                <a class="address" href="{{route('frontend.ads')}}"><i class="fa fa-map-marker"></i> {{$item->city_name}}</a>
+                                                <a class="address"><i class="fa fa-clock-o"></i> {{$item->created_at->diffForHumans()}}</a>
+                                                <a class="address"><i class="fa fa-map-marker"></i> {{$item->city_name}}</a>
                                             </div>
                                         </div>
                                     </div>

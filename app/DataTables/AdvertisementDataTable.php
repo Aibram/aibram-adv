@@ -2,15 +2,34 @@
 
 namespace App\DataTables;
 
-use Advertisement;
+use App\Classes\DatatableAction;
+use App\Models\Advertisement;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 
-class AdvertisementDataTable extends DataTable
+class AdvertisementDataTable extends BaseDatatable
 {
+
+    public function __construct()
+    {
+        parent::__construct('advertisementsdatatable-table',[
+            'id'           =>  'id',
+            'photo'        =>  __('pages.advertisements.columns.photo'),
+            'title'        =>  __('pages.advertisements.columns.title'),
+            'mobile'       =>  __('pages.advertisements.columns.mobile'),
+            'user'         =>  __('pages.advertisements.columns.user'),
+            'city_name'    =>  __('pages.advertisements.columns.city'),
+            'category_name'=>  __('pages.advertisements.columns.category'),
+            'featured'     =>  __('pages.columns.featured'),
+            'home'         =>  __('pages.columns.home'),
+            'status'       =>  __('pages.columns.status'),
+            'no_properties'=>  __('pages.advertisements.columns.no_properties'),
+            'no_chatlists' =>  __('pages.advertisements.columns.no_chatlists'),
+            'no_ratings'   =>  __('pages.advertisements.columns.no_ratings'),
+            'no_favorites' =>  __('pages.advertisements.columns.no_favorites'),
+            'created_at'   =>  __('pages.columns.created_at'),
+        ],new DatatableAction(),'pages.advertisements.get');      
+    }
     /**
      * Build DataTable class.
      *
@@ -19,71 +38,41 @@ class AdvertisementDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables()
+        $this->datatable = $this->datatable
             ->eloquent($query)
-            ->addColumn('action', 'advertisementdatatable.action');
+            ->editColumn('user',function ($model) {
+                return $model->user->name;
+            })
+            ->editColumn('mobile',function ($model) {
+                return $model->ad_mobile;
+            })
+            ->editColumn('photo',function ($model) {
+                return '<span class="kt-userpic kt-margin-t-5">
+                            <img src="'.$model->photo.'" alt="user">
+                        </span>';
+            })
+            ->editColumn('action',function ($model) {
+//                $actions=['edit','view','delete'];
+                return (string)view('admin::partials.datatables.actions',
+                    [
+                        'model'=>$model,
+                        'model_name'=>$model->getTable(),
+                        'viewPrefix' => 'admin.',
+                        'actions'=>[
+                            // 'edit'=>'advertisements.edit',
+                            // 'delete'=>'advertisements.destroy',
+                        ]
+                    ]);
+            });
+            $this->formatDateColumn(['created_at']);
+            $this->formatBooleanColumn('status');
+            $this->formatBooleanColumn('featured');
+            $this->formatBooleanColumn('home');
+        return $this->datatable->rawColumns(['action','status','featured','home','photo']);
     }
 
-    /**
-     * Get query source of dataTable.
-     *
-     * @param \Advertisement $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function query(Advertisement $model)
     {
         return $model->newQuery();
-    }
-
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
-    public function html()
-    {
-        return $this->builder()
-                    ->setTableId('advertisementdatatable-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
-    }
-
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
-    protected function getColumns()
-    {
-        return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
-        ];
-    }
-
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'Advertisement_' . date('YmdHis');
     }
 }
