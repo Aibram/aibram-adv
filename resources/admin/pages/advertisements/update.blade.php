@@ -29,7 +29,7 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                     <h3 class="kt-portlet__head-title">
-                        {{__('pages.countries.update')}}
+                        {{__('pages.advertisements.update')}}
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
@@ -89,7 +89,7 @@
                                 <label class="col-lg-2">{{__('pages.advertisements.columns.properties')}}</label>
                                 @foreach ($data->properties as $item)
                                     <div class="col-5">
-                                        {{$item}}
+                                        {{$item->property}}
                                     </div>
                                 @endforeach
                             </div>
@@ -103,11 +103,14 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-2">{{__('pages.advertisements.columns.photos')}}</label>
-                                @forelse ($data->secondary_photos as $photo)
-                                    <img src="{{$photo}}" class="item-menu col-3" id="photo" width="100px" height="100px" />                                
-                                @empty
-                                    {{__('pages.advertisements.no_photos')}}
-                                @endforelse
+                                <div class="col-lg-10 row">
+                                    @forelse ($data->secondary_photos as $photo)
+                                        <img src="{{$photo}}" class="item-menu col-lg-3 mb-3" id="photo" width="100px" height="100px" />                                
+                                    @empty
+                                        {{__('pages.advertisements.no_photos')}}
+                                    @endforelse
+                                </div>
+                                
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label col-lg-2 col-sm-12">{{__('pages.columns.status')}}</label>

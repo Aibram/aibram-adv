@@ -17,4 +17,13 @@ class CategoryController extends BaseController
     public function __construct(CategoryRepositoryInterface $repository){
         parent::__construct($repository,CategoryDataTable::class);
     }
+
+    public function update($id)
+    {
+        $request = app($this->updateRequest);
+        $data = $request->all();
+        $data['icon'] = $request->input('icon','');
+        $this->repository->updateById($id,$data);
+        return redirect()->route($this->route.'.index');
+    }
 }

@@ -41,7 +41,13 @@
                             <h1 class="section-title mx-auto desktop-hidden">
                                 {{ __('frontend.dashboard.chats') }} (0)
                             </h1>
-
+                            @forelse ([] as $item)
+                                
+                            @empty
+                                <div class="section-btn text-center mt-3 mb-5 no-ads">
+                                    {{ __('frontend.dashboard.no_chats') }}
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>

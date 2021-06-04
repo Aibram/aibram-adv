@@ -175,23 +175,25 @@
                                 @include('parts.comment',['comment'=>$comment])                            
                             @endforeach
                         </ol>
-                        <div id="respond" class="mb-5">
-                            <h2 class="respond-title">{{__('frontend.details.your_comment')}}</h2>
-                            <form id="commentForm" action="{{route('frontend.ad.add_comment',['id'=>$ad->id])}}" method="GET">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12col-xs-12">
-                                        <input name="parent_id" id="comment_parent_input" type="hidden"/>
-                                        <div class="form-group">
-                                            <textarea id="comment" class="form-control" name="comment" cols="45" rows="8"
-                                                placeholder="{{__('frontend.details.message')}}"></textarea>
+                        @if (auth()->guard('user')->user())
+                            <div id="respond" class="mb-5" style="display:{{auth()->guard('user')->user()->id ==$ad->user_id ? 'none':'block'}}">
+                                <h2 class="respond-title">{{__('frontend.details.your_comment')}}</h2>
+                                <form id="commentForm" action="{{route('frontend.ad.add_comment',['id'=>$ad->id])}}" method="GET">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12col-xs-12">
+                                            <input name="parent_id" id="comment_parent_input" type="hidden"/>
+                                            <div class="form-group">
+                                                <textarea id="comment" class="form-control" name="comment" cols="45" rows="8"
+                                                    placeholder="{{__('frontend.details.message')}}"></textarea>
+                                            </div>
+                                            <button type="submit" id="submit" class="btn btn-common">
+                                                {{__('frontend.details.send')}}
+                                            </button>
                                         </div>
-                                        <button type="submit" id="submit" class="btn btn-common">
-                                            {{__('frontend.details.send')}}
-                                        </button>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-xs-12">

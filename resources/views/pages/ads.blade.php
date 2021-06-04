@@ -1,11 +1,7 @@
 @extends('layout.app')
 
 @section('custom_css')
-    <style>
-        .no-ads{
-            font-size:20px;
-        }
-    </style>
+    
 @endsection
 
 @section('breadcrump')

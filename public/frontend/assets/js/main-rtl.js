@@ -59,7 +59,7 @@
         smartSpeed: 350,
         dots: false,
         margin: 30,
-        loop: true,
+        loop: false,
         rtl: true,
         navText: [
             '<i class="lni-chevron-left"></i>',

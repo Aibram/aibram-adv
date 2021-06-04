@@ -21,12 +21,17 @@
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/main-rtl.css')}}" />
     
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/responsive.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/magnific-popup.css')}}" />
+
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/font-awesome.min.css')}}" />
     @yield('custom_css')
     @toastr_css
     <style>
         .invalid-feedback{
             position: absolute;
+        }
+        .no-ads{
+            font-size:20px;
         }
     </style>
 </head>
@@ -40,9 +45,9 @@
     @yield('content')
 
     @include('partials.footer')
-    <div id="preloader">
+    {{-- <div id="preloader">
         <div class="loader" id="loader-1"></div>
-    </div>
+    </div> --}}
 
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="{{asset('frontend/assets/js/jquery-min.js')}}"></script>
@@ -54,6 +59,7 @@
     <script src="{{asset('frontend/assets/js/wow.js')}}"></script>
     <script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/jquery.slicknav.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/jquery.magnific-popup.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/main-rtl.js')}}"></script>
     <script src="{{asset('frontend/assets/js/form-validator.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/contact-form-script.min.js')}}"></script>

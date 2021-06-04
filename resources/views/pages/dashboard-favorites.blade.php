@@ -39,10 +39,10 @@
                     <div id="list-view" class="page-content">
                       <div class="row">
                         <h1 class="section-title mx-auto desktop-hidden">
-                            {{ __('frontend.dashboard.chats') }} ({{count($favorites)}})
+                            {{ __('frontend.dashboard.favorites') }} ({{count($favorites)}})
                         </h1>
-                        @foreach ($favorites as $item)
-                        <div class="col-12">
+                        @forelse ($favorites as $item)
+                          <div class="col-12">
                             <div
                               class="featured-box dashboard d-flex justify-content-between align-items-center"
                             >
@@ -87,7 +87,11 @@
                               </div>
                             </div>
                           </div>
-                        @endforeach
+                        @empty
+                          <div class="section-btn text-center mt-3 mb-5 no-ads">
+                            {{__('frontend.dashboard.no_favorites')}}
+                          </div>
+                        @endforelse
                       </div>
                     </div>
                   </div>

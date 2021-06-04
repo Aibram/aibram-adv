@@ -40,13 +40,13 @@
                         <div class="row">
                             <div class="testimonial pt-2">
                                 <h1 class="section-title mx-auto desktop-hidden">
-                                    {{ __('frontend.dashboard.ratings') }} ({{count($ratings)}})
+                                    {{ __('frontend.dashboard.ratings') }} ({{ count($ratings) }})
                                 </h1>
                                 <div class="col-12 mt-4">
-                                    @foreach ($ratings as $item)
+                                    @forelse ($ratings as $item)
                                         <div class="item">
                                             <div class="testimonial-item">
-                                                @if($item->stars>2)
+                                                @if ($item->stars > 2)
                                                     <div class="rate-icon success">
                                                         <i class="fa fa-thumbs-up"></i>
                                                     </div>
@@ -57,7 +57,8 @@
                                                 @endif
                                                 <div class="img-thumb">
                                                     <img src="{{ $item->ratedUser->photo }}"
-                                                        alt="{{ $item->ratedUser->name }}" style="width: 44px;height:44px"/>
+                                                        alt="{{ $item->ratedUser->name }}"
+                                                        style="width: 44px;height:44px" />
                                                 </div>
 
                                                 <div class="content" style="min-width: 680px">
@@ -68,7 +69,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <div class="section-btn text-center mt-3 mb-5 no-ads">
+                                            {{ __('frontend.dashboard.no_ratings') }}
+                                        </div>
+                                    @endforelse
 
                                 </div>
                             </div>

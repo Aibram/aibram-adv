@@ -6,6 +6,7 @@
                 $('#social-sharing').toggle();
             });
             $('.reply_now').click(function(){
+                $('#respond').show()
                 $('#comment_parent_input').val($(this).data('id'));
                 console.log($('#comment_parent_input').val())
                 $( 'html, body' ).animate({

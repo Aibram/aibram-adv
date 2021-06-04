@@ -17,15 +17,15 @@
         <div class="kt-container kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    {{__('pages.countries.get')}}
+                    {{__('pages.advertisements.get')}}
                 </h3>
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
                     @can('countries.create', 'admin')
-                        <a href="{{route('admin.countries.create')}}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
+                        {{-- <a href="{{route('admin.countries.create')}}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
                             {{__('pages.countries.new')}}
-                        </a>
+                        </a> --}}
                     @endcan
                 </div>
             </div>
@@ -46,7 +46,7 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                     <h3 class="kt-portlet__head-title">
-                        {{__('pages.countries.all')}}
+                        {{__('pages.advertisements.all')}}
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
