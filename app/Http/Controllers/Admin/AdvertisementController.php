@@ -17,4 +17,14 @@ class AdvertisementController extends BaseController
     public function __construct(AdvertisementRepositoryInterface $repository){
         parent::__construct($repository,AdvertisementDataTable::class);
     }
+
+    public function update($id)
+    {
+        $request = app($this->updateRequest);
+        $data = $request->all();
+        $this->repository->checkRequestCheckBoxExists($data,'featured');
+        $this->repository->checkRequestCheckBoxExists($data,'home');
+        $this->repository->updateById($id,$data);
+        return redirect()->route($this->route.'.index');
+    }
 }

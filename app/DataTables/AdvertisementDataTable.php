@@ -18,8 +18,8 @@ class AdvertisementDataTable extends BaseDatatable
             'title'        =>  __('pages.advertisements.columns.title'),
             'mobile'       =>  __('pages.advertisements.columns.mobile'),
             'user'         =>  __('pages.advertisements.columns.user'),
-            'city_name'    =>  __('pages.advertisements.columns.city'),
-            'category_name'=>  __('pages.advertisements.columns.category'),
+            'city_name'    =>  __('pages.advertisements.columns.city_id'),
+            'category_name'=>  __('pages.advertisements.columns.subcategory_id'),
             'featured'     =>  __('pages.columns.featured'),
             'home'         =>  __('pages.columns.home'),
             'status'       =>  __('pages.columns.status'),
@@ -59,8 +59,8 @@ class AdvertisementDataTable extends BaseDatatable
                         'model_name'=>$model->getTable(),
                         'viewPrefix' => 'admin.',
                         'actions'=>[
-                            // 'edit'=>'advertisements.edit',
-                            // 'delete'=>'advertisements.destroy',
+                            'edit'=>'advertisements.edit',
+                            'delete'=>'advertisements.destroy',
                         ]
                     ]);
             });
