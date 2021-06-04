@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin::layout.app')
 
 @section('css')
 
@@ -8,8 +8,9 @@
     <link href="{{asset('assets/vendors/custom/vendors/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
-
+    <link href="{{asset('assets/vendors/general/summernote/dist/summernote.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css" rel="stylesheet')}}" type="text/css" />
 @endsection
 
 
@@ -29,7 +30,7 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                     <h3 class="kt-portlet__head-title">
-                        {{$setting->id}} تعديل اعدادات رقم
+                        {{__('pages.settings.update')}}
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
@@ -43,30 +44,24 @@
             </div>
             <div class="kt-portlet__body">
                 <div class="kt-grid__item ">
-
                     <!--begin: Form Wizard Form-->
-                    <form class="kt-form" action="{{route('admin.settings.update',$setting->id)}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                    <form class="kt-form" action="{{route('admin.settings.update',$data->id)}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="kt-portlet__body">
                             <div class="form-group">
-                                <label>الإسم</label>
-                                <input type="text" readonly="" name="key" class="form-control" aria-describedby="emailHelp" value="{{$setting->key}}">
+                                <label class="col-form-label col-lg-2 col-sm-12">{{__('pages.settings.columns.key')}}</label>
+                                {{$data->key}}
                             </div>
                             <div class="form-group">
-                                <label>ملحوظات</label>
-                                <input type="text" readonly="" name="description" class="form-control" aria-describedby="emailHelp" value="{{$setting->description}}">
-                            </div>
-
-                            <div class="form-group">
-                                <label>القيمة</label>
-                                <input type="text" name="value"  class="form-control" aria-describedby="emailHelp" value="{{$setting->value}}">
+                                <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.settings.columns.value')}}</label>
+                                <input type="text" class="form-control" value="{{$data->value}}" name="value" type="text">
                             </div>
                         </div>
                         <div class="kt-portlet__foot">
                             <div class="kt-form__actions">
-                                <button type="submit" class="btn btn-primary">تأكيد</button>
-                                <button type="reset" class="btn btn-secondary">إلغاء</button>
+                                <button type="submit" class="btn btn-primary">{{__('base.submit')}}</button>
+                                <button type="reset" class="btn btn-secondary">{{__('base.cancel')}}</button>
                             </div>
                         </div>
                     </form>
@@ -79,27 +74,15 @@
 @endsection
 
 @section('scripts')
+
     <!--begin:: Global Optional Vendors -->
-    <script src="{{asset('assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}'" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/jquery-validation/dist/jquery.validate.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/jquery-validation/dist/additional-methods.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/custom/js/vendors/jquery-validation.init.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/custom/js/vendors/bootstrap-switch.init.js')}}" type="text/javascript"></script>
-
-    <script>
-        $('.summernote').summernote({
-            height: 150
-        });
-    </script>
-    <script>
-        $('select').selectpicker();
-        $('[data-switch=true]').bootstrapSwitch();
-    </script>
-
+    <script src="{{asset('assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
     <!--end:: Global Optional Vendors -->
-
 @endsection
 
+@section('custom_scripts')
+
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\SettingsUpdate'); !!}
+@endsection

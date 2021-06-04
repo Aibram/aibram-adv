@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,9 @@ Route::middleware('auth:admin')->group(function(){
         'users' => UserController::class,
         'admins' => AdminController::class,
         'advertisements' => AdvertisementController::class,
+        'settings' => SettingsController::class,
     ]);
+    Route::get('/settings/{id}/save', [SettingsController::class, 'edit'])->name('settings.save');
     Route::get('/home', [AdminController::class, 'dashboard'])->name('home');
     Route::name('admins.profile.')->group(function(){
         Route::get('/profile', [AdminController::class, 'showProfile'])->name('get');

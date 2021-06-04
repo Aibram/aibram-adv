@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\CountryDataTable;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CountryCreate;
 use App\Http\Requests\Admin\CountryUpdate;
 use App\Interfaces\CountryRepositoryInterface;
-use Illuminate\Http\Request;
 
 class CountryController extends BaseController
 {

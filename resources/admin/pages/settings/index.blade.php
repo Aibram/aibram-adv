@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin::layout.app')
 
 @section('css')
     <!--begin:: Global Optional Vendors -->
@@ -17,13 +17,13 @@
         <div class="kt-container kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    جدول الإعدادات
+                    {{__('pages.settings.get')}}
                 </h3>
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
                     <a href="{{route('admin.settings.create')}}" class="btn btn-label-warning btn-bold btn-sm btn-icon-h kt-margin-l-10">
-                        إضافة اعدادات جديدة
+                        {{__('pages.settings.new')}}
                     </a>
                 </div>
             </div>
@@ -44,7 +44,7 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                     <h3 class="kt-portlet__head-title">
-                        كل الإعدادات
+                        {{__('pages.settings.all')}}
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
@@ -66,7 +66,6 @@
 
 @section('scripts')
     <!--begin:: Global Optional Vendors -->
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/custom/js/vendors/sweetalert2.init.js')}}" type="text/javascript"></script>
@@ -75,9 +74,12 @@
 
 
     <!--begin::Page Vendors(used by this page) -->
+    
+@endsection
+
+@section('custom_scripts')
+    {!! $dataTable->scripts() !!}
     <script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="{{asset('vendor/datatables/buttons.server-side.js')}}"></script>
-    {!! $dataTable->scripts() !!}
 @endsection
-

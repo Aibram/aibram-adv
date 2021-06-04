@@ -25,6 +25,7 @@ return [
         'countries' => 'البلاد',
         'cities' => 'المدن',
         'advertisements' => 'الاعلانات',
+        'settings' => 'الاعدادات',
     ],
     'not_found' => [
         'went_wrong' => 'حدث خطأ ما',
