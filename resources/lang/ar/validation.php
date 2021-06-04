@@ -153,6 +153,7 @@ return [
         'minute'                => 'دقيقة',
         'mobile'                => 'الجوال',
         'city_id'               => 'اسم المدينة',
+        'properties.*.property' => 'الخصائص',
         'ext'                   => 'رقم الدولة',
         'agree'                 => 'الموافقة على الشروط',
         'country_id'            => 'اسم البلد',

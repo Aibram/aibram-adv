@@ -35,7 +35,8 @@ class AdvertisementCreate extends FormRequest
             'photos' => 'required',
             'photos.*' => 'image',
             'photo'  =>  'required|image',
-            'properties'  =>  'required',
+            'properties'  =>  'required|array',
+            'properties.*.property' => 'required',
         ];
     }
 }

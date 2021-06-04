@@ -25,7 +25,7 @@ class AdvertisementController extends Controller
     }
     public function all(Request $request)
     {
-        $ads = $this->repository->filterAds($request->only(['city_id','category_id','title']),1,$request->get('page',1));
+        $ads = $this->repository->filterAds($request->only(['city_id','category_id','title']),4,$request->get('page',1));
         SeoInit::list('Aibram','مرحبًا بكم في أكبر منصة للاعلانات',route('frontend.ads'),asset('frontend/assets/img/hero-area.jpg'),['Aibram','Ads','ads','categories']);
         return view('pages.ads',compact('ads'));
     }

@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ValidationException $e, $request) {
             $first_element=array_key_first($e->errors());
             $error = $e->errors()[$first_element][0];
-            if(strpos(url()->current(),"/api/")){
+            if(strpos(url()->current(),"/api/") || $request->expectsJson()){
                 if($request->has('_jsvalidation'))
                     return response()->json([$error]);
                 else
@@ -64,7 +64,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
-            if(strpos(url()->current(),"/api/")){
+            if(strpos(url()->current(),"/api/") || $request->expectsJson()){
                 return APIResponse::sendResponse(__('base.error.notfound'),__('base.error.notfound'),401);
             }
             else{
