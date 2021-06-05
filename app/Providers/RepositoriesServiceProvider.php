@@ -12,6 +12,7 @@ use App\Interfaces\ContactUsRepositoryInterface;
 use App\Interfaces\CountryRepositoryInterface;
 use App\Interfaces\FavoriteRepositoryInterface;
 use App\Interfaces\RatingRepositoryInterface;
+use App\Interfaces\ReportRepositoryInterface;
 use App\Interfaces\SettingsRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\ActivationCodeRepository;
@@ -24,6 +25,7 @@ use App\Repositories\ContactUsRepository;
 use App\Repositories\CountryRepository;
 use App\Repositories\FavoriteRepository;
 use App\Repositories\RatingRepository;
+use App\Repositories\ReportRepository;
 use App\Repositories\SettingsRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -59,5 +61,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(RatingRepositoryInterface::class,RatingRepository::class);
         $this->app->bind(FavoriteRepositoryInterface::class,FavoriteRepository::class);
         $this->app->bind(SettingsRepositoryInterface::class,SettingsRepository::class);
+        $this->app->bind(ReportRepositoryInterface::class,ReportRepository::class);
     }
 }

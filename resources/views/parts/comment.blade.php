@@ -19,7 +19,7 @@
                 {{$comment->comment}}
             </p>
             @if (auth()->guard('user')->user())
-            <a href="{{route('frontend.ad.reportComment',['commentId'=>$comment->id])}}" class="reply-link report-link"><i class="fa fa-warning"></i>
+            <a href="{{getFullLink(route('frontend.report'),['type'=>'Comment','id'=>$comment->id])}}" class="reply-link report-link"><i class="fa fa-warning"></i>
                 {{__('frontend.details.report')}}</a>
             @endif
         </div>

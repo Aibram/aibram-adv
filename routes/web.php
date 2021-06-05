@@ -49,8 +49,6 @@ Route::middleware('auth:user')->group(function(){
             Route::get('/delete/{id}',[AdvertisementController::class,'delete'])->name('delete');
             Route::post('/delete/{id}',[AdvertisementController::class,'destroy'])->name('destroy');
             Route::get('/chat/{id}',[AdvertisementController::class,'chat'])->name('chat');
-            Route::get('/report/{id}',[AdvertisementController::class,'report'])->name('report');
-            Route::get('/report-comment/{commentId}',[AdvertisementController::class,'reportComment'])->name('reportComment');
             Route::get('/add_to_fav/{id}',[AdvertisementController::class,'add_to_fav'])->name('add_to_fav');
             Route::get('/remove_from_fav/{id}',[AdvertisementController::class,'remove_from_favorites'])->name('remove_from_favorites');
             
@@ -66,6 +64,10 @@ Route::middleware('auth:user')->group(function(){
             Route::post('/account',[DashboardController::class,'updateAccount'])->name('updateAccount');
         });
         Route::get('/profile/{id}',[FrontendController::class,'profile'])->name('profile');
+        Route::get('/report',[FrontendController::class,'report'])->name('report');
+        Route::middleware('report.auth')->group(function(){
+            Route::post('/report',[FrontendController::class,'submitReport'])->name('submitReport');
+        });
     });
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });

@@ -45,14 +45,17 @@ class BaseDatatable extends DataTable
     public function formatDateColumn($columns){
         foreach ($columns as $column){
             $this->datatable = $this->datatable->editColumn($column,function ($model) use($column) {
-                return $model->{$column}->diffForHumans();
+                return $model->{$column}?$model->{$column}->diffForHumans():$model->{$column};
             });
         }
     }
     public function formatBooleanColumn($column){
-        
-        $this->datatable = $this->datatable->editColumn($column,function ($model) use($column) {
-            return '<span class="kt-badge  kt-badge--'.$this->statues[$model->{$column}]['badge'].' kt-badge--inline kt-badge--pill">'.$this->statues[$model->{$column}]['text'].'</span>';            
+        $this->handleFormatBoolean($column,$this->statues);
+    }
+
+    protected function handleFormatBoolean($column,$statues){
+        $this->datatable = $this->datatable->editColumn($column,function ($model) use($column,$statues) {
+            return '<span class="kt-badge  kt-badge--'.$statues[$model->{$column}]['badge'].' kt-badge--inline kt-badge--pill">'.$statues[$model->{$column}]['text'].'</span>';            
         });
     }
 

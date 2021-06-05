@@ -9,6 +9,7 @@ return [
     ],
     'error' => [
         'validation' => 'مشكلة فى التحقق',
+        'already_contacted' => 'تم التواصل بالفعل',
         'error' => 'حدث خطأما',
         'notAuthorized' => 'عفوا غير مسموح بالدخول للصفحة',
         'notfound' => 'لا يوجد نتيجة',
@@ -26,6 +27,8 @@ return [
         'cities' => 'المدن',
         'advertisements' => 'الاعلانات',
         'settings' => 'الاعدادات',
+        'contactus' => 'طلبات التواصل',
+        
     ],
     'not_found' => [
         'went_wrong' => 'حدث خطأ ما',
@@ -33,6 +36,11 @@ return [
     'appName' => 'Aibram',
     'deactivated' => 'غير مفعل',
     'activated' => 'مفعل',
+    'contacted' => 'تم التواصل',
+    'web' => 'حاسب',
+    'android' => 'اندرويد',
+    'ios' => 'ios',
+    'not_contacted' => 'لم يتم التواصل',
     'completed' => 'مكتمل',
     'control_panel' => 'لوحة التحكم',
     'yes' => 'نعم',

@@ -141,9 +141,10 @@ abstract class BaseAbstract implements BaseInterface
         return $data->get();
     }
 
-    public function create(array $data)
+    public function create(array $data,$checkStatus=true)
     {
-        $this->checkRequestCheckBoxExists($data);
+        if($checkStatus)
+            $this->checkRequestCheckBoxExists($data);
         $data = $this->model->create($data);
         $this->resetModel();
         toastr()->success(__('base.success.created'), __('base.success.done'));

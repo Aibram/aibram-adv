@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ContactUs extends BaseModel
 {
     use HasFactory;
+    protected $dates = ['contacted_at'];
 
     public $fillable = [
         'name',

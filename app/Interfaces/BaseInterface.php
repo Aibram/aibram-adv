@@ -28,7 +28,7 @@ interface BaseInterface
     
     public function allBy(array $condition, array $with = [], array $select = ['*'],$ordering=[],$scopes=[]);
     
-    public function create(array $data);
+    public function create(array $data,$checkStatus=true);
     
     public function createOrUpdate($data, $condition = []);
     

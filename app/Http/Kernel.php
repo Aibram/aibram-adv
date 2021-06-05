@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
         'sensitve.auth' => \App\Http\Middleware\SensitveAuthWebsiteMiddleware::class,
         'suspended.user' => \App\Http\Middleware\SuspendedUserMiddleware::class,
+        'report.auth' => \App\Http\Middleware\ReportingMiddleware::class,
         'topic.owner' => \App\Http\Middleware\TopicOwnerMiddleware::class,
     ];
 }

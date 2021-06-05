@@ -104,30 +104,6 @@ class AdvertisementController extends Controller
         return view('pages.chat',compact('ad'));
     }
 
-    public function report($id,Request $request){
-        $ad = $this->repository->findById($id);
-        $ad->reports()->create([
-            'comment' => '',
-            'reportable_id' => $id,
-            'reportable_type' => $this->repository->getModel()->morphName,
-            'user_id' => auth()->guard('user')->user()->id
-        ]);
-        toastr()->success(__('base.success.created'), __('base.success.done'));
-        return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
-    }
-
-    public function reportComment($id,Request $request){
-        $comment = $this->commentRepo->findById($id);
-        $comment->reports()->create([
-            'comment' => '',
-            'reportable_id' => $id,
-            'reportable_type' => $this->commentRepo->getModel()->morphName,
-            'user_id' => auth()->guard('user')->user()->id
-        ]);
-        toastr()->success(__('base.success.created'), __('base.success.done'));
-        return redirect()->route('frontend.ad.details',['slug'=>$comment->advertisement->slug]);
-    }
-
     public function add_comment($id,Request $request){
         // dd($request->all());
         $ad = $this->repository->findById($id);

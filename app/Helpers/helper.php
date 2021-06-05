@@ -233,6 +233,44 @@ if (!function_exists('getAvailStatuses')) {
     }
 }
 
+if (!function_exists('getContactUsStatuses')) {
+    
+    function getContactUsStatuses()
+    {
+        return [
+            [
+                'text' => __('base.not_contacted'),
+                'badge' => 'danger'
+            ],
+            [
+                'text' => __('base.contacted'),
+                'badge' => 'success'
+            ],
+        ];
+    }
+}
+
+if (!function_exists('getContactUsDevices')) {
+    
+    function getContactUsDevices()
+    {
+        return [
+            'web' => [
+                'text' => __('base.web'),
+                'badge' => 'info'
+            ],
+            'android' => [
+                'text' => __('base.android'),
+                'badge' => 'success'
+            ],
+            'ios' => [
+                'text' => __('base.ios'),
+                'badge' => 'warning'
+            ],
+        ];
+    }
+}
+
 if (!function_exists('getPermissions')) {
 
     /**

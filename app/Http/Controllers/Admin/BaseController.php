@@ -71,8 +71,8 @@ class BaseController extends Controller
      */
     public function show(Request $request, $id)
     {
-        return view($this->fullView.'.show')
-        ->with('data',$this->repository->findByHashId($id));
+        return view($this->fullView.'.view')
+        ->with('data',$this->repository->findById($id));
     }
 
     /**

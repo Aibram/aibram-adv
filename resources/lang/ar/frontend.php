@@ -209,5 +209,10 @@ return [
         'rate' => 'تقييم',
         'rated_before' => 'تم التقييم',
     ],
+    'report' => [
+        'report' => 'تبليغ',
+        'report_problem' => 'تبليغ عن مخالفة',
+        'mention_problem' =>'اذكر المخالفة',
+    ],
     
 ];

@@ -148,7 +148,7 @@
                                 @else
                                     <a class="btn btn-common text-white ml-2" href="{{route('frontend.ad.add_to_fav',['id'=>$ad->id])}}"><i class="fa fa-heart-o ml-2"></i>{{__('frontend.details.add_to_favorite')}}</a>
                                 @endif
-                                <a class="btn btn-warning"  href="{{route('frontend.ad.report',['id'=>$ad->id])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                <a class="btn btn-warning"  href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad->id])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
                                 @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id ==$ad->user_id)
                                     <div class="d-flex w-100 mt-4">
                                         <a href="{{route('frontend.ad.edit',['id'=>$ad->id])}}"
