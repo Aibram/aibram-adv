@@ -22,9 +22,7 @@ class AdvertisementController extends BaseController
     {
         $request = app($this->updateRequest);
         $data = $request->all();
-        $this->repository->checkRequestCheckBoxExists($data,'featured');
-        $this->repository->checkRequestCheckBoxExists($data,'home');
-        $this->repository->updateById($id,$data);
+        $this->repository->updateAdmin($id,$data);
         return redirect()->route($this->route.'.index');
     }
 }

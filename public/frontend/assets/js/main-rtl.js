@@ -121,7 +121,40 @@
         responsiveClass: true,
         responsive: { 0: { items: 3 }, 575: { items: 3 }, 991: { items: 3 } },
     });
-
+    $("#owl-demo3").owlCarousel({
+        autoplay: false,
+        nav: true,
+        autoplayHoverPause: true,
+        smartSpeed: 350,
+        dots: true,
+        padding: 50,
+        autoWidth: true,
+        loop: false,
+        rtl: true,
+        navText: [
+            '<i class="lni-chevron-left"></i>',
+            '<i class="lni-chevron-right"></i>',
+        ],
+        responsiveClass: true,
+        responsive: { 0: { items: 3 }, 575: { items: 3 }, 991: { items: 3 } },
+    });
+    $("#owl-demo4").owlCarousel({
+        autoplay: false,
+        nav: true,
+        autoplayHoverPause: true,
+        smartSpeed: 350,
+        dots: true,
+        padding: 50,
+        autoWidth: true,
+        loop: false,
+        rtl: true,
+        navText: [
+            '<i class="lni-chevron-left"></i>',
+            '<i class="lni-chevron-right"></i>',
+        ],
+        responsiveClass: true,
+        responsive: { 0: { items: 3 }, 575: { items: 3 }, 991: { items: 3 } },
+    });
 
     var detailsslider1 = $("#owl-demo3");
     detailsslider1.owlCarousel({

@@ -41,7 +41,7 @@ class Category extends BaseModel
 
     public function getIconFormattedAttribute()
     {
-        return $this->icon ? explode(" ",$this->icon)[0]:'fa-bars';
+        return $this->icon && !empty($this->icon) ? explode(" ",$this->icon)[1]:'fa-bars';
     }
 
     public function getCategoryHierarchyIdsAttribute()

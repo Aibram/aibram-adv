@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Facades\NotificationInitator;
 use App\Facades\SeoInit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\AdvertisementCreate;
 use App\Http\Requests\Website\AdvertisementUpdate;
 use App\Interfaces\AdvertisementRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
+use App\Notifications\CommentAddFrom;
+use App\Notifications\CommentAddTo;
 use Illuminate\Http\Request;
 
 class AdvertisementController extends Controller
@@ -25,9 +28,8 @@ class AdvertisementController extends Controller
     }
     public function all(Request $request)
     {
-        $ads = $this->repository->filterAds($request->only(['city_id','category_id','title']),4,$request->get('page',1));
         SeoInit::list('Aibram','مرحبًا بكم في أكبر منصة للاعلانات',route('frontend.ads'),asset('frontend/assets/img/hero-area.jpg'),['Aibram','Ads','ads','categories']);
-        return view('pages.ads',compact('ads'));
+        return view('pages.ads');
     }
 
     public function create()
@@ -43,10 +45,9 @@ class AdvertisementController extends Controller
     }
 
     public function one($slug,Request $request){
-        $ad = $this->repository->firstBySlug($slug);
-        $comments = $this->commentRepo->allBy(['parent_id'=>null],['replies'],['*'],['created_at'=>'desc']);
-        SeoInit::one($ad->title,$ad->desc,route('frontend.ad.details',['slug'=>$ad->slug]),$ad->created_at->toW3CString(),asset($ad->photo),$ad->tagList);
-        return view('pages.ad-details',compact('ad','comments'));
+        $ad = $this->repository->firstBySlug($slug)->format();
+        SeoInit::one($ad['title'],$ad['desc'],$ad['detailsUrl'],$ad['created_at_w3c'],asset($ad['photo']),$ad['taglist']);
+        return view('pages.ad-details',compact('ad'));
     }
 
     public function edit($id,Request $request){
@@ -79,7 +80,7 @@ class AdvertisementController extends Controller
         if(!$this->checkAuthorized($ad)){
             return redirect()->back();
         }
-        return redirect()->route('frontend.dashboard');
+        return redirect()->route('frontend.dashboard.all');
     }
 
     public function add_to_fav($id,Request $request){
@@ -108,15 +109,14 @@ class AdvertisementController extends Controller
         // dd($request->all());
         $ad = $this->repository->findById($id);
         $ad->userComments()->save(auth()->guard('user')->user(),$request->only(['parent_id','comment']));
-        return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
-    }
-
-    public function add_rating($id,Request $request){
-        $ad = $this->repository->findById($id);
-        $data = $request->only(['stars','comment']);
-        $data['rated_user_id'] = $ad->user_id;
-        $ad->ratedUsers()->save(auth()->guard('user')->user(),$data);
-        toastr()->success(__('base.success.created'), __('base.success.done'));
+        if($request->parent_id){
+            NotificationInitator::init($ad,'comment',__('notifications.reply_add_from',['title' => $ad->title]),auth()->guard('user')->user(),CommentAddFrom::class);
+            NotificationInitator::init($ad,'comment',__('notifications.reply_add_to',['title' => $ad->title]),$ad->user,CommentAddTo::class);    
+        }
+        else{
+            NotificationInitator::init($ad,'comment',__('notifications.comment_add_from',['title' => $ad->title]),auth()->guard('user')->user(),CommentAddFrom::class);
+            NotificationInitator::init($ad,'comment',__('notifications.comment_add_to',['title' => $ad->title,'user'=>auth()->guard('user')->user()->name]),$ad->user,CommentAddTo::class);    
+        }
         return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
     }
 

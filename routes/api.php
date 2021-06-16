@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\Common\CategoryController as CommonCategoryControll
 use App\Http\Controllers\Api\Common\CityController;
 use App\Http\Controllers\Api\Common\CountryController;
 use App\Http\Controllers\NoAuth\CategoryController;
+use App\Http\Controllers\NoAuth\AdvertisementController;
+use App\Http\Controllers\NoAuth\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::group( ['name' => 'ajax.','prefix'=>'ajax'],function(){
     Route::get('/cat-jstree',[CategoryController::class,'getCatList'])->name('catList');
+    Route::post('/getAds',[AdvertisementController::class,'getAds'])->name('getAds');
+    Route::post('/getMessages/{id}',[ChatController::class,'getMessages'])->name('getMessages');
+    Route::post('/sendMessage/{id}',[ChatController::class,'sendMessage'])->name('sendMessage');
+    Route::post('/readMessages/{id}',[ChatController::class,'readMessages'])->name('readMessages');
+    Route::post('/addtoFavorite',[AdvertisementController::class,'addtoFavorite'])->name('addtoFavorite');
+    Route::post('/removeFromFavorite',[AdvertisementController::class,'removeFromFavorite'])->name('removeFromFavorite');
     Route::get('/cat-jstree/one',[CategoryController::class,'getSingleCatList'])->name('getSingleCatList');
     Route::post('/insert-cat-jstree',[CategoryController::class,'insertCat'])->name('insertCat');
     Route::put('/update-cat-jstree',[CategoryController::class,'updateCat'])->name('updateCat');

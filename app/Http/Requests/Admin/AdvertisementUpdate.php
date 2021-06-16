@@ -24,7 +24,10 @@ class AdvertisementUpdate extends FormRequest
     public function rules()
     {
         return [
-            //
+            'marketing.*.age_from' => 'required',
+            'marketing.*.age_to' => 'required',
+            'marketing.*.city_id' => 'required',
+            'marketing.*.gender' => 'required',
         ];
     }
 }

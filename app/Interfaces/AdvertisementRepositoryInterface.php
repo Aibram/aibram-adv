@@ -13,5 +13,6 @@ interface AdvertisementRepositoryInterface  extends BaseInterface
 
     public function updateAd($id,$data);
 
+    public function updateAdmin($id,$data);
     
 }

@@ -1,4 +1,4 @@
-function sendAjaxReq(req, method = "POST", route, callback) {
+function sendAjaxReq(req, method = "POST", route, callback, showToaster = true) {
     var ajaxJson = {
         url: route,
     }
@@ -31,12 +31,31 @@ function sendAjaxReq(req, method = "POST", route, callback) {
         success: function(data) {
             if (data.status != 200) {
                 //Toaster Error
-                toastr.error(data.message)
+                if (showToaster)
+                    toastr.error(data.message)
             } else {
                 //Toaster Success
-                toastr.success(data.message)
+                if (showToaster)
+                    toastr.success(data.message)
                 callback(data.data)
             }
         }
     })
+}
+
+function setUrlFields(params) {
+    const urlParams = new URLSearchParams(window.location.search);
+    for (property in params) {
+        urlParams.set(property, params[property])
+    }
+    var newUrl = window.location.origin + window.location.pathname + "?" + urlParams.toString();
+    history.pushState({}, null, newUrl);
+}
+
+function fillParamsObjectFromUrl(params) {
+    const urlParams = new URLSearchParams(window.location.search);
+    for (var pair of urlParams.entries()) {
+        if (pair[0] in params)
+            params[pair[0]] = pair[1];
+    }
 }

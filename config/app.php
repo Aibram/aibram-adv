@@ -181,6 +181,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
         App\Providers\ConfigurationServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\ObserversServiceProvider::class,
@@ -247,7 +248,8 @@ return [
         'CodeSender' => App\Facades\CodeSender::class,
         'RandomCode' => App\Facades\RandomCode::class,
         'SeoInit' => App\Facades\SeoInit::class,
-
+        'NotificationInitator' => App\Facades\NotificationInitator::class,
+        'FirebasePush' => App\Facades\FirebasePush::class,
     ],
 
 ];

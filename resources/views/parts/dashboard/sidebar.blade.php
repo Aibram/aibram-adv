@@ -41,6 +41,15 @@
         </a>
     </div>
     <div class="item mb-2">
+        <a href="{{route('frontend.dashboard.notifications')}}" class="btn btn-border category @if ($active=='notifications'
+            ) active @endif btn-block d-flex align-items-center justify-content-center">
+            <div class="icon ml-2 position-relative">
+                <i class="fa fa-bell"></i>
+            </div>
+            {{__('frontend.dashboard.notifications')}}
+        </a>
+    </div>
+    <div class="item mb-2">
         <a href="{{route('frontend.dashboard.account')}}" class="btn btn-border category @if ($active=='account'
             ) active @endif btn-block d-flex align-items-center justify-content-center">
             <div class="icon ml-2 position-relative">
@@ -83,6 +92,14 @@
                 <i class="fa fa-heart"></i>
             </div>
             {{__('frontend.dashboard.myfavorites')}}
+        </a>
+    </div>
+    <div class="item">
+        <a href="{{route('frontend.dashboard.notifications')}}" class="btn btn-border category d-flex">
+            <div class="icon ml-2 position-relative">
+                <i class="fa fa-bell"></i>
+            </div>
+            {{__('frontend.dashboard.notifications')}}
         </a>
     </div>
     <div class="item">

@@ -54,13 +54,13 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
     }
 
     public function updateAd($id,$data){
-        $data['mobile'] = !empty($data['mobile']) ? $data['ext'].$data['mobile'] : null;
+        $data['mobile'] = !empty($data['mobile']) && $data['contact_method'] == "number" ? $data['ext'].$data['mobile'] : null;
         $data['user_id'] = auth()->guard('user')->user()->id;
         $data['category_id'] = !empty($data['subCategory_id']) ? $data['subCategory_id'] : $data['category_id'];
         $data['no_properties'] = count($data['properties']);
         // dd($data);
         $ids = explode(',',$data['oldphotos']);
-        $ad = $this->updateById($id,$data);
+        $ad = $this->updateById($id,$data,false);
         $this->CheckSingleMediaAndAssign($data, $ad, 'photo', $this->model->mainImageCollection);
         if(count($ids)>0){
             $this->detachMedia($ad,collect($ids));
@@ -72,5 +72,15 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
         }
         $ad->tag($data['tags']);
         return $ad;
+    }
+    public function updateAdmin($id,$data){
+        $this->checkRequestCheckBoxExists($data,'featured');
+        $this->checkRequestCheckBoxExists($data,'home');
+        $ad = $this->updateById($id,$data);
+        $ad->admarketing()->delete();
+        foreach($data['marketing'] as $item){
+            $ad->admarketing()->create($item);
+        }
+
     }
 }

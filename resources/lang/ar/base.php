@@ -28,7 +28,14 @@ return [
         'advertisements' => 'الاعلانات',
         'settings' => 'الاعدادات',
         'contactus' => 'طلبات التواصل',
-        
+        'testimonials' => 'اراء العملاء',  
+    ],
+    'input' => [
+        'text' => 'نص',
+        'textarea' => 'نص طويل',
+        'select' => 'اختيارات متعددة',
+        'radio' => 'اختيار واحد فقط',
+        'checkbox' => 'نعم او لا',
     ],
     'not_found' => [
         'went_wrong' => 'حدث خطأ ما',
@@ -78,5 +85,9 @@ return [
     'clear_filter' => 'محو التصفية',
     'profile' => 'الملف الشخصى',
     'settings' => 'الاعدادات',
-    'none' => 'لا يوجد نتيجة'
+    'none' => 'لا يوجد نتيجة',
+    'Comment' => 'التعليق',
+    'Advertisement' => 'الاعلان',
+    'me'=> 'انت',
+    'photo' => 'صورة'
 ];

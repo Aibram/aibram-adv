@@ -26,6 +26,12 @@ class FacadesServiceProvider extends ServiceProvider
         App::bind('seo.init',function() {
             return new \App\Facades\Accessors\SeoInit;
         });
+        App::bind('notification.init',function() {
+            return new \App\Facades\Accessors\NotificationInitator;
+        });
+        App::bind('firebase.push',function() {
+            return new \App\Facades\Accessors\FirebasePush;
+        });
         
     }
 

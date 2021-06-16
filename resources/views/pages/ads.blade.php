@@ -1,7 +1,11 @@
 @extends('layout.app')
 
 @section('custom_css')
-    
+    <style>
+        .cat-sub{
+            margin-right: 15px;
+        }
+    </style>
 @endsection
 
 @section('breadcrump')
@@ -44,7 +48,7 @@
 
                         <div class="widget categories sticky mobile-hidden">
                             <h4 class="widget-title">{{__('frontend.ads.categories')}}</h4>
-                            @include('parts.categories.categories-web')
+                            @include('parts.categories.categories-web',['categories'=>categoriesFilter(),'class'=>'categories-list'])
                         </div>
                     </aside>
                 </div>
@@ -86,33 +90,25 @@
                         <div class="tab-content">
                             <div id="list-view" class="tab-pane fade active show">
                                 <div class="row">
-                                    @foreach ($ads as $ad)
-                                        @include('parts.ads.ad-list',['ad'=>$ad])
-                                    @endforeach
+                                    {{-- @include('parts.ads.ad-list',['ads'=>$ads]) --}}
                                 </div>
                             </div>
                             <div id="grid-view" class="tab-pane fade">
                                 <div class="row">
-                                    @foreach ($ads as $ad)
-                                        @include('parts.ads.ad-grid',['ad'=>$ad])
-                                    @endforeach
+                                    {{-- @include('parts.ads.ad-grid',['ads'=>$ads]) --}}
                                 </div>
                             </div>
-                            @if(count($ads)==0)
-                                <div class="section-btn text-center mt-3 mb-5 no-ads">
-                                    {{__('frontend.ads.no_ads_found')}}
-                                </div>
-                            @endif
+                            <div id="no_ads" class="section-btn text-center mt-3 mb-5 no-ads" style="display: none">
+                                {{__('frontend.ads.no_ads_found')}}
+                            </div>
                         </div>
                     </div>
-                    @if($ads->hasMorePages())
-                        <div class="section-btn text-center mt-3 mb-5">
-                            <a href="javascript:;" id="loadMore" class="btn btn-common btn-lg text-white px-3">
-                                <i class="lni-arrow-down"></i>
-                                <span class="">{{__('frontend.ads.see_more')}}</span>
-                            </a>
-                        </div>
-                    @endif
+                    <div class="section-btn text-center mt-3 mb-5">
+                        <a href="javascript:;" id="loadMore" class="btn btn-common btn-lg text-white px-3" style="display: none">
+                            <i class="lni-arrow-down"></i>
+                            <span class="">{{__('frontend.ads.see_more')}}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,31 +118,85 @@
 @section('custom_js')
 <script>
     (function () {
-        function setUrl(param,value){
-            const urlParams = new URLSearchParams(window.location.search);
-            urlParams.set(param,value)
-            return window.location.origin + window.location.pathname + "?" + urlParams.toString();
+        var params = {
+            category_id : '',
+            title : '',
+            city_id : '',
+            page : 1,
+            user_id : {{auth()->guard('user')->user()?auth()->guard('user')->user()->id:null}}
+        };
+        function callAjax(reload = false) {
+            sendAjaxReq(params, "POST", "{{route('getAds')}}", function(data) {
+                if (reload) {
+                    $('#list-view .row').html(data.list);
+                    $('#grid-view .row').html(data.grid);
+                } else {
+                    $('#list-view .row').append(data.list);
+                    $('#grid-view .row').append(data.grid);
+                }
+                data.hasMorePages && $('#loadMore').show();
+                !data.hasMorePages && $('#loadMore').hide();
+                data.adsCount <= 0 && $('#no_ads').show();
+                data.adsCount > 0 && $('#no_ads').hide();
+                const { page,user_id, ...rest } = params
+                setUrlFields(rest)
+            },false)
         }
+        fillParamsObjectFromUrl(params)
+        callAjax()
         $('#titleSearch').keypress(function(e) {
             if (e.which == 13) {
-                window.location.href = setUrl('title',$('#titleSearch').val())
+                params.title = $('#titleSearch').val();
+                params.page = 1;
+                callAjax(true)
             }
         });
         $('#search-submit').click(function(){
-            window.location.href = setUrl('title',$('#titleSearch').val())
+            params.title = $('#titleSearch').val()
+            params.page = 1
+            callAjax(true)
         });
         $('#citySearch').on('change', function() {
-            window.location.href = setUrl('city_id',$('#citySearch').val())
+            params.city_id = $('#citySearch').val()
+            params.page = 1
+            callAjax(true)
         })
-        $('.categorySearch').click(function(){
-            window.location.href = setUrl('category_id',$(this).data('id'))
-        });
         $('#loadMore').click(function(){
-            var currPage= {{request()->get('page',1)}}
-            currPage++
-            window.location.href = setUrl('page',currPage)
+            params.page++
+            callAjax()
         });
-
+        $('.categorySearch').click(function(){
+            var elem = this;
+            if($(elem).data('type')=="mob"){
+                var nextLevel = $(this).data('level')+1;
+                console.log($('#owl-demo2').eq(nextLevel))
+                nextLevel==2 && $('#owl-demo3').show()
+                nextLevel==2 && $('#owl-demo3 .categorySearch').each(function() {
+                    console.log("parentId",$(this).data('parentid'),"id",$(elem).data('id'))
+                    if ($(this).data('parentid') == $(elem).data('id')) {
+                        $(this).show()
+                    }
+                    else{
+                        $(this).hide()
+                    }
+                })
+                nextLevel==3 && $('#owl-demo4').show()
+                nextLevel==3 && $('#owl-demo4 .categorySearch').each(function() {
+                    if ($(this).data('parentid') == $(elem).data('id')) {
+                        $(this).show()
+                    }
+                    else{
+                        $(this).hide()
+                    }
+                })
+                
+            }
+            $('.categorySearch').removeClass('active')
+            $(this).addClass('active')
+            params.category_id = $(elem).data('accumid');
+            params.page = 1;
+            callAjax(true)
+        });
     }());
 </script>
 @endsection

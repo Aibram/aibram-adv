@@ -13,5 +13,6 @@ class Testimonial extends BaseModel
         'content',
         'name',
         'job',
+        'status',
     ];
 }

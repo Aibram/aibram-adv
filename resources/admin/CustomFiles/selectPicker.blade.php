@@ -1,8 +1,8 @@
 <script>
     $('.kt-selectpicker').selectpicker(
             {
-                noneSelectedText: '{{ __('base.none') }}'
-
+                noneSelectedText: '{{ __('base.none') }}',
+                multipleSeparator: ','
             }
     );
     $('.icp-auto').iconpicker({

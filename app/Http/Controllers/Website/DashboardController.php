@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\UpdateProfile;
 use App\Interfaces\AdvertisementRepositoryInterface;
+use App\Interfaces\ChatlistRepositoryInterface;
 use App\Interfaces\FavoriteRepositoryInterface;
 use App\Interfaces\RatingRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
@@ -16,14 +17,16 @@ class DashboardController extends Controller
             $userRepo,
             $ratingRepo,
             $favoriteRepo,
+            $chatlistRepo,
             $me;
 
-    public function __construct(Request $request,AdvertisementRepositoryInterface $adRepo,UserRepositoryInterface $userRepo, RatingRepositoryInterface $ratingRepo, FavoriteRepositoryInterface $favoriteRepo)
+    public function __construct(Request $request,AdvertisementRepositoryInterface $adRepo,UserRepositoryInterface $userRepo, RatingRepositoryInterface $ratingRepo, FavoriteRepositoryInterface $favoriteRepo, ChatlistRepositoryInterface $chatlistRepo)
     {
         $this->adRepo = $adRepo;
         $this->userRepo = $userRepo;
         $this->ratingRepo = $ratingRepo;
         $this->favoriteRepo = $favoriteRepo;
+        $this->chatlistRepo = $chatlistRepo;
         $this->middleware(function ($request, $next) {
             $this->me = auth()->guard('user')->user();
             return $next($request);
@@ -32,20 +35,33 @@ class DashboardController extends Controller
 
     public function all(Request $request)
     {
-        $ads = $this->adRepo->allBy(['user_id'=>$this->me->id],[],['*'],['created_at'=>'desc']);
+        $ads = $this->adRepo->allBy(['user_id'=>$this->me->id,'status'=>1],[],['*'],['created_at'=>'desc']);
         return view('pages.dashboard-home',compact('ads'));
     }
 
     public function chats(Request $request)
     {
-        // $ads = $this->adRepo->allBy(['user_id'=>$this->me->id],[],['*'],['created_at'=>'desc']);
-        return view('pages.dashboard-chats');
+        $chats = $this->chatlistRepo->getAllChatlistPerUser(auth()->guard('user')->user()->id);
+        $chats = $chats->map->format();
+        return view('pages.dashboard-chats',compact('chats'));
     }
 
     public function ratings(Request $request)
     {
         $ratings = $this->ratingRepo->allBy(['user_id'=>$this->me->id],[],['*'],['created_at'=>'desc']);
         return view('pages.dashboard-ratings',compact('ratings'));
+    }
+
+    public function notifications(Request $request)
+    {
+
+        $notifications = $this->me->notifications;
+        $notifications->map(function($n) {
+            if(!$n->read_at){
+                $n->markAsRead();
+            }
+        });
+        return view('pages.dashboard-notifications',compact('notifications'));
     }
 
     public function favorites(Request $request)

@@ -69,6 +69,11 @@ class User extends Authenticatable
     {
         return $this->ext.$this->mobile;
     }
+    public function getFirebaseTokenAttribute()
+    {
+        $token = $this->tokens()->where('type','firebase')->first();
+        return $token ? $token->token : '';
+    }
     
     public function userComments(){
         return $this
@@ -84,6 +89,10 @@ class User extends Authenticatable
     public function codes()
     {
         return $this->hasMany(ActivationCode::class, 'user_id', 'id');
+    }
+    public function tokens()
+    {
+        return $this->hasMany(UserToken::class, 'user_id', 'id');
     }
     public function city()
     {

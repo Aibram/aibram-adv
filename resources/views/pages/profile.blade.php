@@ -31,7 +31,7 @@
                         <div class="sidebar-box">
                             <div class="user">
                                 <div class="left-button">
-                                    @if(ratedBefore(auth()->guard('user')->user(),$ad))
+                                    @if(ratedBefore(auth()->guard('user')->user(),$user['id']))
                                         <a href="#" class="btn btn-common green w-110">
                                             <i class="fa fa-plus ml-2 "></i>
                                             {{ __('frontend.profile.rated_before') }}
@@ -44,7 +44,7 @@
                                     @endif
                                 </div>
                                 <div class="right-button">
-                                    <a class="btn btn-common green w-110" href="{{route('frontend.ad.chat',['id'=>$ad->id])}}">
+                                    <a class="btn btn-common green w-110" href="{{route('frontend.chat.single',['id'=>$user->id])}}">
                                         <i class="fa fa-comment"></i>{{ __('frontend.profile.chat') }}
                                     </a>
                                 </div>
@@ -86,9 +86,7 @@
                                     <h1 class="section-title mx-auto desktop-hidden">
                                         {{ __('frontend.profile.user_ads') }}
                                     </h1>
-                                    @foreach ($user->advertisements as $item)
-                                        @include('parts.ads.ad-list',['ad'=>$item])
-                                    @endforeach
+                                    @include('parts.ads.ad-list',['ads'=>$user->advertisements->map->format()])
                                 </div>
                             </div>
                         </div>
@@ -133,9 +131,9 @@
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <form id="ratingForm" action="{{route('frontend.ad.add_rating',['id'=>$ad->id])}}" method="GET">
+                    <form id="ratingForm" action="{{route('frontend.add_rating',['id'=>$user->id])}}" method="GET">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{__('frontend.profile.add_rating_title',['title'=>$ad->title])}}</h4>
+                            <h4 class="modal-title">{{__('frontend.profile.add_rating')}}</h4>
                             <button class="ml-0 mr-auto p-0 bg-transparent btn font-size-18" type="button"
                                 class="close" data-dismiss="modal">
                                 &times;

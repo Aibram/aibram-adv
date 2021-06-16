@@ -2,8 +2,12 @@
 
 namespace App\Observers;
 
+use App\Facades\NotificationInitator;
 use App\Models\Advertisement;
+use App\Models\Category;
+use App\Models\City;
 use App\Notifications\AdvertisementCreate;
+use App\Notifications\AdvertisementUpdate;
 use Illuminate\Support\Facades\Notification;
 
 class AdvertisementObserver
@@ -16,6 +20,7 @@ class AdvertisementObserver
         $advertisement->category_name = $advertisement->category->name;
         $advertisement->city_name = $advertisement->city->name;
         $advertisement->country_id = $advertisement->city->country_id;
+        $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy_ids;
         $advertisement->avg_rate = 0;
     }
     /**
@@ -33,7 +38,30 @@ class AdvertisementObserver
         $advertisement->statuses()->create([
             'status' => $advertisement->status
         ]);
-        Notification::send($advertisement->user, new AdvertisementCreate($advertisement->toArray()));
+        NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_create',['title' => $advertisement->title]),$advertisement->user,AdvertisementCreate::class);
+    }
+
+    /**
+     * Handle the Advertisement "updating" event.
+     *
+     * @param  \App\Models\Advertisement  $advertisement
+     * @return void
+     */
+    public function updating(Advertisement $advertisement)
+    {
+        if ($advertisement->isDirty(['category_id'])){
+            Category::where('id','=',$advertisement->getOriginal('category_id'))->decrement('no_ads');
+        }
+        if ($advertisement->isDirty(['city_id'])){
+            $city = City::where('id','=',$advertisement->getOriginal('city_id'));
+            $city->decrement('no_ads');
+            $city->country()->decrement('no_ads');
+        }
+        
+        $advertisement->category_name = $advertisement->category->name;
+        $advertisement->city_name = $advertisement->city->name;
+        $advertisement->country_id = $advertisement->city->country_id;
+        $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy_ids;
     }
 
     /**
@@ -44,18 +72,40 @@ class AdvertisementObserver
      */
     public function updated(Advertisement $advertisement)
     {
-        //
+        if ($advertisement->isDirty(['status'])){
+            $advertisement->statuses()->create([
+                'status' => $advertisement->status
+            ]);
+        }
+        if ($advertisement->isDirty(['category_id'])){
+            $advertisement->category_name = $advertisement->category->name;
+            $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy_ids;
+            $advertisement->category()->increment('no_ads');
+        }
+        if ($advertisement->isDirty(['city_id'])){
+            $advertisement->city_name = $advertisement->city->name;
+            $advertisement->country_id = $advertisement->city->country_id;
+            $advertisement->city()->increment('no_ads');
+            $advertisement->country()->increment('no_ads');
+        }
+
+        if($advertisement->isDirty(['status']) && $advertisement->status){
+            NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
+        }
+        else{
+            NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_update',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
+        }
     }
 
     /**
-     * Handle the Advertisement "deleted" event.
+     * Handle the Advertisement "deleting" event.
      *
      * @param  \App\Models\Advertisement  $advertisement
      * @return void
      */
-    public function deleted(Advertisement $advertisement)
+    public function deleting(Advertisement $advertisement)
     {
-        //
+        NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
     }
 
     /**

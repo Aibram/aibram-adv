@@ -4,6 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="_token" content="{{ csrf_token() }}" />
+    @if(auth()->guard('user')->user())
+        <meta name="user_id" content="{{ auth()->guard('user')->user()->id }}" />
+    @else
+        <meta name="user_id" content="null" />
+    @endif
     {!! SEO::generate(true) !!}
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/bootstrap-rtl.css')}}" />
@@ -33,6 +39,23 @@
         .no-ads{
             font-size:20px;
         }
+        .fav-remove:not(.btn) i{
+            color:#e00707!important;
+            font-size: 20px!important;
+        }
+        .fav-add:not(.btn) i{
+            color:#0b8451!important;
+            font-size: 20px!important;
+        }
+        .fav-remove.btn i{
+            color:#e00707!important;
+            font-size: 18px!important;
+        }
+        .fav-add.btn i{
+            color:#ffffff!important;
+            font-size: 18px!important;
+        }
+
     </style>
 </head>
 
@@ -48,7 +71,10 @@
     {{-- <div id="preloader">
         <div class="loader" id="loader-1"></div>
     </div> --}}
-
+    <script>
+        var removeFavoriteURL = "{{route('removeFromFavorite')}}";
+        var addFavoriteURL = "{{route('addtoFavorite')}}";
+    </script>
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="{{asset('frontend/assets/js/jquery-min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/popper.min.js')}}"></script>
@@ -64,6 +90,8 @@
     <script src="{{asset('frontend/assets/js/form-validator.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/contact-form-script.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/summernote.js')}}"></script>
+    <script src="{{asset('js/ajaxReq.js')}}"></script>
+    <script src="{{asset('js/favorite.js')}}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
     @toastr_js

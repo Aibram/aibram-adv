@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::middleware('auth:admin')->group(function(){
         'admins' => AdminController::class,
         'advertisements' => AdvertisementController::class,
         'settings' => SettingsController::class,
+        'testimonials' => TestimonialController::class,
+        
     ]);
     Route::get('/settings/{id}/save', [SettingsController::class, 'edit'])->name('settings.save');
     Route::get('/contactus/{id}/confirm', [ContactUsController::class, 'edit'])->name('contactus.confirm');

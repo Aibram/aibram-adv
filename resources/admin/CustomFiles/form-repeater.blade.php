@@ -10,7 +10,13 @@
             },
              
             show: function() {
-                $(this).slideDown();                               
+                $(this).slideDown();
+                $('.kt-selectpicker').selectpicker(
+                    {
+                        noneSelectedText: '{{ __('base.none') }}'
+
+                    }
+                );                         
             },
 
             hide: function(deleteElement) {                 

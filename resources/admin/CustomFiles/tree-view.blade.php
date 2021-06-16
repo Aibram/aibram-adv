@@ -21,8 +21,9 @@
                     if (elem.type && elem.type === 'checkbox')
                         $(elem).prop("checked", newVal);
                     else{
+                        console.log(newVal);
                         $(elem).val(newVal);
-                        newVal && newVal.includes("fa-") && $('.icp-auto').data('iconpicker').update(newVal, true);
+                        newVal && typeof newVal == "string" && newVal.includes("fa-") && $('.icp-auto').data('iconpicker').update(newVal, true);
                     }
                     break; 
                 case 'SELECT':

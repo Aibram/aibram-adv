@@ -32,6 +32,7 @@ class CategoryRepository extends BaseAbstract implements CategoryRepositoryInter
         }
         $id = $data['id'];
         unset($data['id']);
+        $data['desc'] = !empty($data['desc']) ? $data['desc'] : '';
         $user = $this->updateById($id,$data,false);
         $this->CheckSingleMediaAndAssign($data,$user,'image',$this->model->mainImageCollection,true);
     }
@@ -51,6 +52,9 @@ class CategoryRepository extends BaseAbstract implements CategoryRepositoryInter
         if($data['parent_id'] == 'null'){
             $data['parent_id'] =null;
         }
+        $data['parent_id'] = $data['parent_id'] == 'null' ? null : $data['parent_id'];
+        $data['desc'] = !empty($data['desc']) ? $data['desc'] : '';
+        $data['icon'] = !empty($data['icon']) ? $data['icon'] : 'fas fa-bars';
         return $this->create($data);
     }
     public function deleteCatAdmin($adminId,$data){

@@ -4,7 +4,10 @@ use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Setting;
+use App\Models\Testimonial;
 use App\Models\User;
+use App\Models\UserRating;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
@@ -130,7 +133,42 @@ if (!function_exists('getAds')) {
             $advs->where('id','<>',$exceptId);
         }
         $advs->orderBy($orderBy,$orderDirection);
-        return $advs->take(5)->get();
+        return $advs->take($take)->get()->map->format();
+    }
+}
+
+if (!function_exists('getFeaturedAds')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getFeaturedAds($user,$take=5,$orderBy="created_at",$orderDirection="desc")
+    {
+        if(is_null($user)){
+            return [];
+        }
+        $advs = Advertisement::active(1)
+                ->join('ad_marketings', function ($q) {
+                    $q->on('ad_marketings.advertisement_id', '=', 'advertisements.id');
+                })
+                ->where(function ($query) use($user){
+                    $query->where('ad_marketings.gender', '=', $user->gender)
+                          ->orWhere('ad_marketings.gender', '=', 'all');
+                })
+                ->where(function ($query) use($user){
+                    $query->where('ad_marketings.age_from', '>=', $user->age)
+                          ->orWhere('ad_marketings.age_to', '<=', $user->age);
+                })
+                ->where(['advertisements.featured' => 1,'ad_marketings.city_id'=>$user->city_id])
+                ->groupBy('advertisements.id')
+                ->orderBy($orderBy,$orderDirection)
+                ->select(
+                    [
+                        'advertisements.*',
+                    ]
+                );
+        return $advs->take($take)->get()->map->format();
     }
 }
 
@@ -158,15 +196,75 @@ if (!function_exists('categoriesFilter')) {
     }
 }
 
+if (!function_exists('categoriesByLevels')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function categoriesByLevels($parentIds=[])
+    {
+        $cats = Category::active(1);
+        if(count($parentIds))
+            $cats = $cats->whereIn('parent_id',$parentIds);
+        else
+            $cats = $cats->where('parent_id',null);
+        $cats = $cats->get();
+        return [
+            'cats' => $cats,
+            'ids' => $cats->map(fn($category, $key) => $category->id)
+        ];
+    }
+}
+if (!function_exists('getTestimonials')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getTestimonials()
+    {
+        return Testimonial::active(1)->get();
+    }
+}
+if (!function_exists('getInputTypes')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getInputTypes()
+    {
+        return [
+            'text' => __('base.input.text'),
+            'textarea' => __('base.input.textarea'),
+            'select' => __('base.input.select'),
+            'checkbox' => __('base.input.checkbox'),
+            'radio' => __('base.input.radio'),
+        ];
+    }
+}
+if (!function_exists('getSettings')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getSettings($key,$default='')
+    {
+        $setting = Setting::where('key',$key)->first();
+        return $setting ? $setting->value : $default ;
+    }
+}
 if (!function_exists('ratedBefore')) {
 
     /**
      * @param $query
      * @return string
      */
-    function ratedBefore($user,$ad)
+    function ratedBefore($user,$ratedUserId)
     {
-        return $user?$ad->ratedUsers()->where(['user_id'=>$user->id])->count() > 0 : true;
+        return $user?UserRating::where(['user_id'=>$user->id,'rated_user_id'=>$ratedUserId])->count() > 0 : true;
     }
 }
 

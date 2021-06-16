@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Website\AuthController;
 use App\Http\Controllers\Website\AdvertisementController;
+use App\Http\Controllers\Website\ChatController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Website\DashboardController;
 use App\Http\Controllers\Website\FrontendController;
@@ -53,7 +54,6 @@ Route::middleware('auth:user')->group(function(){
             Route::get('/remove_from_fav/{id}',[AdvertisementController::class,'remove_from_favorites'])->name('remove_from_favorites');
             
             Route::get('/add_comment/{id}',[AdvertisementController::class,'add_comment'])->name('add_comment');
-            Route::get('/add_rating/{id}',[AdvertisementController::class,'add_rating'])->name('add_rating');
         });
         Route::name('dashboard.')->prefix('/dashboard')->group(function(){
             Route::get('/',[DashboardController::class,'all'])->name('all');
@@ -61,9 +61,14 @@ Route::middleware('auth:user')->group(function(){
             Route::get('/ratings',[DashboardController::class,'ratings'])->name('ratings');
             Route::get('/favorites',[DashboardController::class,'favorites'])->name('favorites');
             Route::get('/account',[DashboardController::class,'account'])->name('account');
+            Route::get('/notifications',[DashboardController::class,'notifications'])->name('notifications');
             Route::post('/account',[DashboardController::class,'updateAccount'])->name('updateAccount');
         });
+        Route::name('chat.')->prefix('/chat')->group(function(){
+            Route::get('/single/{id}',[ChatController::class,'single'])->name('single');
+        });
         Route::get('/profile/{id}',[FrontendController::class,'profile'])->name('profile');
+        Route::get('/add_rating/{id}',[FrontendController::class,'add_rating'])->name('add_rating');
         Route::get('/report',[FrontendController::class,'report'])->name('report');
         Route::middleware('report.auth')->group(function(){
             Route::post('/report',[FrontendController::class,'submitReport'])->name('submitReport');

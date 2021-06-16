@@ -103,13 +103,13 @@
                                 <label class="d-block text-bold">{{ __('frontend.ad_edit.contact_method') }}:</label>
                                 <div class="custom-control custom-radio mb-2">
                                     <input type="radio" class="custom-control-input" id="phone-number1" name="contact_method"
-                                        value="show" @if(!$ad->mobile) checked @endif  onchange="check()" />
+                                        value="show" @if($ad->contact_method=="show") checked @endif  onchange="check()" />
                                     <label class="custom-control-label font-size-16" for="phone-number1">
                                         {{ __('frontend.ad_edit.show_your_phone') }}</label>
                                 </div>
                                 <div class="custom-control custom-radio mb-2">
                                     <input type="radio" class="custom-control-input" id="phone-number" name="contact_method"
-                                        value="number" @if(!$ad->mobile) checked @endif onchange="check()"/>
+                                        value="number" @if($ad->contact_method=="number") checked @endif onchange="check()"/>
                                     <label class="custom-control-label font-size-16" for="phone-number">
                                         {{ __('frontend.ad_edit.new_phone') }}</label>
                                 </div>
@@ -124,7 +124,7 @@
                                 <div class="form-group mb-3 col-8 pl-0">
                                     <div class="input-icon">
                                         <input class="form-control text-left placeholder-right" name="mobile"
-                                            value="{{$ad->mobile}}" placeholder="{{ __('frontend.ad_edit.phone') }}" type="tel" />
+                                            value="{{substr($ad->mobile, 3)}}" placeholder="{{ __('frontend.ad_edit.phone') }}" type="tel" />
                                     </div>
                                 </div>
                                 <div class="form-group mb-3 col-4">

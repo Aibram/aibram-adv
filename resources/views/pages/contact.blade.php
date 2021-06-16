@@ -72,16 +72,26 @@
                                 <li>
                                     <span>{{__('frontend.contact.email')}} : </span>
                                     <p>
-                                        <a href=""><span class="__cf_email__">[email&#160;protected]</span></a>
+                                        @foreach (getSettings('emails',['لا يوجد']) as $item)
+                                            <a href="mailto:{{$item}}"><span class="__cf_email__">{{$item}}</span></a>
+                                        @endforeach
                                     </p>
                                 </li>
                                 <li>
                                     <span>{{__('frontend.contact.mobile')}} : </span>
-                                    <p>555 444 66647 & 555 444 66647</p>
+                                    <p>
+                                        @foreach (getSettings('phones',['لا يوجد']) as $item)
+                                            @if ($loop->last)
+                                                {{$item}}
+                                            @else
+                                                {{$item}} &
+                                            @endif
+                                        @endforeach
+                                    </p>
                                 </li>
                                 <li>
                                     <span> {{__('frontend.contact.whatsapp')}} : </span>
-                                    <p>012 345 678 910</p>
+                                    <p>{{getSettings('whatsapp','لا يوجد')}}</p>
                                 </li>
                             </ul>
                         </div>

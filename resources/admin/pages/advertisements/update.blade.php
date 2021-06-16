@@ -7,9 +7,6 @@
     <link href="{{asset('assets/vendors/custom/vendors/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/custom/vendors/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
-
 @endsection
 
 
@@ -112,6 +109,137 @@
                                 </div>
                                 
                             </div>
+                            <div class="my-repeater mb-5">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">{{ __('pages.advertisements.columns.marketing.categorize') }}</label>
+                                    <div class="col-lg-2">
+                                        <div data-repeater-create="" class="btn btn btn-warning log-btn btn-block">
+                                            إضافة
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-last row">
+                                    <div data-repeater-list="marketing" class="col-lg-12">
+                                        @forelse ($data->admarketing as $item)
+                                            <div data-repeater-item class="kt-margin-b-10 mb-4 row">
+                                                <div class="col-md-2">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <input type="number" class="form-control" min="12" max="140"
+                                                                placeholder="{{ __('pages.advertisements.columns.marketing.age_from') }}"
+                                                                name="age_from" value="{{$item->age_from}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <input type="number" class="form-control" min="12" max="140"
+                                                                placeholder="{{ __('pages.advertisements.columns.marketing.age_to') }}"
+                                                                name="age_to" value="{{$item->age_from}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <select class="kt-selectpicker" data-live-search="true" data-width="90%" name="city_id">
+                                                                @foreach(allCountries() as $country)
+                                                                    <optgroup label="{{$country->name}}">
+                                                                        @foreach($country->city()->active(1)->get() as $city)
+                                                                            <option @if($item->city_id == $city->id) selected @endif value="{{$city->id}}">{{$city->name}}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <select class="form-control kt-selectpicker" data-width="90%" name="gender">
+                                                                <option @if($item->gender == 'all') selected @endif value="all">{{__('pages.advertisements.columns.marketing.gender_all')}}</option>
+                                                                @foreach(getGenderTypes() as $value => $gender)
+                                                                    <option @if($item->gender == $value) selected @endif value="{{$value}}">{{$gender}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:;" data-repeater-delete=""
+                                                        class="btn btn btn-danger log-btn btn-block">
+                                                        حذف
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div data-repeater-item class="kt-margin-b-10 mb-4 row">
+                                                <div class="col-md-2">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <input type="number" class="form-control" min="12" max="140"
+                                                                placeholder="{{ __('pages.advertisements.columns.marketing.age_from') }}"
+                                                                name="age_from">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <input type="number" class="form-control" min="12" max="140"
+                                                                placeholder="{{ __('pages.advertisements.columns.marketing.age_to') }}"
+                                                                name="age_to">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <select class="kt-selectpicker" data-live-search="true" data-width="90%" name="city_id">
+                                                                @foreach(allCountries() as $country)
+                                                                    <optgroup label="{{$country->name}}">
+                                                                        @foreach($country->city()->active(1)->get() as $city)
+                                                                            <option value="{{$city->id}}">{{$city->name}}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <select class="form-control kt-selectpicker" data-width="90%" name="gender">
+                                                                <option @if($item->gender == 'all') selected @endif value="all">{{__('pages.advertisements.columns.marketing.gender_all')}}</option>
+                                                                @foreach(getGenderTypes() as $value => $gender)
+                                                                    <option value="{{$value}}">{{$gender}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="javascript:;" data-repeater-delete=""
+                                                        class="btn btn btn-danger log-btn btn-block">
+                                                        حذف
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-form-label col-lg-2 col-sm-12">{{__('pages.columns.status')}}</label>
                                 <input data-switch="true" type="checkbox" name="status" @if($data->status==1) checked @endif data-on-text="{{__('base.activated')}}" data-on-color="success" data-off-color="warning" data-off-text="{{__('base.deactivated')}}">
@@ -142,7 +270,8 @@
 
 @section('scripts')
 
-    <!--begin:: Global Optional Vendors -->
+    @include('admin::CustomFiles.form-repeater')
+<!--begin:: Global Optional Vendors -->
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
     <!--end:: Global Optional Vendors -->
 
@@ -150,4 +279,6 @@
 
 @section('custom_scripts')
     {!! JsValidator::formRequest('App\Http\Requests\Admin\AdvertisementUpdate'); !!}
+    @include('admin::CustomFiles.selectPicker')
+
 @endsection

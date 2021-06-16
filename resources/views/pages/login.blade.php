@@ -82,8 +82,7 @@
                                     {{__('frontend.login.android_ios')}}
                                 </p>
                                 <div class="buttons d-flex justify-content-center mt-3">
-                                    <a href=""><img src="{{asset('frontend/assets/img/google.png')}}" /></a>
-                                    <a href=""><img src="{{asset('frontend/assets/img/apple.png')}}" /></a>
+                                    @include('parts.settings.platforms')
                                 </div>
                             </div>
                         </form>

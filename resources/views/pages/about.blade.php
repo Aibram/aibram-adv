@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('breadcrump')
-    <div class="page-header" style="background: url(assets/img/hero-area.jpg)">
+    <div class="page-header" style="background: url({{asset('frontend/assets/img/hero-area.jpg')}})">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xs-12">
-                    <img class="img-fluid aboutUs-img" src="assets/img/about/about.jpg" alt="" />
+                    <img class="img-fluid aboutUs-img" src="{{asset('frontend/assets/img/about/about.jpg')}}" alt="" />
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="frame">
-                                <img src="assets/img/blog/img-1.jpg" class="img-responsive" />
+                                <img src="{{asset('frontend/assets/img/blog/img-1.jpg')}}" class="img-responsive" />
                             </div>
                             <h4>رؤيتنا</h4>
                             <p>
@@ -75,7 +75,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="frame">
-                                <img src="assets/img/blog/img-2.jpg" class="img-responsive" />
+                                <img src="{{asset('frontend/assets/img/blog/img-2.jpg')}}" class="img-responsive" />
                             </div>
                             <h4>هدفنا</h4>
                             <p>
@@ -89,7 +89,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="frame">
-                                <img src="assets/img/blog/img-3.jpg" class="img-responsive" />
+                                <img src="{{asset('frontend/assets/img/blog/img-3.jpg')}}" class="img-responsive" />
                             </div>
                             <h4>قيمتنا</h4>
                             <p>
@@ -111,7 +111,7 @@
                 <div class="col-md-3 col-sm-6 work-counter-widget">
                     <div class="counter">
                         <div class="icon"><i class="lni-layers"></i></div>
-                        <h2 class="counterUp">8325</h2>
+                        <h2 class="counterUp">{{getSettings('adsCount','100')}}</h2>
                         <p>اعلان</p>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                 <div class="col-md-3 col-sm-6 work-counter-widget">
                     <div class="counter">
                         <div class="icon"><i class="lni-users"></i></div>
-                        <h2 class="counterUp">5487</h2>
+                        <h2 class="counterUp">{{getSettings('usersCount','40')}}</h2>
                         <p>مستخدمين</p>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                 <div class="col-md-3 col-sm-6 work-counter-widget">
                     <div class="counter">
                         <div class="icon"><i class="lni-briefcase"></i></div>
-                        <h2 class="counterUp">25</h2>
+                        <h2 class="counterUp">{{getSettings('categoriesCount','15')}}</h2>
                         <p>صنف</p>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                 <div class="col-md-3 col-sm-6 work-counter-widget">
                     <div class="counter">
                         <div class="icon"><i class="lni-map"></i></div>
-                        <h2 class="counterUp">200</h2>
+                        <h2 class="counterUp">{{getSettings('ratingsCount','12')}}</h2>
                         <p>تقييم ايجابي</p>
                     </div>
                 </div>

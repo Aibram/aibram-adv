@@ -278,7 +278,8 @@ ol li {
 }
 
 .btn-border.category:focus,
-.btn-border.category:hover {
+.btn-border.category:hover,
+.btn-border.category.active {
     background: #0b8451 !important;
     color: white !important;
     border: 0;
@@ -2664,6 +2665,10 @@ button.mfp-close {
 }
 
 .page-sidebar .categories-list li a:hover {
+    color: #0b8451;
+}
+
+.page-sidebar .categories-list li a.active {
     color: #0b8451;
 }
 

@@ -18,22 +18,27 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'سيارات',
                 'desc' => '',
+                'icon' => 'fas fa-bars',
             ],
             [
                 'name' => 'تعليم',
                 'desc' => '',
+                'icon' => 'fas fa-bars',
             ],
             [
                 'name' => 'حاسب محمول',
                 'desc' => '',
+                'icon' => 'fas fa-bars',
             ],
             [
                 'name' => 'موضة',
                 'desc' => '',
+                'icon' => 'fas fa-bars',
             ],
             [
                 'name' => 'وظائف',
                 'desc' => '',
+                'icon' => 'fas fa-bars',
             ],
         ]);
     }

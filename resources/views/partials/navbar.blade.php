@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="notification desktop-hidden">
-            <a href="{{route('frontend.dashboard.all')}}"
+            <a href="{{route('frontend.dashboard.notifications')}}"
               ><div class="icon">
                 <div class="circle">{{auth()->guard('user')->user()->unreadNotifications()->count()}}</div>
                 <i class="fa fa-bell"></i>
@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="notification mobile-hidden ml-3">
-            <a href="{{route('frontend.dashboard.all')}}"
+            <a href="{{route('frontend.dashboard.notifications')}}"
               ><div class="icon">
                 <div class="circle">{{auth()->guard('user')->user()->unreadNotifications()->count()}}</div>
                 <i class="fa fa-bell"></i>

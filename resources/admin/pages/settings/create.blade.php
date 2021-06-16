@@ -50,8 +50,59 @@
                                 <input type="text" class="form-control" value="" name="key" type="text">
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.settings.columns.value')}}</label>
-                                <input type="text" class="form-control" value="" name="value" type="text">
+                                <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.settings.columns.key_explained')}}</label>
+                                <input type="text" class="form-control" value="" name="key_explained" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label col-lg-4 col-sm-12">{{__('pages.settings.columns.default')}}</label>
+                                <input type="text" class="form-control" value="" name="default" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>{{__('pages.settings.columns.type')}}</label>
+                                <select class="form-control kt-selectpicker" id="typeSelect"  name="type">
+                                    @foreach(getInputTypes() as $type => $lang)
+                                        <option value="{{$type}}">{{$lang}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="my-repeater" id="choicesSelect" style="display: none">
+                                <div class="form-group row">
+                                    <div data-repeater-list="choices" class="col-lg-9">
+                                        <div data-repeater-item class="kt-margin-b-10 mb-4 row">
+                                            <div class="col-md-4">
+                                                <div class="kt-form__group--inline">
+                                                    <div class="kt-form__control">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="{{ __('pages.settings.columns.choice_name') }}"
+                                                            name="name">
+                                                    </div>
+                                                </div>
+                                                <div class="d-md-none kt-margin-b-10"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="kt-form__group--inline">
+                                                    <div class="kt-form__control">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="{{ __('pages.settings.columns.choice_value') }}"
+                                                            name="value">
+                                                    </div>
+                                                </div>
+                                                <div class="d-md-none kt-margin-b-10"></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a href="javascript:;" data-repeater-delete=""
+                                                    class="btn btn btn-danger log-btn btn-block">
+                                                    حذف
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div data-repeater-create="" class="btn btn btn-warning log-btn btn-block">
+                                            إضافة
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="kt-portlet__foot">
@@ -70,10 +121,21 @@
 @endsection
 
 @section('scripts')
+    @include('admin::CustomFiles.form-repeater')
 
     <!--begin:: Global Optional Vendors -->
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#typeSelect').on('change', function() {
+            type = $('#typeSelect').val()
+            if(type=="select" || type=="radio"){
+                $('#choicesSelect').show()
+            }
+            else{
+                $('#choicesSelect').hide()
+            }
+        })
+    </script>
     <!--end:: Global Optional Vendors -->
 
 @endsection

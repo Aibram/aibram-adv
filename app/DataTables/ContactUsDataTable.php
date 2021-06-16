@@ -38,7 +38,7 @@ class ContactUsDataTable extends BaseDatatable
             ->editColumn('action',function ($model) {
                 $actions=['view'=>'contactus.show'];
                 if(!$model->contacted){
-                    $actions['edit'] = 'settings.confirm';
+                    $actions['edit'] = 'contactus.confirm';
                 }
                 return (string)view('admin::partials.datatables.actions',
                     [

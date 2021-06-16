@@ -5,11 +5,6 @@ namespace App\DataTables;
 use App\Classes\DatatableAction;
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 
 class CountryDataTable extends BaseDatatable
 {

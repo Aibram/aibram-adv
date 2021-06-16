@@ -17,11 +17,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="breadcrumb-wrapper">
-                        <h2 class="product-title">{{ $ad->category_name }}</h2>
+                        <h2 class="product-title">{{ $ad['category_name'] }}</h2>
                         <ol class="breadcrumb">
                             <li><a href="{{ route('frontend.home') }}">{{ __('frontend.nav.home') }} / </a></li>
                             <li><a href="{{ route('frontend.ads') }}">{{ __('frontend.nav.ads') }} / </a></li>
-                            <li class="current">{{ $ad->category_name }}</li>
+                            <li class="current">{{ $ad['category_name'] }}</li>
                         </ol>
                     </div>
                 </div>
@@ -38,10 +38,10 @@
                 <div class="col-lg-8 col-md-12 col-xs-12">
                     <div class="ads-details-wrapper position-relative">
                         <div id="owl-demo" class="owl-carousel owl-theme">
-                            @foreach ($ad->secondary_photos as $photo)
+                            @foreach ($ad['secondary_photos'] as $photo)
                                 <div class="item">
                                     <a href="{{ $photo }}" class="product-img image-popup-no-margins">
-                                        <img class="img-fluid" id="myImg" src="{{$photo}}" alt="{{ $ad->title }}" />
+                                        <img class="img-fluid" id="myImg" src="{{$photo}}" alt="{{ $ad['title'] }}" />
                                     </a>
                                 </div>
                             @endforeach
@@ -50,27 +50,27 @@
                     <div class="details-box yellow mt-2">
                         <div class="ads-details-info mb-0">
                             <h2 class="text-primary">
-                                {{ $ad->title }}
+                                {{ $ad['title'] }}
                             </h2>
                             <div class="details-meta">
                                 <div class="agent-inner d-flex p-0 justify-content-between align-items-center pb-0 mb-0">
                                     <div class="agent-title w-100 mb-0 p-0">
                                         <ul class="agent-photo">
                                             <li>
-                                                <a href="{{getFullLink(route('frontend.profile',['id'=>$ad->user_id]),['id'=>$ad->id])}}" class="d-flex align-items-center">
-                                                    <img src="{{ $ad->user->photo }}" /><span class="text-blue">
-                                                        {{ $ad->user->name }}</span>
+                                                <a href="{{getFullLink(route('frontend.profile',['id'=>$ad['user_id']]),['id'=>$ad['id']])}}" class="d-flex align-items-center">
+                                                    <img src="{{ $ad['user_photo'] }}" /><span class="text-blue">
+                                                        {{ $ad['user_name'] }}</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <div class="d-flex align-items-center">
-                                                    <i class="fa fa-map-marker"></i><span>{{ $ad->city_name }}</span>
+                                                    <i class="fa fa-map-marker"></i><span>{{ $ad['city_name'] }}</span>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="d-flex align-items-center">
                                                     <i
-                                                        class="fa fa-clock-o"></i><span>{{ $ad->created_at->diffForHumans() }}</span>
+                                                        class="fa fa-clock-o"></i><span>{{ $ad['created_at_human'] }}</span>
                                                 </div>
                                             </li>
                                         </ul>
@@ -78,18 +78,18 @@
                                     <div class="button p-0 d-flex flex-column align-items-end">
                                         <span class="btn-common btn">
                                             <p class="text-white text-bold">
-                                                <i class="fa fa-thumbs-up ml-2"></i> {{ $ad->ratedUsers()->count() }}
+                                                <i class="fa fa-thumbs-up ml-2"></i> {{ $ad['no_ratings']}}
                                                 {{ __('frontend.details.rating') }}
                                             </p>
                                         </span>
-                                        @if(ratedBefore(auth()->guard('user')->user(),$ad))
+                                        @if(auth()->guard('user')->user() && ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
                                             <a class="btn-common btn">
                                                 <p class="text-white text-bold">
                                                     <i class="fa fa-plus ml-2 "></i>
                                                     {{ __('frontend.details.rated_before') }}
                                                 </p>
                                             </a>
-                                        @else
+                                        @elseif(auth()->guard('user')->user() && !ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
                                             <a class="btn-common btn" href="#myModal" data-toggle="modal">
                                                 <p class="text-white text-bold">
                                                     <i class="fa fa-plus ml-2"></i>
@@ -97,7 +97,6 @@
                                                 </p>
                                             </a>
                                         @endif
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -106,11 +105,11 @@
                     <div class="details-box border mt-2">
                         <div class="ads-details-info mb-0">
                             <p class="mb-4">
-                                {{ $ad->desc }}
+                                {{ $ad['desc'] }}
                             </p>
                             <h4 class="title-small mb-3">{{ __('frontend.details.properties') }}:</h4>
                             <ul class="list-specification">
-                                @foreach ($ad->properties as $property)
+                                @foreach ($ad['properties'] as $property)
                                     <li>
                                         <i class="fa fa-check-circle"></i> {{ $property->property }}
                                     </li>
@@ -121,20 +120,20 @@
                     <div class="widget contact p-0">
                         <ul class="ad-contact">
                             <li class="single-contact green">
-                                <a href="{{ toWhatsappGateway($ad->ad_mobile) }}"><i class="fa fa-whatsapp"></i>
+                                <a href="{{ toWhatsappGateway($ad['mobile']) }}"><i class="fa fa-whatsapp"></i>
                                     <p>{{ __('frontend.details.contact_whatsapp') }}</p>
                                 </a>
                             </li>
-                            @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id != $ad->user_id)
+                            @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id != $ad['user_id'])
                                 <li class="single-contact yellow">
-                                    <a href="{{route('frontend.ad.chat',['id'=>$ad->id])}}"><i class="fa fa-comment"></i>
+                                    <a href="{{route('frontend.chat.single',['id'=>$ad['user_id']])}}"><i class="fa fa-comment"></i>
                                         <p>{{ __('frontend.details.contact_website') }}</p>
                                     </a>
                                 </li>
                             @endif
                             <li class="single-contact blue">
-                                <a href="{{ 'tel:' . $ad->ad_mobile }}"><i class="fa fa-phone"></i>
-                                    <p>{{ __('frontend.details.call') }} <span>{{ $ad->ad_mobile }}</span></p>
+                                <a href="{{ 'tel:' . $ad['mobile'] }}"><i class="fa fa-phone"></i>
+                                    <p>{{ __('frontend.details.call') }} <span>{{ $ad['mobile'] }}</span></p>
                                 </a>
                             </li>
                         </ul>
@@ -143,18 +142,22 @@
                         <div class="">
                             <div class="share d-flex justify-content-center flex-wrap">
                                 <a href="javascript:;" class="btn btn-border ml-2" id="share-ext"><i class="fa fa-share-alt ml-2"></i>{{__('frontend.details.share')}}</button>
-                                @if(favoritedBefore(auth()->guard('user')->user(),$ad))
-                                    <a class="btn btn-common text-white ml-2"><i class="fa fa-heart ml-2 color-danger"></i>{{__('frontend.details.favorited_before')}}</a>
-                                @else
-                                    <a class="btn btn-common text-white ml-2" href="{{route('frontend.ad.add_to_fav',['id'=>$ad->id])}}"><i class="fa fa-heart-o ml-2"></i>{{__('frontend.details.add_to_favorite')}}</a>
+                                @if(auth()->guard('user')->user() && $ad['favorited'])
+                                    <a href="javascript:;" class="btn btn-common ml-2 fav-remove" data-id="{{$ad['id']}}" onclick="handleFavorite(this)">
+                                        <i class="fa fa-heart ml-2"></i>{{__('frontend.details.favorited_before')}}
+                                    </a>
+                                @elseif(auth()->guard('user')->user() && !$ad['favorited'])
+                                    <a href="javascript:;" class="btn btn-common ml-2 fav-add" data-id="{{$ad['id']}}" onclick="handleFavorite(this)">
+                                        <i class="fa fa-heart ml-2"></i>{{__('frontend.details.add_to_favorite')}}
+                                    </a>
                                 @endif
-                                <a class="btn btn-warning"  href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad->id])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
-                                @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id ==$ad->user_id)
+                                <a class="btn btn-warning"  href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad['id']])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id ==$ad['user_id'])
                                     <div class="d-flex w-100 mt-4">
-                                        <a href="{{route('frontend.ad.edit',['id'=>$ad->id])}}"
+                                        <a href="{{route('frontend.ad.edit',['id'=>$ad['id']])}}"
                                             class="btn col btn-block btn-common bg-blue text-white mr-0 mr-md-2"><i
                                                 class="fa fa-edit ml-2"></i>{{__('frontend.details.update_ad')}}</a>
-                                        <a class="btn col btn-block btn-danger text-white mr-2 mt-0" href="{{route('frontend.ad.delete',['id'=>$ad->id])}}"><i class="fa fa-trash ml-2"></i>{{__('frontend.details.remove_ad')}}</a>
+                                        <a class="btn col btn-block btn-danger text-white mr-2 mt-0" href="{{route('frontend.ad.delete',['id'=>$ad['id']])}}"><i class="fa fa-trash ml-2"></i>{{__('frontend.details.remove_ad')}}</a>
                                     </div>
                                 @endif
                             </div>
@@ -163,7 +166,7 @@
                     <div class="">
                         <p class="font-size-18 text-center">
                             <strong>{{__('frontend.details.ad_id')}}:</strong>
-                            <a href="#" class="text-primary">#{{$ad->id}}</a>
+                            <a href="#" class="text-primary">#{{$ad['id']}}</a>
                         </p>
                     </div>
 
@@ -171,14 +174,14 @@
                     <div id="comments" class="comment-box">
                         <h3>{{__('frontend.details.comments')}}</h3>
                         <ol class="comments-list">
-                            @foreach ($comments as $comment)
+                            @foreach ($ad['comments'] as $comment)
                                 @include('parts.comment',['comment'=>$comment])                            
                             @endforeach
                         </ol>
                         @if (auth()->guard('user')->user())
-                            <div id="respond" class="mb-5" style="display:{{auth()->guard('user')->user()->id ==$ad->user_id ? 'none':'block'}}">
+                            <div id="respond" class="mb-5" style="display:{{auth()->guard('user')->user()->id ==$ad['user_id'] ? 'none':'block'}}">
                                 <h2 class="respond-title">{{__('frontend.details.your_comment')}}</h2>
-                                <form id="commentForm" action="{{route('frontend.ad.add_comment',['id'=>$ad->id])}}" method="GET">
+                                <form id="commentForm" action="{{route('frontend.ad.add_comment',['id'=>$ad['id']])}}" method="GET">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12col-xs-12">
                                             <input name="parent_id" id="comment_parent_input" type="hidden"/>
@@ -202,7 +205,7 @@
                             <div class="modal-dialog">
                                 <!-- Modal content-->
                                 <div class="modal-content">
-                                    <form id="ratingForm" action="{{route('frontend.ad.add_rating',['id'=>$ad->id])}}" method="GET">
+                                    <form id="ratingForm" action="{{route('frontend.add_rating',['id'=>$ad['user_id']])}}" method="GET">
                                         <div class="modal-header">
                                             <h4 class="modal-title">{{__('frontend.details.add_rating')}}</h4>
                                             <button class="ml-0 mr-auto p-0 bg-transparent btn font-size-18" type="button"
@@ -263,22 +266,22 @@
                         <div class="widget">
                             <h4 class="widget-title">{{__('frontend.details.familiar_ads')}}</h4>
                             <ul class="posts-list">
-                                @foreach (getAds(['category_id'=>$ad->category_id],$ad->id) as $item)
+                                @foreach (getAds(['category_id'=>$ad['category_id']],$ad['id']) as $item)
                                     <li>
                                         <div class="widget-thumb">
-                                            <a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}"><img src="{{$item->photo}}" alt="{{$item->title}}" style="height:80px"/></a>
+                                            <a href="{{$item['detailsUrl']}}"><img src="{{$item['photo']}}" alt="{{$item['title']}}" style="height:80px"/></a>
                                         </div>
                                         <div class="widget-content">
-                                            <h4><a href="{{route('frontend.ad.details',['slug'=>$item->slug])}}">{{$item->title_formatted}}</a></h4>
+                                            <h4><a href="{{$item['detailsUrl']}}">{{$item['title_formatted']}}</a></h4>
                                             <div class="meta-tag">
                                                 <span>
-                                                    <a href="{{getFullLink(route('frontend.profile',['id'=>$ad->user_id]),['id'=>$item->id])}}"><i class="fa fa-user"></i> {{$item->user->name}}</a>
+                                                    <a href="{{$item['profileUrl']}}"><i class="fa fa-user"></i> {{$item['user_name']}}</a>
                                                 </span>
                                                 <span>
-                                                    <a href="{{route('frontend.ads')}}"><i class="fa fa-map-marker fa-map-marker"></i>{{$item->city_name}}</a>
+                                                    <a href="{{$item['searchCityUrl']}}"><i class="fa fa-map-marker fa-map-marker"></i>{{$item['city_name']}}</a>
                                                 </span>
                                                 <span>
-                                                    <a href="{{getFullLink(route('frontend.ads'),['category_id'=>$item->category->category_hierarchy_ids])}}"><i class="fa fa-tag"></i> {{$item->category_name}}</a>
+                                                    <a href="{{$item['searchCategoryUrl']}}"><i class="fa fa-tag"></i> {{$item['category_name']}}</a>
                                                 </span>
                                             </div>
                                         </div>

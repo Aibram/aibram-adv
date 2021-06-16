@@ -10,7 +10,7 @@
 
     <!--end::Base Path -->
     <meta charset="utf-8" />
-    <title>{{config('app.name')}}</title>
+    <title>Admin - {{config('app.name')}}</title>
     <meta name="_token" content="{{ csrf_token() }}" />
     <meta name="description" content="Updates and statistics">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -171,6 +171,7 @@
 <script src="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/custom/js/vendors/sweetalert2.init.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/general/bootstrap-select/dist/js/bootstrap-select.js')}}" type="text/javascript"></script>
+
 
 @yield('scripts')
 @toastr_js

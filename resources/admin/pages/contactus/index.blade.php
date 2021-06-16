@@ -17,7 +17,7 @@
         <div class="kt-container kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    {{__('pages.advertisements.get')}}
+                    {{__('pages.contactus.get')}}
                 </h3>
             </div>
             <div class="kt-subheader__toolbar">
@@ -46,7 +46,7 @@
 											<i class="kt-font-brand flaticon2-line-chart"></i>
 										</span>
                     <h3 class="kt-portlet__head-title">
-                        {{__('pages.advertisements.all')}}
+                        {{__('pages.contactus.all')}}
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">

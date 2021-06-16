@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class BladeServiceProvider extends ServiceProvider
@@ -24,6 +26,6 @@ class BladeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // View::share('settings', Setting::all()->toArray());
     }
 }

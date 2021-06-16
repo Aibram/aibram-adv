@@ -44,6 +44,42 @@ class Advertisement extends BaseModel
         'no_favorites',
     ];
 
+    public function format(){
+        $item = FavoriteItem::where(['advertisement_id'=>$this->id,'user_id'=>optional(auth()->guard('user')->user())->id])->first();
+        $user = $this->user;
+        return [
+            "id" => $this->id,
+            "title" => $this->title,
+            "title_formatted" => $this->title_formatted,
+            "desc" => $this->desc,
+            "avg_rate" => $this->avg_rate,
+            "no_ratings" => $this->no_ratings,
+            "slug" => $this->slug,
+            "user_id" => $this->user_id,
+            "user_name" => $user->name,
+            "user_photo" => $user->photo,
+            "favorited" => auth()->guard('user')->user() && $item,
+            "photo" => $this->photo,
+            "secondary_photos" => $this->secondary_photos,
+            "comments" => AdComment::where(['advertisement_id'=>$this->id,'parent_id'=>null])->get(),
+            "searchCategoryUrl" => getFullLink(route('frontend.ads'),['category_id'=>$this->category_hierarchy_ids]),
+            "searchCityUrl" => getFullLink(route('frontend.ads'),['city_id'=>$this->city_id]),
+            "profileUrl" => getFullLink(route('frontend.profile',['id'=>$this->user_id]),['id'=>$this->id]),
+            "detailsUrl" => route('frontend.ad.details',['slug'=>$this->slug]),
+            "category_id" => $this->category_id,
+            "category_name" => $this->category_name,
+            "category_hierarchy_ids" => $this->category_hierarchy_ids,
+            "city_id" => $this->city_id,
+            "city_name" => $this->city_name,
+            "taglist" => $this->taglist,
+            "properties" => $this->properties,
+            "created_at" => $this->created_at,
+            "created_at_w3c" => $this->created_at->toW3CString(),
+            "created_at_human" => $this->created_at->diffForHumans(),
+            "mobile" => $this->ad_mobile,
+        ];
+    }
+
     public function registerMediaGroups()
     {
         $this->addMediaGroup($this->mainImageCollection)
@@ -100,7 +136,10 @@ class Advertisement extends BaseModel
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
-
+    public function admarketing()
+    {
+        return $this->hasMany(AdMarketing::class, 'advertisement_id', 'id');
+    }
     public function properties()
     {
         return $this->hasMany(AdProperty::class, 'advertisement_id', 'id')->orderBy('created_at','desc');

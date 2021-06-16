@@ -95,6 +95,5 @@
 
 @section('custom_scripts')
     {!! JsValidator::formRequest('App\Http\Requests\Admin\CityCreate'); !!}
-    @include('admin::CustomFiles.selectPicker')
 @endsection
 

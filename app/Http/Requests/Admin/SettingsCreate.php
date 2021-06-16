@@ -25,7 +25,8 @@ class SettingsCreate extends FormRequest
     {
         return [
             'key' => 'required|unique:settings',
-            'value' => ['required'],
+            // 'value' => ['required'],
+            'key_explained' => ['required'],
         ];
     }
 }

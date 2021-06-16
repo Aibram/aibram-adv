@@ -39,10 +39,38 @@
                     <div id="list-view " class="page-content">
                         <div class="row">
                             <h1 class="section-title mx-auto desktop-hidden">
-                                {{ __('frontend.dashboard.chats') }} (0)
+                                {{ __('frontend.dashboard.chats') }} ({{count($chats)}})
                             </h1>
-                            @forelse ([] as $item)
-                                
+                            @forelse ($chats as $item)
+                                <div class="col-12 offers-user-online">
+                                    <a href="{{$item['detailsUrl']}}" class="offerer bordered d-flex align-items-center justify-content-between">
+                                        <div class="right d-flex">
+                                            <div class="figure">
+                                                <img src="{{$item['receiverPhoto']}}" alt="" />
+                                            </div>
+                                            <div class="user-name">
+                                                <h3>{{$item['receiverName']}}</h3>
+                                                @if ($item['lastMessageType'] == "photo")
+                                                    <p class="font-size-14 text-truncate offer-message" style="color: #0b8451;">
+                                                       {{ __('base.photo')}}
+                                                       <i class="fa fa-paperclip"></i>
+                                                    </p>
+                                                @else
+                                                    <p class="font-size-14 text-truncate offer-message">
+                                                        {{$item['lastMessageContent']}}
+                                                    </p>
+                                                @endif
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="left d-flex flex-column align-items-end">
+                                            <span class="badge @if($item['active']=="y") badge-primary @else badge-light @endif py-2 px-2">{{$item['status']}}</span>
+                                            @if($item['unreadCount']>0)
+                                                <div class="circle-primary">{{$item['unreadCount']}}</div>
+                                            @endif
+                                        </div>
+                                    </a>
+                                </div>
                             @empty
                                 <div class="section-btn text-center mt-3 mb-5 no-ads">
                                     {{ __('frontend.dashboard.no_chats') }}

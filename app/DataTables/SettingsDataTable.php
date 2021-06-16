@@ -14,7 +14,7 @@ class SettingsDataTable extends BaseDatatable
     {
         parent::__construct('settingsdatatable-table',[
             'id'           =>  'id',
-            'key'          =>  __('pages.settings.columns.key'),
+            'key_explained'=>  __('pages.settings.columns.key_explained'),
             'value'        =>  __('pages.settings.columns.value'),
             'created_at'   =>  __('pages.columns.created_at'),
         ],new DatatableAction(),'pages.settings.get');

@@ -19,6 +19,23 @@ class ChatList extends BaseModel
         'no_messages',
     ];
 
+    public function format(){
+        $user = auth()->guard('user')->user();
+        $receiver = $user->id == $this->sender_id ? $this->receiver : $this->sender;
+        $lastMessage = optional($this->conversations()->latest()->first());
+        return [
+            "id" => $this->id,
+            "lastMessageContent" => $lastMessage->message_content,
+            "lastMessageType" => $lastMessage->message_type,
+            "receiverName" => $receiver->name,
+            "receiverPhoto" => $receiver->photo,
+            "unreadCount" => $this->conversations()->whereNull("read_at")->count(),
+            "detailsUrl" => route('frontend.chat.single',['id'=>$receiver->id]),
+            "status" => 'متاح',
+            "active" => 'y',
+        ];
+    }
+
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
