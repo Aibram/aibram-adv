@@ -27,7 +27,7 @@ class AdvertisementCreate extends FormRequest
     {
         return [
             'category_id'  =>  'required|exists:categories,id',
-            'subCategory_id'  =>  'required|exists:categories,id',
+            // 'subCategory_id'  =>  'required|exists:categories,id',
             'city_id'  =>  'required|exists:cities,id',
             // 'address'  =>  'required',
             'title'  =>  'required',

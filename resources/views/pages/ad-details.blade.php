@@ -82,20 +82,22 @@
                                                 {{ __('frontend.details.rating') }}
                                             </p>
                                         </span>
-                                        @if(auth()->guard('user')->user() && ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
-                                            <a class="btn-common btn">
-                                                <p class="text-white text-bold">
-                                                    <i class="fa fa-plus ml-2 "></i>
-                                                    {{ __('frontend.details.rated_before') }}
-                                                </p>
-                                            </a>
-                                        @elseif(auth()->guard('user')->user() && !ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
-                                            <a class="btn-common btn" href="#myModal" data-toggle="modal">
-                                                <p class="text-white text-bold">
-                                                    <i class="fa fa-plus ml-2"></i>
-                                                    {{ __('frontend.details.add_rating') }}
-                                                </p>
-                                            </a>
+                                        @if(auth()->guard('user')->user() && auth()->guard('user')->user()->id != $ad['user_id'])
+                                            @if(ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
+                                                <a class="btn-common btn">
+                                                    <p class="text-white text-bold">
+                                                        <i class="fa fa-plus ml-2 "></i>
+                                                        {{ __('frontend.details.rated_before') }}
+                                                    </p>
+                                                </a>
+                                            @else
+                                                <a class="btn-common btn" href="#myModal" data-toggle="modal">
+                                                    <p class="text-white text-bold">
+                                                        <i class="fa fa-plus ml-2"></i>
+                                                        {{ __('frontend.details.add_rating') }}
+                                                    </p>
+                                                </a>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

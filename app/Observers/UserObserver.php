@@ -33,8 +33,12 @@ class UserObserver
     {
         if ($user->isDirty(['city_id'])){
             $city = City::where('id','=',$user->getOriginal('city_id'));
-            $city->decrement('no_users');
-            $city->country()->decrement('no_users');
+            if($city->no_users>0){
+                $city->decrement('no_users');
+            }
+            if($city->country()->no_users>0){
+                $city->country()->decrement('no_users');
+            }
         }
         $user->country_id = $user->city->country->id;
     }

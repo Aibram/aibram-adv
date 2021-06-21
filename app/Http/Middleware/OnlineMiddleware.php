@@ -21,7 +21,7 @@ class OnlineMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (auth()->guard('user')->check()) {
-            $expiresAt = Carbon::now()->addMinutes(1); // keep online for 1 min
+            $expiresAt = Carbon::now()->addMinutes(3); // keep online for 3 min
             Cache::put('user-is-online-' . auth()->guard('user')->user()->id, true, $expiresAt);
         }
         return $next($request);

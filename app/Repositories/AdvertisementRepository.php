@@ -18,7 +18,6 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
     public function createAd($data){
         $data['mobile'] = !empty($data['mobile']) ? $data['ext'].$data['mobile'] : null;
         $data['user_id'] = auth()->guard('user')->user()->id;
-        $data['category_id'] = !empty($data['subCategory_id']) ? $data['subCategory_id'] : $data['category_id'];
         $data['no_properties'] = count($data['properties']);
         $data['address'] = "";
         $ad = $this->create($data);
@@ -55,8 +54,6 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
 
     public function updateAd($id,$data){
         $data['mobile'] = !empty($data['mobile']) && $data['contact_method'] == "number" ? $data['ext'].$data['mobile'] : null;
-        $data['user_id'] = auth()->guard('user')->user()->id;
-        $data['category_id'] = !empty($data['subCategory_id']) ? $data['subCategory_id'] : $data['category_id'];
         $data['no_properties'] = count($data['properties']);
         // dd($data);
         $ids = explode(',',$data['oldphotos']);

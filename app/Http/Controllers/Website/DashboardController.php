@@ -49,7 +49,7 @@ class DashboardController extends Controller
     public function ratings(Request $request)
     {
         
-        $ratings = $this->ratingRepo->getByCondition(['where'=>['user_id'=>$this->me->id],'paginate'=>10,'order'=>['created_at'=>'desc']]);
+        $ratings = $this->ratingRepo->getByCondition(['where'=>['rated_user_id'=>$this->me->id],'paginate'=>10,'order'=>['created_at'=>'desc']]);
         return view('pages.dashboard-ratings',compact('ratings'));
     }
 

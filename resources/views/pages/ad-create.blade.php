@@ -54,27 +54,14 @@
                                 <div class="select">
                                     <select class="form-control" id="cat" name="category_id">
                                         <option selected>{{ __('frontend.ad_create.category') }}*</option>
-                                        @foreach (allCategories() as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4 inputwithicon">
-                                <div class="select">
-                                    <select class="form-control" id="subCat" name="subCategory_id">
-                                        <option selected>{{ __('frontend.ad_create.sub_category') }}*</option>
-                                        @foreach (allCategories(false) as $category)
-                                            <option data-parent="{{ $category->parent->id }}"
-                                                value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
+                                        @include('parts.categories.categories-option-input',['categories'=>categoriesFilter()])
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group mb-4 inputwithicon">
                                 <div class="select">
                                     <select class="form-control" name="city_id">
-                                        <option value="" disabled selected>{{ __('frontend.ad_create.choose_city') }}*</option>
+                                        <option selected>{{ __('frontend.ad_create.choose_city') }}*</option>
                                         @foreach (getCitiesOfYemen() as $city)
                                             <option value="{{ $city->id }}">{{ $city->name }}</option>
                                         @endforeach

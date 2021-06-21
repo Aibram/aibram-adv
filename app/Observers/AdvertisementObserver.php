@@ -50,12 +50,19 @@ class AdvertisementObserver
     public function updating(Advertisement $advertisement)
     {
         if ($advertisement->isDirty(['category_id'])){
-            Category::where('id','=',$advertisement->getOriginal('category_id'))->decrement('no_ads');
+            $category = Category::where('id','=',$advertisement->getOriginal('category_id'));
+            if($category->first()->no_ads>0){
+                $category->decrement('no_ads');
+            }
         }
         if ($advertisement->isDirty(['city_id'])){
             $city = City::where('id','=',$advertisement->getOriginal('city_id'));
-            $city->decrement('no_ads');
-            $city->country()->decrement('no_ads');
+            if($city->first()->no_ads>0){
+                $city->decrement('no_ads');
+            }
+            if($city->first()->country->no_ads>0){
+                $city->country()->decrement('no_ads');
+            }
         }
         
         $advertisement->category_name = $advertisement->category->name;
