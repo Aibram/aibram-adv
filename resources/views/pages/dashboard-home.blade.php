@@ -1,6 +1,14 @@
 @extends('layout.app')
 @section('custom_css')
-
+    <style>
+        .read{
+            background-color:#0b84511f;
+        }
+        .page-item.active .page-link{
+            background-color: #0b8451;
+            border-color: #0b8451
+        }
+    </style>
 @endsection
 @section('breadcrump')
 
@@ -90,6 +98,9 @@
                                     {{ __('frontend.dashboard.no_ads') }}
                                 </div>
                             @endforelse
+                        </div>
+                        <div class="row" style="justify-content: center;">
+                            {{$ads->links()}}
                         </div>
                     </div>
                 </div>

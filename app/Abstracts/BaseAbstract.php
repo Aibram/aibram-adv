@@ -228,6 +228,7 @@ abstract class BaseAbstract implements BaseInterface
         foreach ($columns as $column => $direction) {
             $data = $data->orderBy($column, $direction);
         }
+        $this->model = $data;
         return $data;
     }
 
@@ -269,13 +270,18 @@ abstract class BaseAbstract implements BaseInterface
     public function getByCondition(array $args = [])
     {
         
-        if (!empty(array_get($args, 'where'))) {
+        if (isset($args['where'])) {
             $this->applyConditions($args['where']);
         }
+        if (isset($args['order'])) {
+            $this->orderBy($args['order']);
+        }
         $data = $this->model;
-        if (!empty(array_get($args, 'paginate'))) {
+        
+
+        if (isset($args['paginate'])) {
             $data = $data->paginate($args['paginate']);
-        } elseif (!empty(array_get($args, 'limit'))) {
+        } elseif (isset($args['limit'])) {
             $data = $data->limit($args['limit']);
         } else {
             $data = $data->get();

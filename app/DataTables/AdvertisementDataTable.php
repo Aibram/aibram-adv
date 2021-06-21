@@ -46,6 +46,9 @@ class AdvertisementDataTable extends BaseDatatable
             ->editColumn('mobile',function ($model) {
                 return $model->ad_mobile;
             })
+            ->editColumn('title',function ($model) {
+                return'<a target="_blank" href="'.route('frontend.ad.details',['slug'=>$model->slug]).'">'.$model->title.'</a>';
+            })
             ->editColumn('photo',function ($model) {
                 return '<span class="kt-userpic kt-margin-t-5">
                             <img src="'.$model->photo.'" alt="user">
@@ -59,6 +62,7 @@ class AdvertisementDataTable extends BaseDatatable
                         'model_name'=>$model->getTable(),
                         'viewPrefix' => 'admin.',
                         'actions'=>[
+                            'view'=>'advertisements.show',
                             'edit'=>'advertisements.edit',
                             'delete'=>'advertisements.destroy',
                         ]
@@ -68,11 +72,15 @@ class AdvertisementDataTable extends BaseDatatable
             $this->formatBooleanColumn('status');
             $this->formatBooleanColumn('featured');
             $this->formatBooleanColumn('home');
-        return $this->datatable->rawColumns(['action','status','featured','home','photo']);
+        return $this->datatable->rawColumns(['action','status','title','featured','home','photo']);
     }
 
     public function query(Advertisement $model)
     {
-        return $model->newQuery();
+        $query = $model->newQuery();
+        if($this->user_id){
+            $query = $query->where(['user_id'=>$this->user_id]);
+        }
+        return $query;
     }
 }

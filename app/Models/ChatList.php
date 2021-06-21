@@ -22,23 +22,32 @@ class ChatList extends BaseModel
     public function format(){
         $user = auth()->guard('user')->user();
         $receiver = $user->id == $this->sender_id ? $this->receiver : $this->sender;
-        $lastMessage = optional($this->conversations()->latest()->first());
+        $lastMessage = optional($this->last_message);
+        $isOnline = checkOnline($receiver->id);
         return [
             "id" => $this->id,
             "lastMessageContent" => $lastMessage->message_content,
             "lastMessageType" => $lastMessage->message_type,
+            "lastMessage" => $lastMessage,
             "receiverName" => $receiver->name,
             "receiverPhoto" => $receiver->photo,
             "unreadCount" => $this->conversations()->whereNull("read_at")->count(),
             "detailsUrl" => route('frontend.chat.single',['id'=>$receiver->id]),
-            "status" => 'متاح',
-            "active" => 'y',
+            "receiver" => $receiver,
+            "status" => $isOnline? __('base.user_online') : __('base.user_offline'),
+            "active" => $isOnline? 'y' : 'n',
+            "isOnline" => $isOnline,
         ];
     }
 
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
+    }
+    
+    public function getLastMessageAttribute()
+    {
+        return $this->conversations()->latest()->first();
     }
 
     public function receiver()

@@ -17,6 +17,7 @@ class BaseDatatable extends DataTable
     protected $actionColumn;
     protected $formattedColumns;
     protected $statues;
+    protected $url='';
 
     /**
      * BaseDatatable constructor.
@@ -64,7 +65,7 @@ class BaseDatatable extends DataTable
         return $this->builder()
                     ->setTableId($this->id)
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
+                    ->minifiedAjax($this->url)
                     ->dom('lrtip')
                     ->orderBy(0)
                     ->scrollX(true)

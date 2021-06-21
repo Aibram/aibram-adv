@@ -33,7 +33,7 @@ class ChatlistRepository extends BaseAbstract implements ChatlistRepositoryInter
         ->where(['sender_id'=>$userId])
         ->orWhere(['receiver_id'=>$userId])
         ->where('status',1)
-        ->get();
+        ->paginate(10);
     }
 
     public function firstOrNewChat($user1Id,$user2Id){
@@ -63,6 +63,9 @@ class ChatlistRepository extends BaseAbstract implements ChatlistRepositoryInter
         $photo = $data['message_content'];
         if($data['message_type'] == "photo"){
             $data['message_content'] = '';
+        }
+        if(!$data['advertisement_id']){
+            $data['advertisement_id'] = optional($chatlist->last_message)->advertisement_id;
         }
         $message = $chatlist->conversations()->create($data);
         if($data['message_type'] == "photo"){

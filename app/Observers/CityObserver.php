@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\City;
+use App\Models\Country;
 
 class CityObserver
 {
@@ -14,7 +15,7 @@ class CityObserver
      */
     public function created(City $city)
     {
-        //
+        $city->country()->increment('no_cities');
     }
 
     /**
@@ -23,9 +24,18 @@ class CityObserver
      * @param  \App\Models\City  $city
      * @return void
      */
-    public function updated(City $city)
+    public function updating(City $city)
     {
-        //
+        if ($city->isDirty(['country_id'])){
+            $city->country()->decrement('no_cities');
+        }
+        $city->country_id = $city->city->country->id;
+    }
+
+    public function updated(City $city){
+        if ($city->isDirty(['country_id'])){
+            $city->country()->increment('no_cities');
+        }
     }
 
     /**

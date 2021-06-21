@@ -54,7 +54,7 @@ class UserDataTable extends BaseDatatable
                         'model_name'=>$model->getTable(),
                         'viewPrefix' => 'admin.',
                         'actions'=>[
-                            // 'view'=>'users.show',
+                            'view'=>'users.show',
                             'edit'=>'users.edit',
                             'delete'=>'users.destroy',
                         ]

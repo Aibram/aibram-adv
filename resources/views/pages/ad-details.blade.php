@@ -126,7 +126,7 @@
                             </li>
                             @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id != $ad['user_id'])
                                 <li class="single-contact yellow">
-                                    <a href="{{route('frontend.chat.single',['id'=>$ad['user_id']])}}"><i class="fa fa-comment"></i>
+                                    <a href="{{getFullLink(route('frontend.chat.single',['id'=>$ad['user_id']]),['id'=>$ad['id']])}}"><i class="fa fa-comment"></i>
                                         <p>{{ __('frontend.details.contact_website') }}</p>
                                     </a>
                                 </li>

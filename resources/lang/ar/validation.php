@@ -35,6 +35,7 @@ return [
         'string'  => 'يجب أن يكون عدد حروف النّص :attribute بين :min و :max.',
     ],
     'boolean'              => 'يجب أن تكون قيمة :attribute إما true أو false .',
+    'badWord'              => 'هذا الحقل يحتوى على كلمة غير لائقة وهى :word',
     'confirmed'            => 'حقل التأكيد غير مُطابق للحقل :attribute.',
     'date'                 => ':attribute ليس تاريخًا صحيحًا.',
     'date_equals'          => 'يجب أن يكون :attribute مطابقاً للتاريخ :date.',

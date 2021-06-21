@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\UserRating;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-
+use Illuminate\Support\Facades\Cache;
 
 if (!function_exists('isJson')) {
 
@@ -307,6 +307,13 @@ if (!function_exists('getGenderTypes')) {
             'm' => __('pages.users.male'),
             'f' => __('pages.users.female')
         ];
+    }
+}
+if (!function_exists('checkOnline')) {
+
+    function checkOnline($id)
+    {
+        return Cache::has('user-is-online-' . $id);
     }
 }
 

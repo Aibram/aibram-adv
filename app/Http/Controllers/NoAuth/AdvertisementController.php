@@ -40,7 +40,10 @@ class AdvertisementController extends BaseController
             return APIResponse::sendResponse(__('base.error.already_favorite'),__('base.error.already_favorite'),401);
         }
         
-        $this->favRepo->create($request->only(['user_id','advertisement_id']));
+        $fav = $this->favRepo->create($request->only(['user_id','advertisement_id']));
+        $fav->advertisement()->increment('no_favorites');
+        $fav->user()->decrement('no_favorites');
+
         return APIResponse::sendResponse($this->getMsg(),[
             'message' => __('frontend.details.favorited_before')
         ]);
@@ -53,6 +56,8 @@ class AdvertisementController extends BaseController
             return APIResponse::sendResponse(__('base.error.no_favorite_found'),__('base.error.no_favorite_found'),401);
         }
         $this->favRepo->deleteById($favItem->id);
+        $favItem->advertisement()->decrement('no_favorites');
+        $favItem->user()->decrement('no_favorites');
         return APIResponse::sendResponse($this->getMsg(),[
             'message' => __('frontend.details.add_to_favorite')
         ]);

@@ -74,6 +74,11 @@ class User extends Authenticatable
         $token = $this->tokens()->where('type','firebase')->first();
         return $token ? $token->token : '';
     }
+
+    public function getAvgRateDerivedAttribute(){
+        return $this->myRatings()->avg('stars');
+    }
+
     
     public function userComments(){
         return $this
@@ -109,6 +114,16 @@ class User extends Authenticatable
     public function receivedMessages()
     {
         return $this->hasMany(ChatConversation::class, 'receiver_id', 'id');
+    }
+
+    public function myRatings()
+    {
+        return $this->hasMany(UserRating::class, 'rated_user_id', 'id');
+    }
+
+    public function givenRatings()
+    {
+        return $this->hasMany(UserRating::class, 'user_id', 'id');
     }
     public function advsFavoriteList(){
         return $this

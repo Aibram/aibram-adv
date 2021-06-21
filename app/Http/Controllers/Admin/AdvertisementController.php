@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\AdPropertyDataTable;
+use App\DataTables\AdStatusDataTable;
 use App\DataTables\AdvertisementDataTable;
 use App\Http\Requests\Admin\AdvertisementCreate;
 use App\Http\Requests\Admin\AdvertisementUpdate;
 use App\Interfaces\AdvertisementRepositoryInterface;
+use Illuminate\Http\Request;
 
 class AdvertisementController extends BaseController
 {
@@ -24,5 +27,15 @@ class AdvertisementController extends BaseController
         $data = $request->all();
         $this->repository->updateAdmin($id,$data);
         return redirect()->route($this->route.'.index');
+    }
+
+    public function getAdProperties($id,AdPropertyDataTable $propertiesDataTable)
+    {
+        return $propertiesDataTable->with(['advertisement_id'=>$id])->render($this->fullView.'.view');
+    }
+
+    public function getAdStatuses($id,AdStatusDataTable $statusDataTable)
+    {
+        return $statusDataTable->with(['advertisement_id'=>$id])->render($this->fullView.'.view');
     }
 }

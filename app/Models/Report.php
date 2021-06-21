@@ -15,4 +15,9 @@ class Report extends BaseModel
     {
         return $this->morphTo();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }

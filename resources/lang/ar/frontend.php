@@ -12,6 +12,7 @@ return [
         'post_ad' => 'انشر إعلانا',
         'login' => 'تسجيل الدخول',
         'register' => 'حساب جديد',
+        'chat' => 'محادثة',
     ],
     'footer' => [
         'city' => 'المدينة',
@@ -98,6 +99,10 @@ return [
         'search_anything' => 'ابحث عن اى شئ',
         'categories' => 'التصنفيات',
         'no_ads_found' => 'عفوا لم يتم ايجاد اى اعلان',
+    ],
+    'chat' => [
+        'chat_with' => 'محادثة مع',
+        'for_ad' => 'خاص بالاعلان',
     ],
     'ad_create' => [
         'create_ad' => 'إنشاء اعلان',

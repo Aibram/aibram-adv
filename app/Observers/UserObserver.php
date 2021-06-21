@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\City;
 use App\Models\User;
 
 class UserObserver
@@ -16,6 +17,9 @@ class UserObserver
     {
         $country = $user->city->country;
         $user->country_id = $country->id;
+        $user->country()->increment('no_users');
+        $user->city()->increment('no_users');
+
         // $user->ext = $country->ext;
     }
 
@@ -27,7 +31,19 @@ class UserObserver
      */
     public function updating(User $user)
     {
+        if ($user->isDirty(['city_id'])){
+            $city = City::where('id','=',$user->getOriginal('city_id'));
+            $city->decrement('no_users');
+            $city->country()->decrement('no_users');
+        }
         $user->country_id = $user->city->country->id;
+    }
+
+    public function updated(User $advertisement){
+        if ($advertisement->isDirty(['city_id'])){
+            $advertisement->city()->increment('no_users');
+            $advertisement->country()->increment('no_users');
+        }
     }
 
     /**

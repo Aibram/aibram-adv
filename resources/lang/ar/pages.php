@@ -30,20 +30,37 @@ return [
         'update' => 'تعديل مدينة',
         'get' => 'المدن',
         'all' => 'كل المدن',
-
     ],
-    'advertsimenets' => [
+    'ad_reports' => [
         'columns' => [
-            'name' => 'الإسم',
-            'country' => 'البلد',
-            'no_ads' => 'عدد الاعلانات',
-            'no_users' => 'عدد المستخدمين',
+            'user_id' => 'اسم المبلغ',
+            'user_quote' => 'المخالفة',
+            'advertisement' => 'الاعلان',
+            'notify_user' => 'تنبيه المستخدم برسالة',
         ],
-        'new' => 'إضافة إعلان جديد',
-        'update' => 'تعديل إعلان',
-        'get' => 'الإعلانات',
-        'all' => 'كل الإعلانات',
-
+        'update' => 'مراجعة البلاغ على الاعلان',
+        'get' => 'مخالفات الاعلانات',
+        'all' => 'كل مخالفات الاعلانات',
+    ],
+    'comment_reports' => [
+        'columns' => [
+            'user_id' => 'اسم المبلغ',
+            'user_quote' => 'المخالفة',
+            'reported_comment' => 'التعليق المخالف',
+            'advertisement' => 'الاعلان',
+            'notify_user' => 'تنبيه المستخدم برسالة',
+        ],
+        'update' => 'مراجعة البلاغ على التعليق',
+        'get' => 'مخالفات التعلبقات',
+        'all' => 'كل مخالفات التعليقات',
+    ],
+    'prohibited_words' => [
+        'columns' => [
+            'words' => 'الكلمات',
+        ],
+        'get' => 'الكلمات المكروهة',
+        'all' => 'الكلمات المكروهة',
+        'more' => 'المزيد',
     ],
     'countries' => [
         'columns' => [
@@ -98,6 +115,7 @@ return [
             'mobile' => 'رقم الجوال',
             'ext' => 'رقم البلد',
             'country' => 'البلد',
+            'name' => 'الاسم',
             'city_country_name' => 'البلد والمدينة',
             'city' => 'المدينة',
             'gender' => 'النوع',
@@ -116,6 +134,29 @@ return [
         'choose_photo' => 'اختر الصورة',
         'update_photo' => 'تعديل الصورة',
         'remove_photo' => 'حذف الصورة',
+        'favorites' => [
+            'ad' => 'الاعلان',
+            'all' => 'مفضلاتى',
+        ],
+        'ratings' => [
+            'all' => 'المقييمين',
+            'user_id' => 'المستخدم',
+            'stars' => 'النجوم',
+            'comment' => 'التعليق',
+        ],
+        'my_ratings' => [
+            'all' => 'تقييماتى',
+            'user_id' => 'المستخدم',
+            'stars' => 'النجوم',
+            'comment' => 'التعليق',
+        ],
+        'advertisements' => [
+            'all' => 'اعلاناتى',
+            'id' => 'الاعلان',
+            'title' => 'العنوان',
+            'category_id' => 'الفئة',
+            'city_id' => 'المدينة',
+        ],
     ],
     'advertisements' => [
         'columns' => [
@@ -146,11 +187,14 @@ return [
         'no_photos' => 'لا يوجد صور',
         'new' => 'إضافة اعلان جديد',
         'update' => 'تعديل اعلان',
+        'view' => 'مشاهدة اعلان',
         'get' => 'الاعلانات',
         'all' => 'كل الاعلانات',
         'choose_photo' => 'اختر الصورة',
         'update_photo' => 'تعديل الصورة',
         'remove_photo' => 'حذف الصورة',
+        'properties' => 'الخصائص',
+        'statuses' => 'الحالات',
     ],
     'settings' => [
         'columns' => [

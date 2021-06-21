@@ -27,4 +27,9 @@ class UserRating extends BaseModel
     {
         return $this->belongsTo(User::class,'rated_user_id','id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }

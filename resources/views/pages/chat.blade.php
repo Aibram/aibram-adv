@@ -1,7 +1,13 @@
 @extends('layout.app')
 @section('custom_css')
     <link href="{{ asset('assets/bootstrap-taginput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css" />
-
+    <style>
+        .related_ad{
+            max-width: 100%!important;
+            background: #0b8451!important;
+            border-radius: 0!important;
+        }
+    </style>
 @endsection
 @section('breadcrump')
     <div class="page-header mobile-hidden" style="background: url({{asset('frontend/assets/img/hero-area.jpg')}})">
@@ -10,11 +16,11 @@
                 <div class="col-md-12">
                     <div class="breadcrumb-wrapper">
                         <h2 class="product-title">
-                            محادثة مع <span class="text-primary">{{$chat->sender_id==auth()->guard('user')->user()->id ? $chat->receiver->name : $chat->sender->name}}</span>
+                            {{ __('frontend.chat.chat_with') }} <span class="text-primary">{{$chat['receiver']->name}}</span>
                         </h2>
                         <ol class="breadcrumb">
-                            <li><a href="#">/الرئيسية</a></li>
-                            <li class="current">محادثة</li>
+                            <li><a href="{{ route('frontend.home') }}">{{ __('frontend.nav.home') }}/</a></li>
+                            <li class="current">{{ __('frontend.nav.chat') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -34,15 +40,20 @@
                             <div class="card chat-box rounded p-0 box-shadow-none">
                                 <div class="card-header fa-ch p-0 bg-transparent offers-user-online">
                                     <div class="offerer py-2 d-flex">
-                                        <div class="figure">
-                                            <img src="{{$chat->sender_id==auth()->guard('user')->user()->id ? $chat->receiver->photo : $chat->sender->photo}}" alt="" />
-                                            <span class="bolticon"></span>
+                                        <div class="figure" @if(!$chat['isOnline']) style="border:none" @endif>
+                                            <img src="{{$chat['receiver']->photo}}" alt="" />
+                                            @if($chat['isOnline'])<span class="bolticon"></span> @endif
                                         </div>
 
                                         <div class="user-name">
-                                            <h3>{{$chat->sender_id==auth()->guard('user')->user()->id ? $chat->receiver->name : $chat->sender->name}}</h3>
-                                            <h4><a href="#">متاح</a></h4>
+                                            <h3>{{$chat['receiver']->name}}</h3>
+                                            <h4><a href="#">{{$chat['status']}}</a></h4>
                                         </div>
+                                        @if($chat['lastMessage'] && $chat['lastMessage']->advertisement && $advertisement && $chat['lastMessage']->advertisement_id != $advertisement['id'])
+                                            <div class="balon1 mr-auto">
+                                                <a target="blank" href="$advertisement['detailsUrl']" class="related_ad" style="color: white!important;">{{__('frontend.chat.for_ad')}} {{$advertisement['title_formatted']}}</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -90,11 +101,12 @@
             message_content : '',
             page : 1,
             message_type : "text",
+            advertisement_id: {{request()->query('id','null')}},
             sender_id : "{{auth()->guard('user')->user()->id}}",
-            receiver_id : "{{$chat->sender_id==auth()->guard('user')->user()->id ? $chat->receiver_id : $chat->sender_id}}"
+            receiver_id : "{{$chat['receiver']->id}}"
         };
         function getMessages(scroll=true) {
-            sendAjaxReq(params, "POST", "{{route('getMessages',['id'=>$chat->id])}}", function(data) {
+            sendAjaxReq(params, "POST", "{{route('getMessages',['id'=>$chat['id']])}}", function(data) {
                 $('#sohbet').prepend(data.messageView);
                 if(scroll){
                     $("#sohbet").animate({
@@ -110,7 +122,7 @@
             },false)
         }
         function sendMessage(params){
-            sendAjaxReq(params, "POST", "{{route('sendMessage',['id'=>$chat->id])}}", function(data) {
+            sendAjaxReq(params, "POST", "{{route('sendMessage',['id'=>$chat['id']])}}", function(data) {
                 $('#sohbet').append(data.messageView);
                 $("#sohbet").animate({
                         scrollTop: $('#sohbet')[0].scrollHeight - $('#sohbet')[0].clientHeight + 300

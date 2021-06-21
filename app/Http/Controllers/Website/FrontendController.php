@@ -49,6 +49,8 @@ class FrontendController extends Controller
         $data['rated_user_id'] = $id;
         $data['user_id'] = auth()->guard()->user()->id;
         $rating = $this->ratingRepo->create($data);
+        $rating->ratedUser()->increment('no_ratings');
+        $rating->ratedUser()->update(['avg_rate'=>$rating->ratedUser->avg_rate_derived]);
         NotificationInitator::init($rating,'rating',__('notifications.rating_add_from',['name' => $user->name]),auth()->guard('user')->user(),RatingAddFrom::class);
         NotificationInitator::init($rating,'rating',__('notifications.rating_add_to',['name' => auth()->guard('user')->user()->name]),$user,RatingAddTo::class);
         toastr()->success(__('base.success.created'), __('base.success.done'));

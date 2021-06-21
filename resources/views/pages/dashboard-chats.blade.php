@@ -1,6 +1,14 @@
 @extends('layout.app')
 @section('custom_css')
-
+    <style>
+        .read{
+            background-color:#0b84511f;
+        }
+        .page-item.active .page-link{
+            background-color: #0b8451;
+            border-color: #0b8451
+        }
+    </style>
 @endsection
 @section('breadcrump')
 
@@ -41,7 +49,7 @@
                             <h1 class="section-title mx-auto desktop-hidden">
                                 {{ __('frontend.dashboard.chats') }} ({{count($chats)}})
                             </h1>
-                            @forelse ($chats as $item)
+                            @forelse (collect($chats->items())->map->format() as $item)
                                 <div class="col-12 offers-user-online">
                                     <a href="{{$item['detailsUrl']}}" class="offerer bordered d-flex align-items-center justify-content-between">
                                         <div class="right d-flex">
@@ -76,6 +84,9 @@
                                     {{ __('frontend.dashboard.no_chats') }}
                                 </div>
                             @endforelse
+                        </div>
+                        <div class="row" style="justify-content: center;">
+                            {{$chats->links()}}
                         </div>
                     </div>
                 </div>

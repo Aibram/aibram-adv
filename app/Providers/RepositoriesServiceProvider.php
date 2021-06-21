@@ -12,6 +12,7 @@ use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\ContactUsRepositoryInterface;
 use App\Interfaces\CountryRepositoryInterface;
 use App\Interfaces\FavoriteRepositoryInterface;
+use App\Interfaces\ProhibitedWordRepositoryInterface;
 use App\Interfaces\RatingRepositoryInterface;
 use App\Interfaces\ReportRepositoryInterface;
 use App\Interfaces\SettingsRepositoryInterface;
@@ -27,6 +28,7 @@ use App\Repositories\CommentRepository;
 use App\Repositories\ContactUsRepository;
 use App\Repositories\CountryRepository;
 use App\Repositories\FavoriteRepository;
+use App\Repositories\ProhibitedWordRepository;
 use App\Repositories\RatingRepository;
 use App\Repositories\ReportRepository;
 use App\Repositories\SettingsRepository;
@@ -68,5 +70,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(ReportRepositoryInterface::class,ReportRepository::class);
         $this->app->bind(TestimonialRepositoryInterface::class,TestimonialRepository::class);
         $this->app->bind(ChatlistRepositoryInterface::class,ChatlistRepository::class);
+        $this->app->bind(ProhibitedWordRepositoryInterface::class,ProhibitedWordRepository::class);
+        
     }
 }

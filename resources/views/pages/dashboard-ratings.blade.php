@@ -1,6 +1,14 @@
 @extends('layout.app')
 @section('custom_css')
-
+    <style>
+        .read{
+            background-color:#0b84511f;
+        }
+        .page-item.active .page-link{
+            background-color: #0b8451;
+            border-color: #0b8451
+        }
+    </style>
 @endsection
 @section('breadcrump')
 
@@ -77,6 +85,9 @@
 
                                 </div>
                             </div>
+                        </div>
+                        <div class="row" style="justify-content: center;">
+                            {{$ratings->links()}}
                         </div>
                     </div>
                 </div>

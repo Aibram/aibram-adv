@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProhibitedWords extends BaseModel
 {
-    use SoftDeletes,HasFactory;
+    use HasFactory;
 
     public $fillable = [
         'word',

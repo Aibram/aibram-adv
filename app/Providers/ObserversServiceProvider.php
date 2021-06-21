@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\AdComment;
 use App\Models\Advertisement;
 use App\Models\Category;
+use App\Models\ChatList;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\FavoriteItem;
@@ -14,6 +15,7 @@ use App\Models\UserRating;
 use App\Models\UserVisit;
 use App\Observers\AdvertisementObserver;
 use App\Observers\CategoryObserver;
+use App\Observers\ChatlistObserver;
 use App\Observers\CityObserver;
 use App\Observers\CommentObserver;
 use App\Observers\CountryObserver;
@@ -53,6 +55,6 @@ class ObserversServiceProvider extends ServiceProvider
         UserRating::observe(RatingObserver::class);
         Report::observe(ReportObserver::class);
         AdComment::observe(CommentObserver::class);
-
+        ChatList::observe(ChatlistObserver::class);
     }
 }

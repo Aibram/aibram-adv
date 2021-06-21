@@ -35,27 +35,27 @@ class DashboardController extends Controller
 
     public function all(Request $request)
     {
-        $ads = $this->adRepo->allBy(['user_id'=>$this->me->id,'status'=>1],[],['*'],['created_at'=>'desc']);
+        $ads = $this->adRepo->getByCondition(['where'=>['user_id'=>$this->me->id,'status'=>1],'paginate'=>10,'order'=>['created_at'=>'desc']]);
+
         return view('pages.dashboard-home',compact('ads'));
     }
 
     public function chats(Request $request)
     {
         $chats = $this->chatlistRepo->getAllChatlistPerUser(auth()->guard('user')->user()->id);
-        $chats = $chats->map->format();
         return view('pages.dashboard-chats',compact('chats'));
     }
 
     public function ratings(Request $request)
     {
-        $ratings = $this->ratingRepo->allBy(['user_id'=>$this->me->id],[],['*'],['created_at'=>'desc']);
+        
+        $ratings = $this->ratingRepo->getByCondition(['where'=>['user_id'=>$this->me->id],'paginate'=>10,'order'=>['created_at'=>'desc']]);
         return view('pages.dashboard-ratings',compact('ratings'));
     }
 
     public function notifications(Request $request)
     {
-
-        $notifications = $this->me->notifications;
+        $notifications = $this->me->notifications()->paginate(10);
         $notifications->map(function($n) {
             if(!$n->read_at){
                 $n->markAsRead();
@@ -66,7 +66,7 @@ class DashboardController extends Controller
 
     public function favorites(Request $request)
     {
-        $favorites = $this->favoriteRepo->allBy(['user_id'=>$this->me->id],[],['*'],['created_at'=>'desc']);
+        $favorites = $this->favoriteRepo->getByCondition(['where'=>['user_id'=>$this->me->id],'paginate'=>10,'order'=>['created_at'=>'desc']]);
         return view('pages.dashboard-favorites',compact('favorites'));
     }
 

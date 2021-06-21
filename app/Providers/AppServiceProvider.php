@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Intervention\Image\Image;
 use Optix\Media\Facades\Conversion;
+use Illuminate\Pagination\Paginator;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,5 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Conversion::register('user_thumb', function (Image $image) {
             return $image->fit(150, 150);
         });
+
+        Paginator::useBootstrap();
     }
 }

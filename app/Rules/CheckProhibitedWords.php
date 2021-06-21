@@ -43,8 +43,8 @@ class CheckProhibitedWords implements Rule
 
     private function noWordsMatched($desc){
         foreach($this->words as $word){
-            if (str_contains($desc, $word)) {
-                return $word;
+            if (str_contains($desc, $word['word'])) {
+                return $word['word'];
             }
         }
         return "";

@@ -22,7 +22,7 @@ class BaseController extends Controller
                 $redirectTo = '/admin',
                 $guard = "admin",
                 $fullView;
-    public function __construct(BaseInterface $repository,String $datatable)
+    public function __construct(BaseInterface $repository,$datatable)
     {
         $this->repository = $repository;
         $this->datatable = $datatable;
