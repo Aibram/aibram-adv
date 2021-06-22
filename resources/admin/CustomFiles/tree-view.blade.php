@@ -186,7 +186,7 @@
                     console.log("dsfsdf");
                     setFormWithData('.item-menu',data);
                     unblockPage(false)
-                })
+                },false)
             }
         );
         $("#btnUpdate").click(function(){

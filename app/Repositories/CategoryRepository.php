@@ -53,6 +53,7 @@ class CategoryRepository extends BaseAbstract implements CategoryRepositoryInter
             $data['parent_id'] =null;
         }
         $data['parent_id'] = $data['parent_id'] == 'null' ? null : $data['parent_id'];
+        $data['status'] = 1;
         $data['desc'] = !empty($data['desc']) ? $data['desc'] : '';
         $data['icon'] = !empty($data['icon']) ? $data['icon'] : 'fas fa-bars';
         return $this->create($data);

@@ -71,7 +71,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.chats')}}" class="btn btn-border category d-flex">
             <div class="icon ml-2 position-relative">
-                <div class="circle">3</div>
+                {{-- <div class="circle">3</div> --}}
                 <i class="fa fa-comment"></i>
             </div>
             {{__('frontend.dashboard.mychats')}}
@@ -80,7 +80,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.ratings')}}" class="btn btn-border category d-flex">
             <div class="icon ml-2 position-relative">
-                <div class="circle">3</div>
+                {{-- <div class="circle">3</div> --}}
                 <i class="fa fa-thumbs-up"></i>
             </div>
             {{__('frontend.dashboard.myratings')}}

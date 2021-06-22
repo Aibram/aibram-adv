@@ -54,7 +54,7 @@
                                 <div class="select">
                                     <select class="form-control" id="cat" name="category_id">
                                         <option selected>{{ __('frontend.ad_create.category') }}*</option>
-                                        @include('parts.categories.categories-option-input',['categories'=>categoriesFilter()])
+                                        @include('parts.categories.categories-option-input',['categories'=>categoriesFilter(),'level'=>1])
                                     </select>
                                 </div>
                             </div>

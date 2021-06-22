@@ -31,7 +31,7 @@
               <a class="dropdown-item text-bold" href="{{route('frontend.dashboard.all')}}"
                 >{{__('frontend.nav.dashboard')}}</a
               >
-              <a class="dropdown-item color-danger" href="{{route('frontend.login')}}"
+              <a class="dropdown-item color-danger" href="{{route('frontend.logout')}}"
                 >{{__('frontend.nav.logout')}}</a
               >
             </div>
