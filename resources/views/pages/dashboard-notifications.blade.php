@@ -55,7 +55,7 @@
                                         <div class="item">
                                             <div class="testimonial-item">
                                                 <div class="content @if($item->read_at) read @endif" style="min-width: 680px">
-                                                    <p class="description">{{ $item->data['notification_title'] }}</p>
+                                                    @include('parts.notifications.single',['item'=>$item])
                                                 </div>
                                             </div>
                                         </div>

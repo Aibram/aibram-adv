@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Events\Admin\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\ChangePasswordRequest;
 use App\Http\Requests\Website\CheckCodeRequest;
@@ -61,7 +62,7 @@ class AuthController extends Controller
         if(Auth::guard('user')->attempt($credentials,$request->filled('remember'))){
             return redirect()->route('frontend.home');
         }
-        toastr()->error(__('base.error.notLoggedInDesc'), __('base.error.notLoggedIn'));
+        toastr()->error(__('base.error.notLoggedInDescUser'), __('base.error.notLoggedIn'));
         return back();
     }
 

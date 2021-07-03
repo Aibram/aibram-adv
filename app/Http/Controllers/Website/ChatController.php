@@ -25,8 +25,8 @@ class ChatController extends Controller
         $user2 = $id;
         $chat = $this->repository->firstOrNewChat($user1,$user2)->format();
         $advertisement = null;
-        if($request->id){
-            $advertisement = $this->adRepo->findById($request->id)->format();
+        if($request->query('id')){
+            $advertisement = $this->adRepo->findById($request->query('id'))->format();
         }
         return view('pages.chat',compact('chat','advertisement'));
     }

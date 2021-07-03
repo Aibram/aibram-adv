@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Abstracts\BaseAbstract;
+use App\Events\Admin\UserRegistered;
 use App\Exceptions\AuthenticationException;
 use App\Facades\CodeSender;
 use App\Facades\RandomCode;
@@ -45,6 +46,7 @@ class UserRepository extends BaseAbstract implements UserRepositoryInterface
         $model = $this->create($data);
         $codeResp = $this->sendCode($model, $data);
         $this->CheckSingleMediaAndAssign($data, $model, 'photo', $this->model->mainImageCollection);
+        event(new UserRegistered($model,__('notifications.admin.new_user_register')));
         return [
             'user' => $model,
             'code' => $codeResp['code'],

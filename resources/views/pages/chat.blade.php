@@ -119,7 +119,7 @@
                 else{
                     params.page = -1;
                 }
-            },false)
+            },false,true)
         }
         function sendMessage(params){
             sendAjaxReq(params, "POST", "{{route('sendMessage',['id'=>$chat['id']])}}", function(data) {
@@ -127,7 +127,7 @@
                 $("#sohbet").animate({
                         scrollTop: $('#sohbet')[0].scrollHeight - $('#sohbet')[0].clientHeight + 300
                 }, 1000);
-            },false)
+            },false,true)
         }
         function sendMessageViaText(params){
             params.message_content = $('#message_content').val()
@@ -166,4 +166,5 @@
         
     }());
 </script>
+@include('vendor.chat-pusher')
 @endsection

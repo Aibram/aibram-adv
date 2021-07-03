@@ -12,7 +12,7 @@ class NotificationInitator
         $this->send($title,$user);
     }
     public function save($model,$type,$title,$user,$class) {
-        $notificationArray = $model->toArray();
+        $notificationArray = $model;
         $notificationArray['notification_title'] = $title;
         $notificationArray['notification_type'] = $type;
         Notification::send($user, new $class($notificationArray));

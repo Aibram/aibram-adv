@@ -76,13 +76,19 @@
                                         </ul>
                                     </div>
                                     <div class="button p-0 d-flex flex-column align-items-end">
-                                        <span class="btn-common btn">
+                                        <span class="mt-2 btn-common btn">
                                             <p class="text-white text-bold">
                                                 <i class="fa fa-thumbs-up ml-2"></i> {{ $ad['no_ratings']}}
                                                 {{ __('frontend.details.rating') }}
                                             </p>
                                         </span>
-                                        @if(auth()->guard('user')->user() && auth()->guard('user')->user()->id != $ad['user_id'])
+                                        <span class="mt-2 btn-common btn">
+                                            <p class="text-white text-bold">
+                                                <i class="fa fa-heart ml-2"></i> {{ $ad['no_favorites']}}
+                                                {{ __('frontend.details.favorites') }}
+                                            </p>
+                                        </span>
+                                        @if(checkLoggedIn('user') && auth()->guard('user')->user()->id != $ad['user_id'])
                                             @if(ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
                                                 <a class="btn-common btn">
                                                     <p class="text-white text-bold">
@@ -98,6 +104,13 @@
                                                     </p>
                                                 </a>
                                             @endif
+                                        @elseif(!checkLoggedIn('user'))
+                                            <a class="btn-common btn" href="#loginModal" data-toggle="modal">
+                                                <p class="text-white text-bold">
+                                                    <i class="fa fa-plus ml-2"></i>
+                                                    {{ __('frontend.details.add_rating') }}
+                                                </p>
+                                            </a>
                                         @endif
                                     </div>
                                 </div>
@@ -126,9 +139,15 @@
                                     <p>{{ __('frontend.details.contact_whatsapp') }}</p>
                                 </a>
                             </li>
-                            @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id != $ad['user_id'])
+                            @if (checkLoggedIn('user') && auth()->guard('user')->user()->id != $ad['user_id'])
                                 <li class="single-contact yellow">
                                     <a href="{{getFullLink(route('frontend.chat.single',['id'=>$ad['user_id']]),['id'=>$ad['id']])}}"><i class="fa fa-comment"></i>
+                                        <p>{{ __('frontend.details.contact_website') }}</p>
+                                    </a>
+                                </li>
+                            @elseif(!checkLoggedIn('user'))
+                                <li class="single-contact yellow">
+                                    <a href="#loginModal" data-toggle="modal"><i class="fa fa-comment"></i>
                                         <p>{{ __('frontend.details.contact_website') }}</p>
                                     </a>
                                 </li>
@@ -144,16 +163,24 @@
                         <div class="">
                             <div class="share d-flex justify-content-center flex-wrap">
                                 <a href="javascript:;" class="btn btn-border ml-2" id="share-ext"><i class="fa fa-share-alt ml-2"></i>{{__('frontend.details.share')}}</button>
-                                @if(auth()->guard('user')->user() && $ad['favorited'])
+                                @if(checkLoggedIn('user') && $ad['favorited'])
                                     <a href="javascript:;" class="btn btn-common ml-2 fav-remove" data-id="{{$ad['id']}}" onclick="handleFavorite(this)">
                                         <i class="fa fa-heart ml-2"></i>{{__('frontend.details.favorited_before')}}
                                     </a>
-                                @elseif(auth()->guard('user')->user() && !$ad['favorited'])
+                                @elseif(checkLoggedIn('user') && !$ad['favorited'])
                                     <a href="javascript:;" class="btn btn-common ml-2 fav-add" data-id="{{$ad['id']}}" onclick="handleFavorite(this)">
                                         <i class="fa fa-heart ml-2"></i>{{__('frontend.details.add_to_favorite')}}
                                     </a>
+                                @else
+                                    <a href="#loginModal" data-toggle="modal" class="btn btn-common ml-2 fav-add">
+                                        <i class="fa fa-heart ml-2"></i>{{__('frontend.details.add_to_favorite')}}
+                                    </a>
                                 @endif
-                                <a class="btn btn-warning"  href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad['id']])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                @if(checkLoggedIn('user'))
+                                    <a class="btn btn-warning" href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad['id']])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                @else
+                                    <a class="btn btn-warning" href="#loginModal" data-toggle="modal"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                @endif
                                 @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id ==$ad['user_id'])
                                     <div class="d-flex w-100 mt-4">
                                         <a href="{{route('frontend.ad.edit',['id'=>$ad['id']])}}"
@@ -168,7 +195,7 @@
                     <div class="">
                         <p class="font-size-18 text-center">
                             <strong>{{__('frontend.details.ad_id')}}:</strong>
-                            <a href="#" class="text-primary">#{{$ad['id']}}</a>
+                            <a href="#" class="text-primary">#{{$ad['uid']}}</a>
                         </p>
                     </div>
 

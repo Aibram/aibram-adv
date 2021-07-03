@@ -26,10 +26,10 @@ class AdReportController extends BaseController
         $data = $request->notify;
         $row = $this->repository->findById($id);
         if($data){
-            NotificationInitator::init($row,'report',$data,$row->reportable->user,AdminSendNotification::class);
+            NotificationInitator::init($row,'admin_notification',$data,$row->reportable->user,AdminSendNotification::class);
         }
-        NotificationInitator::init($row,'report',__('notifications.report_confirmed'),$row->user,ReportConfirmed::class);
-        NotificationInitator::init($row,'report',__('notifications.ad_removed_admin',['title' => $row->reportable->title]),$row->reportable->user,AdRemovedAdmin::class);
+        NotificationInitator::init($row,'ad_report_confirmed',__('notifications.report_confirmed'),$row->user,ReportConfirmed::class);
+        NotificationInitator::init($row,'ad_removed_admin',__('notifications.ad_removed_admin',['title' => $row->reportable->title]),$row->reportable->user,AdRemovedAdmin::class);
         $row->reportable->update(['status'=>0]);
         // $row->delete();
         return redirect()->route($this->route.'.index');

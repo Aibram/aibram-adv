@@ -1,5 +1,6 @@
 <?php
 
+use App\Facades\RandomCode;
 use App\Models\Advertisement;
 use App\Models\Category;
 use App\Models\City;
@@ -317,6 +318,40 @@ if (!function_exists('checkOnline')) {
     }
 }
 
+if (!function_exists('checkLoggedIn')) {
+
+    function checkLoggedIn($guard)
+    {
+        return auth()->guard($guard)->check();
+    }
+}
+
+if (!function_exists('currUser')) {
+
+    function currUser($guard)
+    {
+        return auth()->guard($guard)->user();
+    }
+}
+if (!function_exists('generateAdUniqueId')) {
+
+    function generateAdUniqueId($length=7) {
+        $number = RandomCode::getCode($length);
+
+        if (checkUserIdExists($number)) {
+            return generateAdUniqueId($length);
+        }
+        return $number;
+    }
+}
+if (!function_exists('checkUserIdExists')) {
+
+    function checkUserIdExists($number) {
+        return Advertisement::where(['uid'=>$number])->exists();
+    }
+}
+
+
 if (!function_exists('getAvailStatuses')) {
     
     function getAvailStatuses()
@@ -338,6 +373,22 @@ if (!function_exists('getAvailStatuses')) {
     }
 }
 
+if (!function_exists('getUserStatuses')) {
+    
+    function getUserStatuses()
+    {
+        return [
+            [
+                'text' => __('base.user_banned'),
+                'badge' => 'danger'
+            ],
+            [
+                'text' => __('base.user_unbanned'),
+                'badge' => 'success'
+            ],
+        ];
+    }
+}
 if (!function_exists('getContactUsStatuses')) {
     
     function getContactUsStatuses()

@@ -32,6 +32,7 @@ Route::middleware('guest:user')->group(function(){
     Route::get('/about',[FrontendController::class,'about'])->name('about');
     Route::get('/ads',[AdvertisementController::class,'all'])->name('ads');
     Route::get('/ads/{slug}',[AdvertisementController::class,'one'])->name('ad.details');
+    Route::get('/profile/{id}',[FrontendController::class,'profile'])->name('profile');
 });
 Route::middleware('sensitve.auth')->group(function(){
     Route::get('/check-code',[AuthController::class,'checkCodeForm'])->name('checkCode');
@@ -67,7 +68,6 @@ Route::middleware('auth:user')->group(function(){
         Route::name('chat.')->prefix('/chat')->group(function(){
             Route::get('/single/{id}',[ChatController::class,'single'])->name('single');
         });
-        Route::get('/profile/{id}',[FrontendController::class,'profile'])->name('profile');
         Route::get('/add_rating/{id}',[FrontendController::class,'add_rating'])->name('add_rating');
         Route::get('/report',[FrontendController::class,'report'])->name('report');
         Route::middleware('report.auth')->group(function(){
@@ -75,4 +75,18 @@ Route::middleware('auth:user')->group(function(){
         });
     });
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+});
+
+Route::get('/generate_uid',function(){
+    $ads = App\Models\Advertisement::all();
+    foreach($ads as $ad){
+        $ad->uid = generateAdUniqueId(7);
+        $ad->save();
+    } 
+    return $ads->pluck('id');
+});
+Route::get('/broadcast',function(){
+    $user = App\Models\User::active(1)->first();
+    event(new App\Events\Admin\UserRegistered($user,'Done'));
+    return $user;
 });

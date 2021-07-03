@@ -54,6 +54,17 @@
                                                 placeholder="{{ __('frontend.dashboard.username') }}" />
                                         </div>
                                     </div>
+                                    <div class="form-group mb-4">
+                                        <label class="font-size-16 font-weight-bold">{{ __('frontend.register.city') }}
+                                        </label>
+                                        <div class="select">
+                                            <select class="form-control" name="city_id" placeholder="{{__('frontend.register.city')}}">
+                                                @foreach (getCities(getfirstCountry()->id) as $city)
+                                                    <option @if($user->city_id == $city->id) @endif value="{{$city->id}}">{{$city->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label
                                             class="font-size-16 font-weight-bold">{{ __('frontend.dashboard.mobile') }}</label>

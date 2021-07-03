@@ -61,8 +61,10 @@ class UserDataTable extends BaseDatatable
                     ]);
             });
             $this->formatDateColumn(['created_at']);
+            $this->formatBooleanColumn('activated');
+            $this->statues = getUserStatuses();
             $this->formatBooleanColumn('status');
-        return $this->datatable->rawColumns(['action','status','photo']);
+        return $this->datatable->rawColumns(['action','status','activated','photo']);
     }
 
     public function query(User $model)

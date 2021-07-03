@@ -31,28 +31,41 @@
                         <div class="sidebar-box">
                             <div class="user">
                                 <div class="left-button">
-                                    @if(ratedBefore(auth()->guard('user')->user(),$user['id']))
-                                        <a href="#" class="btn btn-common green w-110">
-                                            <i class="fa fa-plus ml-2 "></i>
-                                            {{ __('frontend.profile.rated_before') }}
-                                        </a>
+                                    @if(checkLoggedIn('user'))
+                                        @if(ratedBefore(currUser('user'),$user['id']))
+                                            <a href="#" class="btn btn-common green w-110">
+                                                <i class="fa fa-plus ml-2 "></i>
+                                                {{ __('frontend.profile.rated_before') }}
+                                            </a>
+                                        @else
+                                            <a class="btn btn-common green w-110" href="#myModal" data-toggle="modal">
+                                                <i class="fa fa-plus ml-2"></i>
+                                                {{ __('frontend.profile.add_rating') }}
+                                            </a>
+                                        @endif
                                     @else
-                                        <a class="btn btn-common green w-110" href="#myModal" data-toggle="modal">
+                                        <a class="btn btn-common green w-110" href="#loginModal" data-toggle="modal">
                                             <i class="fa fa-plus ml-2"></i>
                                             {{ __('frontend.profile.add_rating') }}
                                         </a>
                                     @endif
                                 </div>
                                 <div class="right-button">
-                                    <a class="btn btn-common green w-110" href="{{route('frontend.chat.single',['id'=>$user->id])}}">
-                                        <i class="fa fa-comment"></i>{{ __('frontend.profile.chat') }}
-                                    </a>
+                                    @if(checkLoggedIn('user'))
+                                        <a class="btn btn-common green w-110" href="{{route('frontend.chat.single',['id'=>$user->id])}}">
+                                            <i class="fa fa-comment"></i>{{ __('frontend.profile.chat') }}
+                                        </a>
+                                    @else
+                                        <a class="btn btn-common green w-110" href="#loginModal" data-toggle="modal">
+                                            <i class="fa fa-comment"></i>{{ __('frontend.profile.chat') }}
+                                        </a>
+                                    @endif
                                 </div>
                                 <div class="figure">
-                                    <a><img src="{{$user->photo}}" alt="{{$user->photo}}" /></a>
+                                    <a><img src="{{$user->photo}}" alt="{{$user->name}}" /></a>
                                 </div>
                                 <div class="usercontent">
-                                    <h3>{{$user->name}}</h3>
+                                    <h3 style="color:#1d89e4">{{$user->name}}</h3>
                                     <h4><span>{{$user->city->name}}</span> - <span>{{$user->created_at->diffForHumans()}}</span></h4>
                                 </div>
                                 <div class="user-statistics mt-3">

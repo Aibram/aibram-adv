@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -16,9 +17,9 @@ class BaseNotification extends Notification
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(Model $data)
     {
-        $this->data = $data;
+        $this->data = $data->toArray();
     }
 
     /**

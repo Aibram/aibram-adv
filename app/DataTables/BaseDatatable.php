@@ -67,8 +67,9 @@ class BaseDatatable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax($this->url)
                     ->dom('lrtip')
-                    ->orderBy(0)
+                    ->orderBy(0,'asc')
                     ->scrollX(true)
+                    ->autoWidth(true)
                     ->buttons(
                         Button::make('export'),
                         Button::make('print')

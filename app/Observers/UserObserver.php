@@ -32,11 +32,11 @@ class UserObserver
     public function updating(User $user)
     {
         if ($user->isDirty(['city_id'])){
-            $city = City::where('id','=',$user->getOriginal('city_id'));
+            $city = City::where('id','=',$user->getOriginal('city_id'))->first();
             if($city->no_users>0){
                 $city->decrement('no_users');
             }
-            if($city->country()->no_users>0){
+            if($city->country->no_users>0){
                 $city->country()->decrement('no_users');
             }
         }

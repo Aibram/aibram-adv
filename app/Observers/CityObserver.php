@@ -27,11 +27,11 @@ class CityObserver
     public function updating(City $city)
     {
         if ($city->isDirty(['country_id'])){
-            if($city->country()->no_cities>0){
+            if($city->country->no_cities>0){
                 $city->country()->decrement('no_cities');
             }
         }
-        $city->country_id = $city->city->country->id;
+        $city->country_id = $city->country->id;
     }
 
     public function updated(City $city){

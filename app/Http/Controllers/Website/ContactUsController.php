@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Events\Admin\ContactUsRequest as AdminContactUsRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\ContactUsRequest;
 use App\Interfaces\ContactUsRepositoryInterface;
@@ -29,7 +30,8 @@ class ContactUsController extends Controller
     {
         $data = $request->validated();
         $data['device'] = 'web';
-        $this->repository->create($data);
+        $model = $this->repository->create($data);
+        event(new AdminContactUsRequest($model,__('notifications.admin.new_contact')));
         return back();
     }
 }

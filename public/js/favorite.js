@@ -11,7 +11,7 @@ function handleFavorite(elem) {
                 `);
             }
             $(elem).removeClass('fav-add').addClass('fav-remove')
-        })
+        }, true, true)
     } else if ($(elem).hasClass('fav-remove')) {
         sendAjaxReq(obj, "POST", removeFavoriteURL, function(data) {
             if ($(elem).hasClass('btn')) {
@@ -20,6 +20,6 @@ function handleFavorite(elem) {
                 `);
             }
             $(elem).removeClass('fav-remove').addClass('fav-add')
-        })
+        }, true, true)
     }
 }

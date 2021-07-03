@@ -32,7 +32,7 @@ class AdvertisementCreate extends FormRequest
             // 'address'  =>  'required',
             'title'  =>  'required',
             'desc'  =>  ['required', 'string', new CheckProhibitedWords(ProhibitedWords::get()->toArray())],
-            'photos' => 'required',
+            // 'photos' => 'required',
             'photos.*' => 'image',
             'photo'  =>  'required|image',
             'properties'  =>  'required|array',

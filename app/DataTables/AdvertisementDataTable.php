@@ -13,7 +13,7 @@ class AdvertisementDataTable extends BaseDatatable
     public function __construct()
     {
         parent::__construct('advertisementsdatatable-table',[
-            'id'           =>  'id',
+            'uid'           =>  'id',
             'photo'        =>  __('pages.advertisements.columns.photo'),
             'title'        =>  __('pages.advertisements.columns.title'),
             'mobile'       =>  __('pages.advertisements.columns.mobile'),

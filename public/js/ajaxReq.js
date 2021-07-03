@@ -1,4 +1,4 @@
-function sendAjaxReq(req, method = "POST", route, callback, showToaster = true) {
+function sendAjaxReq(req, method = "POST", route, callback, showToaster = true, blockUI = false) {
     var ajaxJson = {
         url: route,
     }
@@ -26,9 +26,15 @@ function sendAjaxReq(req, method = "POST", route, callback, showToaster = true) 
     }
     ajaxJson['type'] = method
     console.log(ajaxJson);
+    if (blockUI) {
+        $.blockUI({ message: null });
+    }
     $.ajax({
         ...ajaxJson,
         success: function(data) {
+            if (blockUI) {
+                $.unblockUI()
+            }
             if (data.status != 200) {
                 //Toaster Error
                 if (showToaster)

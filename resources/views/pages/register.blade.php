@@ -58,7 +58,7 @@
                             </div>
                             <div class="d-flex">
                                 <div class="form-group mb-4 inputwithicon col-8 p-0">
-                                    <div class="select pl-2">
+                                    <div class="select">
                                         <select class="form-control" name="city_id" placeholder="{{__('frontend.register.city')}}">
                                             @foreach (getCities(getfirstCountry()->id) as $city)
                                                 <option value="{{$city->id}}">{{$city->name}}</option>

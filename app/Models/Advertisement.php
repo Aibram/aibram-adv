@@ -42,6 +42,7 @@ class Advertisement extends BaseModel
         'no_chatlists',
         'no_ratings',
         'no_favorites',
+        'uid'
     ];
 
     public function format(){
@@ -54,6 +55,7 @@ class Advertisement extends BaseModel
             "desc" => $this->desc,
             "avg_rate" => $this->user->avg_rate_derived,
             "no_ratings" => $this->user->no_ratings,
+            "no_favorites" => $this->no_favorites,
             "slug" => $this->slug,
             "user_id" => $this->user_id,
             "user_name" => $user->name,
@@ -76,7 +78,8 @@ class Advertisement extends BaseModel
             "created_at" => $this->created_at,
             "created_at_w3c" => $this->created_at->toW3CString(),
             "created_at_human" => $this->created_at->diffForHumans(),
-            "mobile" => $this->ad_mobile,
+            "mobile" => '+'.$this->ad_mobile,
+            "uid" => $this->uid,
         ];
     }
 

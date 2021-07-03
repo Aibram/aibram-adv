@@ -1,6 +1,7 @@
+@if(request()->route()->getName() == 'frontend.home')
 <div class="add-ads">
     <div class="d-flex align-items-center justify-content-center">
-        @if(!auth()->guard('user')->user())
+        @if(!checkLoggedIn('user'))
             <div class="col-6 pl-1">
                 <a href="{{route('frontend.login')}}" class="btn btn-border px-0 btn-block m-0">
                     <i class="fa fa-user mx-2"></i>{{__('frontend.nav.login')}}
@@ -14,6 +15,7 @@
         </div>
     </div>
 </div>
+@endif
 <footer>
     <section class="footer-Content">
         <div class="container">

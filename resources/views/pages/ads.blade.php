@@ -140,7 +140,7 @@
                 data.adsCount > 0 && $('#no_ads').hide();
                 const { page,user_id, ...rest } = params
                 setUrlFields(rest)
-            },false)
+            },false,true)
         }
         fillParamsObjectFromUrl(params)
         callAjax()

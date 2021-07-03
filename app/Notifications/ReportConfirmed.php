@@ -2,10 +2,12 @@
 
 namespace App\Notifications;
 
+use Illuminate\Database\Eloquent\Model;
+
 class ReportConfirmed extends BaseNotification
 {
-    public function __construct(array $data)
+    public function __construct(Model $data)
     {
-        $this->data = $data;
+        parent::__construct($data);
     }
 }

@@ -64,9 +64,10 @@ class ChatlistRepository extends BaseAbstract implements ChatlistRepositoryInter
         if($data['message_type'] == "photo"){
             $data['message_content'] = '';
         }
-        if(!$data['advertisement_id']){
+        if(!$data['advertisement_id'] || $data['advertisement_id'] == "null"){
             $data['advertisement_id'] = optional($chatlist->last_message)->advertisement_id;
         }
+        // dd($data);
         $message = $chatlist->conversations()->create($data);
         if($data['message_type'] == "photo"){
             $data['message_content'] = $photo;
@@ -75,8 +76,8 @@ class ChatlistRepository extends BaseAbstract implements ChatlistRepositoryInter
                 'message_content' => $message->photo
             ]);
         }
-        NotificationInitator::init($message,'chat',__('notifications.message_sent',['user' => $message->receiver->name]),$message->sender,MessageSent::class);
-        NotificationInitator::init($message,'chat',__('notifications.message_received',['user' => $message->sender->name]),$message->receiver,MessageReceived::class);
+        NotificationInitator::init($message,'message_sent',__('notifications.message_sent',['user' => $message->receiver->name]),$message->sender,MessageSent::class);
+        NotificationInitator::init($message,'message_received',__('notifications.message_received',['user' => $message->sender->name]),$message->receiver,MessageReceived::class);
         $message->refresh();
         return $message;
     }

@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="_token" content="{{ csrf_token() }}" />
-    @if(auth()->guard('user')->user())
-        <meta name="user_id" content="{{ auth()->guard('user')->user()->id }}" />
+    @if(checkLoggedIn('user'))
+        <meta name="user_id" content="{{ currUser('user')->id }}" />
     @else
         <meta name="user_id" content="null" />
     @endif
@@ -68,6 +68,26 @@
     @yield('content')
 
     @include('partials.footer')
+    @if(!checkLoggedIn('user'))
+        <div id="loginModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{config('app.name')}}</h4>
+                        <button class="ml-0 mr-auto p-0 bg-transparent btn font-size-18" type="button"
+                            class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <a href="{{route('frontend.login')}}" class="btn btn-common mx-auto">
+                            {{__('frontend.nav.login')}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     {{-- <div id="preloader">
         <div class="loader" id="loader-1"></div>
     </div> --}}
@@ -90,10 +110,13 @@
     <script src="{{asset('frontend/assets/js/form-validator.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/contact-form-script.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/summernote.js')}}"></script>
+    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/ajaxReq.js')}}"></script>
     <script src="{{asset('js/favorite.js')}}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-
+    @if(checkLoggedIn('user'))
+        @include('vendor.pusher')
+    @endif
     @toastr_js
     @toastr_render
     @yield('custom_js')

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('user.{userId}', function ($model, $userId) {
+    return $model->id === $userId && get_class($model) === 'App\Models\User';
+});
+Broadcast::channel('admin', function ($model, $userId) {
+    return true;
 });

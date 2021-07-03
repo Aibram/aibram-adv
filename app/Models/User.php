@@ -69,6 +69,11 @@ class User extends Authenticatable
     {
         return $this->ext.$this->mobile;
     }
+
+    public function getFirstNameAttribute()
+    {
+        return str_contains($this->name, ' ') ? explode(' ',$this->name)[0] : $this->name;
+    }
     public function getFirebaseTokenAttribute()
     {
         $token = $this->tokens()->where('type','firebase')->first();

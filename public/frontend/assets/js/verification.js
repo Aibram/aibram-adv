@@ -75,7 +75,7 @@ jQuery.fn.activationCodeInput = function(options) {
                 activationCode.addClass("active");
                 setTimeout(function() {
                     activationCode
-                        .find(".activation-code-inputs input:first-child")
+                        .find(".activation-code-inputs input:last-child")
                         .focus();
                 }, 200);
             }
@@ -89,13 +89,13 @@ jQuery.fn.activationCodeInput = function(options) {
                     $(this).val().toString().length == settings.length ||
                     event.keyCode == 39
                 ) {
-                    $(this).next().focus();
+                    $(this).prev().focus();
                     if ($(this).val().toString().length) {
                         $(this).css("border-color", "#46b2f0");
                     }
                 }
                 if (event.keyCode == 8 || event.keyCode == 37) {
-                    $(this).prev().focus();
+                    $(this).next().focus();
                     if (!$(this).val().toString().length) {
                         $(this).css("border-color", "#ccc");
                     }

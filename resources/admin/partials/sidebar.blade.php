@@ -100,7 +100,7 @@
                 @endcan
                 @can('users.index', 'admin')
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="{{route('admin.users.index')}}" class="kt-menu__link ">
+                        <a href="{{route('admin.users.index')}}" class="kt-menu__link " id="users-ref">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px"
@@ -194,7 +194,7 @@
                 @endcan
                 @can('advertisements.index', 'admin')
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="{{route('admin.advertisements.index')}}" class="kt-menu__link ">
+                        <a href="{{route('admin.advertisements.index')}}" class="kt-menu__link "id="advertisements-ref">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px"
@@ -216,7 +216,7 @@
                     </li>
                 @endcan
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle" id="reports-ref">
                         <span class="kt-menu__link-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="24px"
@@ -297,7 +297,7 @@
                 @endcan
                 @can('contact_us_requests.all', 'admin')
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="{{route('admin.contactus.index')}}" class="kt-menu__link ">
+                        <a href="{{route('admin.contactus.index')}}" class="kt-menu__link " id="contactus-ref">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px"

@@ -188,6 +188,7 @@
 <script>
     $('[data-switch=true]').bootstrapSwitch();
 </script>
+@include('admin::CustomFiles.pusher')
 </body>
 
 <!-- end::Body -->

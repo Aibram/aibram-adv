@@ -2,10 +2,14 @@
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <div class="featured-box d-flex flex-column">
             <div class="figure">
-                @if(auth()->guard('user')->user())
+                @if(checkLoggedIn('user'))
                     <div class="icon @if($ad['favorited']) fav-remove @else fav-add @endif" data-id="{{$ad['id']}}" onclick="handleFavorite(this)">
                         <span class="bg-green"><i class="fa fa-heart"></i></span>
                     </div>
+                @else
+                    <a href="#loginModal" data-toggle="modal" class="icon fav-add">
+                        <span class="bg-green"><i class="fa fa-heart"></i></span>
+                    </a>
                 @endif
                 <a href="{{ $ad['detailsUrl'] }}">
                     <img class="img-fluid" src="{{ $ad['photo'] }}" alt="{{ $ad['title'] }}"

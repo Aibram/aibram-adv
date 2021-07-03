@@ -9,6 +9,7 @@ use App\Http\Requests\Website\AdvertisementCreate;
 use App\Http\Requests\Website\AdvertisementUpdate;
 use App\Interfaces\AdvertisementRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
+use App\Models\AdComment;
 use App\Notifications\CommentAddFrom;
 use App\Notifications\CommentAddTo;
 use Illuminate\Http\Request;
@@ -109,13 +110,14 @@ class AdvertisementController extends Controller
         // dd($request->all());
         $ad = $this->repository->findById($id);
         $ad->userComments()->save(auth()->guard('user')->user(),$request->only(['parent_id','comment']));
+        $comment = AdComment::latest()->first();
         if($request->parent_id){
-            NotificationInitator::init($ad,'comment',__('notifications.reply_add_from',['title' => $ad->title]),auth()->guard('user')->user(),CommentAddFrom::class);
-            NotificationInitator::init($ad,'comment',__('notifications.reply_add_to',['title' => $ad->title]),$ad->user,CommentAddTo::class);    
+            NotificationInitator::init($comment,'reply_add_from',__('notifications.reply_add_from',['title' => $ad->title]),auth()->guard('user')->user(),CommentAddFrom::class);
+            NotificationInitator::init($comment,'reply_add_to',__('notifications.reply_add_to',['title' => $ad->title]),$ad->user,CommentAddTo::class);    
         }
         else{
-            NotificationInitator::init($ad,'comment',__('notifications.comment_add_from',['title' => $ad->title]),auth()->guard('user')->user(),CommentAddFrom::class);
-            NotificationInitator::init($ad,'comment',__('notifications.comment_add_to',['title' => $ad->title,'user'=>auth()->guard('user')->user()->name]),$ad->user,CommentAddTo::class);    
+            NotificationInitator::init($comment,'comment_add_from',__('notifications.comment_add_from',['title' => $ad->title]),auth()->guard('user')->user(),CommentAddFrom::class);
+            NotificationInitator::init($comment,'comment_add_to',__('notifications.comment_add_to',['title' => $ad->title,'user'=>auth()->guard('user')->user()->name]),$ad->user,CommentAddTo::class);    
         }
         return redirect()->route('frontend.ad.details',['slug'=>$ad->slug]);
     }

@@ -16,6 +16,7 @@ return [
         'notfound_desc' => 'عفوا لم يتم ايجاد اى نتيجة',
         'notLoggedIn' => 'خطأ فى البيانات',
         'notLoggedInDesc' => 'تأكد من صحة البيانات ومن تفعيلك كمشرف',
+        'notLoggedInDescUser' => 'تأكد من صحة البيانات ومن تفعيلك',
 
     ],
     'sidebar' => [
@@ -49,6 +50,8 @@ return [
     'user_offline' => 'غير متاح',
     'deactivated' => 'غير مفعل',
     'activated' => 'مفعل',
+    'user_banned' => 'محظور',
+    'user_unbanned' => 'غير محظور',
     'contacted' => 'تم التواصل',
     'web' => 'حاسب',
     'android' => 'اندرويد',

@@ -27,15 +27,14 @@ class FrontendController extends Controller
     }
     public function home()
     {
-        // dd(getAds(['home'=>1],null,6));
+        // dd(request()->route()->getName());
         return view('pages.home');
     }
 
     public function profile($id,Request $request)
     {
-        if(auth()->guard('user')->user()->id == $id){
-            toastr()->error(__('base.error.notAuthorized'), __('base.error.notAuthorized'));
-            return redirect()->route('frontend.home');
+        if(checkLoggedIn('user') && currUser('user')->id == $id){
+            return redirect()->route('frontend.dashboard.all');
         }
         // $ad = $this->adRepo->findById($request->get('id',null));
         $user = $this->userRepo->findById($id);
@@ -51,8 +50,8 @@ class FrontendController extends Controller
         $rating = $this->ratingRepo->create($data);
         $rating->ratedUser()->increment('no_ratings');
         $rating->ratedUser()->update(['avg_rate'=>$rating->ratedUser->avg_rate_derived]);
-        NotificationInitator::init($rating,'rating',__('notifications.rating_add_from',['name' => $user->name]),auth()->guard('user')->user(),RatingAddFrom::class);
-        NotificationInitator::init($rating,'rating',__('notifications.rating_add_to',['name' => auth()->guard('user')->user()->name]),$user,RatingAddTo::class);
+        NotificationInitator::init($rating,'rating_add_from',__('notifications.rating_add_from',['name' => $user->name]),auth()->guard('user')->user(),RatingAddFrom::class);
+        NotificationInitator::init($rating,'rating_add_to',__('notifications.rating_add_to',['name' => auth()->guard('user')->user()->name]),$user,RatingAddTo::class);
         toastr()->success(__('base.success.created'), __('base.success.done'));
         return redirect()->route('frontend.profile',['id'=>$id]);
     }
@@ -81,7 +80,7 @@ class FrontendController extends Controller
             'reportable_type' => $reportable_type,
             'user_id' => auth()->guard('user')->user()->id
         ],false);
-        NotificationInitator::init($report,'comment',__('notifications.report',['report_type' => __('base.'.$reportable_type)]),auth()->guard('user')->user(),ReportAdd::class);
+        NotificationInitator::init($report,'report',__('notifications.report',['report_type' => __('base.'.$reportable_type)]),auth()->guard('user')->user(),ReportAdd::class);
         $request->session()->forget(['reportable_type', 'reportable_id']);
         toastr()->success(__('base.success.created'), __('base.success.done'));
         return redirect()->route('frontend.home');

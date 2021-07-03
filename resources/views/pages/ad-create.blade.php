@@ -162,16 +162,6 @@
                                         placeholder="{{ __('frontend.ad_create.tags') }}*">
                                 </div>
                             </div>
-                            <label class="form-control upload d-flex align-items-center" for="uploadedSecondary">
-                                <div class="placeholder d-flex justify-content-between w-100">
-                                    <span class="font-size-18">{{ __('frontend.ad_create.photos') }}*</span>
-                                    <i class="fa fa-upload text-primary"></i>
-                                </div>
-                                <input id="uploadedSecondaryHidden" class="tg-fileinput" style="opacity: 1" type="file"  name="photos[]" multiple/>
-                                <input id="uploadedSecondary" class="tg-fileinput" type="file" name="images[]" accept="image/*" multiple/>
-                            </label>
-                            <div class="uploaded-images d-flex my-3 flex-wrap" id="secondPhotos">
-                            </div>
                             <label class="form-control upload d-flex align-items-center" for="uploadedPrimary">
                                 <div class="placeholder d-flex justify-content-between w-100">
                                     <span class="font-size-18">{{ __('frontend.ad_create.primary_photo') }}*</span>
@@ -181,6 +171,16 @@
                                 <input id="uploadedPrimary" class="tg-fileinput" type="file" name="photo" accept="image/*"/>
                             </label>
                             <div class="uploaded-images d-flex my-3 flex-wrap" id="primaryPhoto">
+                            </div>
+                            <label class="form-control upload d-flex align-items-center" for="uploadedSecondary">
+                                <div class="placeholder d-flex justify-content-between w-100">
+                                    <span class="font-size-18">{{ __('frontend.ad_create.photos') }}</span>
+                                    <i class="fa fa-upload text-primary"></i>
+                                </div>
+                                <input id="uploadedSecondaryHidden" class="tg-fileinput" style="opacity: 1" type="file"  name="photos[]" multiple/>
+                                <input id="uploadedSecondary" class="tg-fileinput" type="file" name="images[]" accept="image/*" multiple/>
+                            </label>
+                            <div class="uploaded-images d-flex my-3 flex-wrap" id="secondPhotos">
                             </div>
                             <div class="text-center mt-5">
                                 <button type="submit" class="btn btn-common log-btn btn-block">{{ __('frontend.ad_create.ad_create') }}</button>

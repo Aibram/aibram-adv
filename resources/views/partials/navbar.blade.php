@@ -15,7 +15,7 @@
           >
             <span class="lni-menu"></span>
           </button>
-          @if(auth()->guard('user')->user())
+          @if(checkLoggedIn('user'))
           <div class="dropdown profile mx-3 desktop-hidden">
             <button
               class="btn p-0 btn-secondary bg-transparent border-0 dropdown-toggle"
@@ -25,21 +25,20 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="{{auth()->guard('user')->user()->photo}}" style="width: 30px;height:30px"/>
+              <img src="{{currUser('user')->photo}}" style="width: 30px;height:30px"/>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item text-bold" href="{{route('frontend.dashboard.all')}}"
                 >{{__('frontend.nav.dashboard')}}</a
               >
-              <a class="dropdown-item color-danger" href="{{route('frontend.logout')}}"
-                >{{__('frontend.nav.logout')}}</a
-              >
             </div>
           </div>
           <div class="notification desktop-hidden">
-            <a href="{{route('frontend.dashboard.notifications')}}"
-              ><div class="icon">
-                <div class="circle">{{auth()->guard('user')->user()->unreadNotifications()->count()}}</div>
+            <a href="{{route('frontend.dashboard.notifications')}}">
+              <div class="icon">
+                @if(currUser('user')->unreadNotifications()->count()>0)
+                  <div class="circle">{{currUser('user')->unreadNotifications()->count()}}</div>
+                @endif
                 <i class="fa fa-bell"></i>
               </div>
             </a>
@@ -66,9 +65,17 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('frontend.about')}}"> {{__('frontend.nav.who_are_we')}} </a>
           </li>
+          <li class="nav-item desktop-hidden">
+            <a class="nav-link" href="{{route('frontend.ad.create')}}"> {{__('frontend.nav.new_ad')}} </a>
+          </li>
+          @if(checkLoggedIn('user'))
+          <li class="nav-item desktop-hidden">
+            <a class="nav-link" href="{{route('frontend.logout')}}"> {{__('frontend.nav.logout')}} </a>
+          </li>
+          @endif
         </ul>
         <div class="post-btn d-flex align-items-center">
-          @if(auth()->guard('user')->user())
+          @if(checkLoggedIn('user'))
           <div class="dropdown profile mx-3 mobile-hidden">
             <button
               class="btn p-0 btn-secondary bg-transparent border-0 dropdown-toggle"
@@ -78,7 +85,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="{{auth()->guard('user')->user()->photo}}" style="width: 30px;height:30px"/>
+              <img src="{{currUser('user')->photo}}" style="width: 30px;height:30px"/>
             </button>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -93,7 +100,9 @@
           <div class="notification mobile-hidden ml-3">
             <a href="{{route('frontend.dashboard.notifications')}}"
               ><div class="icon">
-                <div class="circle">{{auth()->guard('user')->user()->unreadNotifications()->count()}}</div>
+                @if(currUser('user')->unreadNotifications()->count()>0)
+                  <div class="circle">{{currUser('user')->unreadNotifications()->count()}}</div>
+                @endif
                 <i class="fa fa-bell"></i>
               </div>
             </a>
@@ -102,10 +111,14 @@
           <a class="btn btn-common mx-2 text-white" href="{{route('frontend.ad.create')}}"
             ><i class="lni-pencil-alt"></i> {{__('frontend.nav.post_ad')}}</a
           >
-          @if(!auth()->guard('user')->user())
-          <a href="{{route('frontend.login')}}" class="btn btn-border"
-            ><i class="lni-lock"></i> {{__('frontend.nav.login')}}</a
-          >
+          @if(!checkLoggedIn('user'))
+            <a href="{{route('frontend.login')}}" class="btn btn-border">
+              <i class="lni-lock"></i> {{__('frontend.nav.login')}}
+            </a>
+          @else
+            <a href="{{route('frontend.dashboard.all')}}" class="btn btn-border">
+              {{__('frontend.nav.welcome',['name'=>currUser('user')->first_name])}}
+            </a>
           @endif
         </div>
       </div>

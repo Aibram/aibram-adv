@@ -2,7 +2,7 @@
     <a><img src="{{$user->photo}}" alt="{{$user->name}}" /></a>
 </div>
 <div class="usercontent">
-    <h3>{{$user->name}}</h3>
+    <h3 style="color:#1d89e4">{{$user->name}}</h3>
     <h4><span>{{$user->city->name}}</span> - <span>{{$user->created_at->diffForHumans()}}</span></h4>
 </div>
 <div class="tabs-list mobile-hidden d-flex flex-column mt-3">

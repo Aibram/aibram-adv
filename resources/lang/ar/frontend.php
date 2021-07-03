@@ -13,6 +13,8 @@ return [
         'login' => 'تسجيل الدخول',
         'register' => 'حساب جديد',
         'chat' => 'محادثة',
+        'welcome' => 'مرحبًا :name',
+        'new_ad' => 'اضافة اعلان جديد',
     ],
     'footer' => [
         'city' => 'المدينة',
@@ -156,6 +158,7 @@ return [
     ],
     'details' => [
         'rating' => 'تقييم إيجابى',
+        'favorites' => 'مفضلة',
         'add_rating' => 'اضافة',
         'properties' => 'الخصائص',
         'contact_whatsapp' => 'مراسلة على الواتساب',

@@ -24,7 +24,7 @@
                                             <div class="form-group inputwithicon">
                                                 <div class="select pl-2">
                                                     <select name="city_id">
-                                                        <option value="">المدينة</option>
+                                                        <option value="">كل المدن</option>
                                                         @foreach (getCitiesOfYemen() as $city)
                                                             <option value="{{$city->id}}">
                                                                 {{$city->name}}
@@ -37,7 +37,7 @@
                                             <div class="form-group inputwithicon">
                                                 <div class="select">
                                                     <select name="category_id">
-                                                        <option value="">حدد التصنيف</option>
+                                                        <option value="">جميع التصنيفات</option>
                                                         @foreach (categoriesFilter() as $item)
                                                             <option value="{{$item->category_hierarchy_ids}}">{{$item->name}}</option>
                                                         @endforeach
@@ -73,8 +73,12 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
                         <div class="featured-box">
                             <div class="figure">
-                                @if(auth()->guard('user')->user())
+                                @if(checkLoggedIn('user'))
                                     <a href="javascript:;" class="icon @if($item['favorited']) fav-remove @else fav-add @endif" data-id="{{$item['id']}}" onclick="handleFavorite(this)">
+                                        <span class="bg-green"><i class="fa fa-heart"></i></span>
+                                    </a>
+                                @else
+                                    <a href="#loginModal" data-toggle="modal" class="icon fav-add">
                                         <span class="bg-green"><i class="fa fa-heart"></i></span>
                                     </a>
                                 @endif
@@ -112,7 +116,7 @@
         </div>
     </section>
     @endif
-    @php($featuredAds = getFeaturedAds(auth()->guard('user')->user()))
+    @php($featuredAds = getFeaturedAds(currUser('user')))
     @if(count($featuredAds)>0)
         <section class="featured-lis section-padding">
             <div class="container">
@@ -136,8 +140,12 @@
                                                 <a href="{{$item['detailsUrl']}}">{{$item['title_formatted']}}</a>
                                             </h3>
                                             <a href="{{$item['searchCategoryUrl']}}">{{$item['category_name']}}</a>
-                                            @if(auth()->guard('user')->user())
+                                            @if(checkLoggedIn('user'))
                                                 <a href="javascript:;" class="icon @if($item['favorited']) fav-remove @else fav-add @endif" data-id="{{$item['id']}}" onclick="handleFavorite(this)">
+                                                    <span class="bg-green"><i class="fa fa-heart"></i></span>
+                                                </a>
+                                            @else
+                                                <a href="#loginModal" data-toggle="modal" class="icon fav-add">
                                                     <span class="bg-green"><i class="fa fa-heart"></i></span>
                                                 </a>
                                             @endif

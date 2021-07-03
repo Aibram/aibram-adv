@@ -22,6 +22,7 @@ class AdvertisementObserver
         $advertisement->country_id = $advertisement->city->country_id;
         $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy_ids;
         $advertisement->avg_rate = 0;
+        $advertisement->uid = generateAdUniqueId(7);
     }
     /**
      * Handle the Advertisement "created" event.
@@ -38,7 +39,7 @@ class AdvertisementObserver
         $advertisement->statuses()->create([
             'status' => $advertisement->status
         ]);
-        NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_create',['title' => $advertisement->title]),$advertisement->user,AdvertisementCreate::class);
+        NotificationInitator::init($advertisement,'advertisement_created',__('notifications.ad_create',['title' => $advertisement->title]),$advertisement->user,AdvertisementCreate::class);
     }
 
     /**
@@ -97,10 +98,10 @@ class AdvertisementObserver
         }
 
         if($advertisement->isDirty(['status']) && $advertisement->status){
-            NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
+            NotificationInitator::init($advertisement,'advertisement_removed',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
         }
         else{
-            NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_update',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
+            NotificationInitator::init($advertisement,'advertisement_updated',__('notifications.ad_update',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
         }
     }
 
@@ -112,7 +113,7 @@ class AdvertisementObserver
      */
     public function deleting(Advertisement $advertisement)
     {
-        NotificationInitator::init($advertisement,'advertisement',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
+        NotificationInitator::init($advertisement,'advertisement_removed',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
     }
 
     /**

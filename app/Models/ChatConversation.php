@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ChatConversation extends BaseModel
 {
     use HasFactory;
+    public $appends = ['sender_html','receiver_html'];
 
     public $fillable = [
         'sender_id',
@@ -19,7 +20,15 @@ class ChatConversation extends BaseModel
         'message_content',
         'read_at',
     ];
+    public function getSenderHtmlAttribute()
+    {
+        return view('parts.chat.sender', ['message'=>$this])->render();
+    }
 
+    public function getReceiverHtmlAttribute()
+    {
+        return view('parts.chat.receiver', ['message'=>$this])->render();
+    }
     
     public function sender()
     {
