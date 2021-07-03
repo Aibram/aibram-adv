@@ -122,17 +122,17 @@ class Advertisement extends BaseModel
 
     public function category()
     {
-        return $this->belongsTo(Category::class,'category_id','id');
+        return $this->belongsTo(Category::class,'category_id','id')->withTrashed();
     }
 
     public function country()
     {
-        return $this->belongsTo(Country::class,'country_id','id');
+        return $this->belongsTo(Country::class,'country_id','id')->withTrashed();
     }
 
     public function city()
     {
-        return $this->belongsTo(City::class,'city_id','id');
+        return $this->belongsTo(City::class,'city_id','id')->withTrashed();
     }
 
     public function user()

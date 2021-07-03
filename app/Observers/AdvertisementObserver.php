@@ -62,7 +62,7 @@ class AdvertisementObserver
                 $city->decrement('no_ads');
             }
             if($city->first()->country->no_ads>0){
-                $city->country()->decrement('no_ads');
+                $city->first()->country()->decrement('no_ads');
             }
         }
         
