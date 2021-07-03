@@ -66,10 +66,7 @@ class AdvertisementObserver
             }
         }
         
-        $advertisement->category_name = $advertisement->category->name;
-        $advertisement->city_name = $advertisement->city->name;
-        $advertisement->country_id = $advertisement->city->country_id;
-        $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy_ids;
+        
     }
 
     /**
