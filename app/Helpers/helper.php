@@ -351,6 +351,13 @@ if (!function_exists('checkUserIdExists')) {
     }
 }
 
+if (!function_exists('getAdSingle')) {
+
+    function getAdSingle($id) {
+        return Advertisement::find($id);
+    }
+}
+
 
 if (!function_exists('getAvailStatuses')) {
     
