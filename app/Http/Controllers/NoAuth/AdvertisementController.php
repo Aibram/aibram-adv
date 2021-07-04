@@ -43,9 +43,10 @@ class AdvertisementController extends BaseController
         $fav = $this->favRepo->create($request->only(['user_id','advertisement_id']));
         $fav->advertisement()->increment('no_favorites');
         $fav->user()->increment('no_favorites');
-
+        $fav->refresh();
         return APIResponse::sendResponse($this->getMsg(),[
-            'message' => __('frontend.details.favorited_before')
+            'message' => __('frontend.details.favorited_before'),
+            'count' => $fav->advertisement->no_favorites
         ]);
     }
 
@@ -63,7 +64,8 @@ class AdvertisementController extends BaseController
             $favItem->user()->decrement('no_favorites');
         }
         return APIResponse::sendResponse($this->getMsg(),[
-            'message' => __('frontend.details.add_to_favorite')
+            'message' => __('frontend.details.add_to_favorite'),
+            'count' => $this->repository->findById($request->advertisement_id)->no_favorites
         ]);
     }
 

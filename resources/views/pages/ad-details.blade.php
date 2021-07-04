@@ -83,7 +83,7 @@
                                             </p>
                                         </span>
                                         <span class="mt-2 btn-common btn">
-                                            <p class="text-white text-bold">
+                                            <p class="text-white text-bold" id="fav_number">
                                                 <i class="fa fa-heart ml-2"></i> {{ $ad['no_favorites']}}
                                                 {{ __('frontend.details.favorites') }}
                                             </p>

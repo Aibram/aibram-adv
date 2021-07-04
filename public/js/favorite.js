@@ -10,6 +10,12 @@ function handleFavorite(elem) {
                     <i class="fa fa-heart ml-2"></i>${data.message}
                 `);
             }
+            $('#fav_number').html(
+                `<p class="text-white text-bold" id="fav_number">
+                    <i class="fa fa-heart ml-2"></i> ${data.count}
+                    ${favWord}
+                </p>`
+            )
             $(elem).removeClass('fav-add').addClass('fav-remove')
         }, true, true)
     } else if ($(elem).hasClass('fav-remove')) {
@@ -19,6 +25,12 @@ function handleFavorite(elem) {
                     <i class="fa fa-heart ml-2"></i>${data.message}
                 `);
             }
+            $('#fav_number').html(
+                `<p class="text-white text-bold" id="fav_number">
+                    <i class="fa fa-heart ml-2"></i> ${data.count}
+                    ${favWord}
+                </p>`
+            )
             $(elem).removeClass('fav-remove').addClass('fav-add')
         }, true, true)
     }
