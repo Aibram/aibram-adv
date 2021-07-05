@@ -7,6 +7,12 @@
                     <i class="fa fa-user mx-2"></i>{{__('frontend.nav.login')}}
                 </a>
             </div>
+        @else
+            <div class="col-6 pl-1">
+                <a href="{{route('frontend.dashboard.all')}}" class="btn btn-border px-0 btn-block m-0">
+                    <i class="fa fa-user mx-2"></i>{{__('frontend.nav.welcome',['name'=>currUser('user')->first_name])}}
+                </a>
+            </div>
         @endif
         <div class="col-6 pr-1">
             <a href="{{route('frontend.ad.create')}}" class="btn btn-common btn-block m-0">

@@ -47,7 +47,7 @@
                     <div id="list-view" class="page-content">
                       <div class="row">
                         <h1 class="section-title mx-auto desktop-hidden">
-                            {{ __('frontend.dashboard.favorites') }} ({{count($favorites)}})
+                            {{ __('frontend.dashboard.myfavorites') }} ({{ $favorites->total() }})
                         </h1>
                         @forelse ($favorites as $item)
                           <div class="col-12">

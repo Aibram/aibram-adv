@@ -47,7 +47,7 @@
                     <div id="list-view " class="page-content">
                         <div class="row">
                             <h1 class="section-title mx-auto desktop-hidden">
-                                {{ __('frontend.dashboard.chats') }} ({{count($chats)}})
+                                {{ __('frontend.dashboard.chats') }} ({{ $chats->total() }})
                             </h1>
                             @forelse (collect($chats->items())->map->format() as $item)
                                 <div class="col-12 offers-user-online">

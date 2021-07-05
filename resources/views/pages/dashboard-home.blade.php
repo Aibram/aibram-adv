@@ -47,57 +47,9 @@
                     <div id="list-view" class="page-content">
                         <div class="row">
                             <h1 class="section-title mx-auto desktop-hidden">
-                                {{ __('frontend.dashboard.ads') }} ({{ count($ads) }})
+                                {{ __('frontend.dashboard.ads') }} ({{ $ads->total() }})
                             </h1>
-                            @forelse ($ads as $ad)
-                                <div class="col-12">
-                                    <div class="featured-box dashboard d-flex justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <div class="figure">
-                                                <a href="{{ route('frontend.ad.details', ['slug' => $ad->slug]) }}">
-                                                    <img class="img-fluid" src="{{ $ad->photo }}"
-                                                        alt="{{ $ad->title }}" style="width:220px;height:140px" /></a>
-                                            </div>
-                                            <div class="feature-content">
-                                                <div class="product mobile-hidden">
-                                                    <a
-                                                        href="{{ getFullLink(route('frontend.ads'), ['category_id' => $ad->category->category_hierarchy_ids]) }}">{{ $ad->category_name }}
-                                                    </a>
-                                                </div>
-                                                <h4>
-                                                    <a
-                                                        href="{{ route('frontend.ad.details', ['slug' => $ad->slug]) }}">{{ $ad->title_formatted }}</a>
-                                                </h4>
-                                                <div class="meta-tag mobile-hidden">
-                                                    <span>
-                                                        <a
-                                                            href="{{ getFullLink(route('frontend.profile', ['id' => $ad->user_id]), ['id' => $ad->id]) }}"><i
-                                                                class="fa fa-user"></i>{{ $ad->user->name }}</a>
-                                                    </span>
-                                                    <span>
-                                                        <a><i class="fa fa-map-marker"></i> {{ $ad->city_name }}</a>
-                                                    </span>
-
-                                                    <span>
-                                                        <a><i class="fa fa-clock-o"></i>
-                                                            {{ $ad->created_at->diffForHumans() }}</a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="button pl-2">
-                                            <a href="{{ route('frontend.ad.edit', ['id' => $ad->id]) }}"
-                                                class="btn btn-common bordered font-size-14 py-2 px-2"><i
-                                                    class="fa fa-repeat"></i> {{ __('frontend.dashboard.update_ad') }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @empty
-                                <div class="section-btn text-center mt-3 mb-5 no-ads">
-                                    {{ __('frontend.dashboard.no_ads') }}
-                                </div>
-                            @endforelse
+                            @include('parts.ads.dashboard',['ads'=>collect($ads->items())->map->format()])
                         </div>
                         <div class="row" style="justify-content: center;">
                             {{$ads->links()}}

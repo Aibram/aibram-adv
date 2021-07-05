@@ -73,15 +73,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{config('app.name')}}</h4>
+                        <h5>{{config('app.name')}}</h5>
                         <button class="ml-0 mr-auto p-0 bg-transparent btn font-size-18" type="button"
                             class="close" data-dismiss="modal">
                             &times;
                         </button>
                     </div>
+                    <div class="modal-body">
+                        <h5>{{ __('frontend.nav.login_first') }}</h5>
+                    </div>
                     <div class="modal-footer text-center">
                         <a href="{{route('frontend.login')}}" class="btn btn-common mx-auto">
-                            {{__('frontend.nav.login')}}
+                            {{__('frontend.nav.agree')}}
                         </a>
                     </div>
                 </div>

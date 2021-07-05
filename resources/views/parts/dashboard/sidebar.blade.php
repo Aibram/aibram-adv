@@ -61,7 +61,7 @@
 </div>
 <div id="owl-demo2" class="owl-carousel owl-theme dashboard-carousel desktop-hidden">
     <div class="item">
-        <a href="{{route('frontend.dashboard.all')}}" class="btn btn-border category d-flex active">
+        <a href="{{route('frontend.dashboard.all')}}" class="btn btn-border category d-flex @if ($active=='ads' ) active @endif">
             <div class="icon ml-2 position-relative">
                 <i class="fa fa-flag"></i>
             </div>
@@ -69,7 +69,7 @@
         </a>
     </div>
     <div class="item">
-        <a href="{{route('frontend.dashboard.chats')}}" class="btn btn-border category d-flex">
+        <a href="{{route('frontend.dashboard.chats')}}" class="btn btn-border category d-flex @if ($active=='chats' ) active @endif">
             <div class="icon ml-2 position-relative">
                 {{-- <div class="circle">3</div> --}}
                 <i class="fa fa-comment"></i>
@@ -78,7 +78,7 @@
         </a>
     </div>
     <div class="item">
-        <a href="{{route('frontend.dashboard.ratings')}}" class="btn btn-border category d-flex">
+        <a href="{{route('frontend.dashboard.ratings')}}" class="btn btn-border category d-flex @if ($active=='ratings' ) active @endif">
             <div class="icon ml-2 position-relative">
                 {{-- <div class="circle">3</div> --}}
                 <i class="fa fa-thumbs-up"></i>
@@ -87,7 +87,7 @@
         </a>
     </div>
     <div class="item">
-        <a href="{{route('frontend.dashboard.favorites')}}" class="btn btn-border category d-flex">
+        <a href="{{route('frontend.dashboard.favorites')}}" class="btn btn-border category d-flex @if ($active=='favorites' ) active @endif">
             <div class="icon ml-2 position-relative">
                 <i class="fa fa-heart"></i>
             </div>
@@ -95,7 +95,7 @@
         </a>
     </div>
     <div class="item">
-        <a href="{{route('frontend.dashboard.notifications')}}" class="btn btn-border category d-flex">
+        <a href="{{route('frontend.dashboard.notifications')}}" class="btn btn-border category d-flex @if ($active=='notifications' ) active @endif">
             <div class="icon ml-2 position-relative">
                 <i class="fa fa-bell"></i>
             </div>
@@ -103,7 +103,7 @@
         </a>
     </div>
     <div class="item">
-        <a href="{{route('frontend.dashboard.account')}}" class="btn btn-border category d-flex">
+        <a href="{{route('frontend.dashboard.account')}}" class="btn btn-border category d-flex" @if ($active=='account' ) active @endif>
             <div class="icon ml-2 position-relative">
                 <i class="fa fa-user"></i>
             </div>

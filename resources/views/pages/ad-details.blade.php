@@ -88,8 +88,8 @@
                                                 {{ __('frontend.details.favorites') }}
                                             </p>
                                         </span>
-                                        @if(checkLoggedIn('user') && auth()->guard('user')->user()->id != $ad['user_id'])
-                                            @if(ratedBefore(auth()->guard('user')->user(),$ad['user_id']))
+                                        @if(checkLoggedIn('user') && currUser('user')->id != $ad['user_id'])
+                                            @if(ratedBefore(currUser('user'),$ad['user_id']))
                                                 <a class="btn-common btn">
                                                     <p class="text-white text-bold">
                                                         <i class="fa fa-plus ml-2 "></i>
@@ -134,29 +134,40 @@
                     </div>
                     <div class="widget contact p-0">
                         <ul class="ad-contact">
-                            <li class="single-contact green">
-                                <a href="{{ toWhatsappGateway($ad['mobile']) }}"><i class="fa fa-whatsapp"></i>
-                                    <p>{{ __('frontend.details.contact_whatsapp') }}</p>
-                                </a>
-                            </li>
-                            @if (checkLoggedIn('user') && auth()->guard('user')->user()->id != $ad['user_id'])
+                            @if (checkLoggedIn('user') && currUser('user')->id != $ad['user_id'])
+                                <li class="single-contact green">
+                                    <a href="{{ toWhatsappGateway($ad['mobile']) }}"><i class="fa fa-whatsapp"></i>
+                                        <p>{{ __('frontend.details.contact_whatsapp') }}</p>
+                                    </a>
+                                </li>
                                 <li class="single-contact yellow">
                                     <a href="{{getFullLink(route('frontend.chat.single',['id'=>$ad['user_id']]),['id'=>$ad['id']])}}"><i class="fa fa-comment"></i>
                                         <p>{{ __('frontend.details.contact_website') }}</p>
                                     </a>
                                 </li>
-                            @elseif(!checkLoggedIn('user'))
+                                <li class="single-contact blue">
+                                    <a href="{{ 'tel:' . $ad['mobile'] }}"><i class="fa fa-phone"></i>
+                                        <p>{{ __('frontend.details.call') }} <span>{{ $ad['mobile'] }}</span></p>
+                                    </a>
+                                </li>
+                            @elseif(checkLoggedIn('user') && currUser('user')->id == $ad['user_id'])
+                            @else
+                                <li class="single-contact green">
+                                    <a href="#loginModal" data-toggle="modal"><i class="fa fa-whatsapp"></i>
+                                        <p>{{ __('frontend.details.contact_whatsapp') }}</p>
+                                    </a>
+                                </li>
                                 <li class="single-contact yellow">
                                     <a href="#loginModal" data-toggle="modal"><i class="fa fa-comment"></i>
                                         <p>{{ __('frontend.details.contact_website') }}</p>
                                     </a>
                                 </li>
+                                <li class="single-contact blue">
+                                    <a href="#loginModal" data-toggle="modal"><i class="fa fa-phone"></i>
+                                        <p>{{ __('frontend.details.call') }} <span>xxx-xxxxxxxxxx</span></p>
+                                    </a>
+                                </li>
                             @endif
-                            <li class="single-contact blue">
-                                <a href="{{ 'tel:' . $ad['mobile'] }}"><i class="fa fa-phone"></i>
-                                    <p>{{ __('frontend.details.call') }} <span>{{ $ad['mobile'] }}</span></p>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <div class="tag-bottom my-4">
@@ -176,12 +187,13 @@
                                         <i class="fa fa-heart ml-2"></i>{{__('frontend.details.add_to_favorite')}}
                                     </a>
                                 @endif
-                                @if(checkLoggedIn('user'))
+                                @if(checkLoggedIn('user') && currUser('user')->id != $ad['user_id'])
                                     <a class="btn btn-warning" href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad['id']])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                @elseif(checkLoggedIn('user') && currUser('user')->id == $ad['user_id'])
                                 @else
                                     <a class="btn btn-warning" href="#loginModal" data-toggle="modal"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
                                 @endif
-                                @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id ==$ad['user_id'])
+                                @if (checkLoggedIn('user') && currUser('user')->id ==$ad['user_id'])
                                     <div class="d-flex w-100 mt-4">
                                         <a href="{{route('frontend.ad.edit',['id'=>$ad['id']])}}"
                                             class="btn col btn-block btn-common bg-blue text-white mr-0 mr-md-2"><i
@@ -207,8 +219,8 @@
                                 @include('parts.comment',['comment'=>$comment])                            
                             @endforeach
                         </ol>
-                        @if (auth()->guard('user')->user())
-                            <div id="respond" class="mb-5" style="display:{{auth()->guard('user')->user()->id ==$ad['user_id'] ? 'none':'block'}}">
+                        @if (checkLoggedIn('user'))
+                            <div id="respond" class="mb-5" style="display:{{currUser('user')->id ==$ad['user_id'] ? 'none':'block'}}">
                                 <h2 class="respond-title">{{__('frontend.details.your_comment')}}</h2>
                                 <form id="commentForm" action="{{route('frontend.ad.add_comment',['id'=>$ad['id']])}}" method="GET">
                                     <div class="row">

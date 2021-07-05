@@ -46,9 +46,9 @@
                 <div class="col-sm-12 col-md-8">
                     <div id="list-view " class="page-content">
                         <div class="row">
-                            <div class="testimonial pt-2">
+                            <div class="testimonial pt-2 w-100">
                                 <h1 class="section-title mx-auto desktop-hidden">
-                                    {{ __('frontend.dashboard.ratings') }} ({{ count($ratings) }})
+                                    {{ __('frontend.dashboard.ratings') }} ({{ $ratings->total() }})
                                 </h1>
                                 <div class="col-12 mt-4">
                                     @forelse ($ratings as $item)
@@ -69,7 +69,7 @@
                                                         style="width: 44px;height:44px" />
                                                 </div>
 
-                                                <div class="content" style="min-width: 680px">
+                                                <div class="content">
                                                     <div class="info-text">
                                                         <h2><a href="#">{{ $item->ratedUser->name }}</a></h2>
                                                     </div>

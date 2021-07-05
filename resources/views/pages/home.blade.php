@@ -63,50 +63,13 @@
 
 
 @section('content')
-    @php($lastAds = getAds(['home'=>1],null,6))
-    @if(count($lastAds)>0)
+    @php($latestAds = getAds(['home'=>1],null,6))
+    @if(count($latestAds)>0)
     <section class="featured section-padding">
         <div class="container">
             <h1 class="section-title">{{ __('frontend.home.recent_ads') }}</h1>
             <div class="row">
-                @foreach ($lastAds as $item)
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                        <div class="featured-box">
-                            <div class="figure">
-                                @if(checkLoggedIn('user'))
-                                    <a href="javascript:;" class="icon @if($item['favorited']) fav-remove @else fav-add @endif" data-id="{{$item['id']}}" onclick="handleFavorite(this)">
-                                        <span class="bg-green"><i class="fa fa-heart"></i></span>
-                                    </a>
-                                @else
-                                    <a href="#loginModal" data-toggle="modal" class="icon fav-add">
-                                        <span class="bg-green"><i class="fa fa-heart"></i></span>
-                                    </a>
-                                @endif
-                                <a href="{{$item['detailsUrl']}}">
-                                    <img class="img-fluid" src="{{$item['photo']}}" alt="{{$item['title']}}" style="width: 350px;height:225px"/>
-                                </a>
-                            </div>
-                            <div class="feature-content">
-                                <div class="product">
-                                    <a href="{{$item['searchCategoryUrl']}}">{{$item['category_name']}} </a>
-                                </div>
-                                <h4><a href="{{$item['detailsUrl']}}">{{$item['title_formatted']}}</a></h4>
-                                <div class="meta-tag">
-                                    <span>
-                                        <a href="{{$item['profileUrl']}}"><i class="fa fa-user"></i>{{$item['user_name']}}</a>
-                                    </span>
-                                    <span>
-                                        <a href="{{$item['searchCityUrl']}}"><i class="fa fa-map-marker"></i> {{$item['city_name']}}</a>
-                                    </span>
-
-                                    <span>
-                                        <a href="{{$item['detailsUrl']}}"><i class="fa fa-clock-o"></i> {{$item['created_at_human']}}</a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                @include('parts.ads.latest-home',['ads'=>$latestAds])
             </div>
             <div class="section-btn text-center mt-4">
                 <a href="{{route('frontend.ads')}}" class="btn btn-common btn-lg text-white px-3">
@@ -124,52 +87,7 @@
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                         <h3 class="section-title">{{ __('frontend.home.featured_ads') }}</h3>
                         <div id="new-products" class="owl-carousel owl-theme">
-                            @foreach ($featuredAds as $item)
-                                <div class="item">
-                                    <div class="product-item">
-                                        <div class="carousel-thumb">
-                                            <img class="img-fluid" src="{{$item['photo']}}" alt="{{$item['title']}}" style="width: 340px;height:225px"/>
-                                            <div class="overlay">
-                                                <div>
-                                                    <a class="btn btn-common" href="{{$item['detailsUrl']}}">{{__('frontend.home.show_details')}}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <h3 class="product-title">
-                                                <a href="{{$item['detailsUrl']}}">{{$item['title_formatted']}}</a>
-                                            </h3>
-                                            <a href="{{$item['searchCategoryUrl']}}">{{$item['category_name']}}</a>
-                                            @if(checkLoggedIn('user'))
-                                                <a href="javascript:;" class="icon @if($item['favorited']) fav-remove @else fav-add @endif" data-id="{{$item['id']}}" onclick="handleFavorite(this)">
-                                                    <span class="bg-green"><i class="fa fa-heart"></i></span>
-                                                </a>
-                                            @else
-                                                <a href="#loginModal" data-toggle="modal" class="icon fav-add">
-                                                    <span class="bg-green"><i class="fa fa-heart"></i></span>
-                                                </a>
-                                            @endif
-                                            <div class="card-text">
-                                                <div class="float-left">
-                                                    <span class="icon-wrap">
-                                                        @for ($i = 0; $i < $item['avg_rate']; $i++)
-                                                            <i class="lni-star-filled"></i>
-                                                        @endfor
-                                                        @for ($i = 0; $i < 5 - $item['avg_rate']; $i++)
-                                                            <i class="lni-star"></i>
-                                                        @endfor
-                                                    </span>
-                                                    <span class="count-review"> ({{$item['no_ratings']}} {{ __('frontend.home.rating') }}) </span>
-                                                </div>
-                                                <div class="float-right">
-                                                    <a class="address" href="{{$item['detailsUrl']}}"><i class="fa fa-clock-o"></i> {{$item['created_at_human']}}</a>
-                                                    <a class="address" href="{{$item['searchCityUrl']}}"><i class="fa fa-map-marker"></i> {{$item['city_name']}}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+                            @include('parts.ads.featured-home',['ads'=>$featuredAds])
                         </div>
                     </div>
                 </div>

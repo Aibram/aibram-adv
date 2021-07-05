@@ -26,8 +26,7 @@
                 </h4>
                 <div class="meta-tag">
                     <span>
-                        <a href="{{ $ad['profileUrl'] }}"><i
-                                class="fa fa-user"></i>{{ $ad['user_name'] }}</a>
+                        <a href="{{ $ad['profileUrl'] }}" class="text-blue"><i class="fa fa-user"></i>{{ $ad['user_name'] }}</a>
                     </span>
                     <span>
                         <a href="{{ $ad['searchCityUrl'] }}"><i class="fa fa-map-marker"></i>{{ $ad['city_name'] }}</a>

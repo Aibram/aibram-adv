@@ -55,6 +55,7 @@ jQuery.fn.activationCodeInput = function(options) {
             activationCodeInputs.append(
                 $("<input />").attr({
                     maxLength: settings.length,
+                    type: "number",
                     onkeydown: "return inputFilter(event)",
                     oncopy: "return false",
                     onpaste: "return false",

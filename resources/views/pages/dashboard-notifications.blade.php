@@ -46,15 +46,15 @@
                 <div class="col-sm-12 col-md-8">
                     <div id="list-view " class="page-content">
                         <div class="row">
-                            <div class="testimonial pt-2">
+                            <div class="testimonial pt-2 w-100">
                                 <h1 class="section-title mx-auto desktop-hidden">
-                                    {{ __('frontend.dashboard.ratings') }} ({{ count($notifications) }})
+                                    {{ __('frontend.dashboard.notifications') }} ({{ $notifications->total() }})
                                 </h1>
                                 <div class="col-12 mt-4">
                                     @forelse ($notifications as $item)
                                         <div class="item">
                                             <div class="testimonial-item">
-                                                <div class="content @if($item->read_at) read @endif" style="min-width: 680px">
+                                                <div class="content @if($item->read_at) read @endif">
                                                     @include('parts.notifications.single',['item'=>$item])
                                                 </div>
                                             </div>

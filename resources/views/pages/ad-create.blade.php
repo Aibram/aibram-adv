@@ -90,13 +90,13 @@
                                 <label class="d-block text-bold">{{ __('frontend.ad_create.contact_method') }}:</label>
                                 <div class="custom-control custom-radio mb-2">
                                     <input type="radio" class="custom-control-input" id="phone-number1" name="contact_method"
-                                        value="show" onchange="check()" />
+                                        value="show" onchange="check()" checked/>
                                     <label class="custom-control-label font-size-16" for="phone-number1">
                                         {{ __('frontend.ad_create.show_your_phone') }}</label>
                                 </div>
                                 <div class="custom-control custom-radio mb-2">
                                     <input type="radio" class="custom-control-input" id="phone-number" name="contact_method"
-                                        value="number" onchange="check()" checked/>
+                                        value="number" onchange="check()"/>
                                     <label class="custom-control-label font-size-16" for="phone-number">
                                         {{ __('frontend.ad_create.new_phone') }}</label>
                                 </div>
@@ -107,7 +107,7 @@
                                         for="message">{{ __('frontend.ad_create.by_messages') }}</label>
                                 </div>
                             </div>
-                            <div class="row flex-nowrap" id="phone-field">
+                            <div class="row flex-nowrap d-none" id="phone-field">
                                 <div class="form-group mb-3 col-8 pl-0">
                                     <div class="input-icon">
                                         <input class="form-control text-left placeholder-right" name="mobile"
