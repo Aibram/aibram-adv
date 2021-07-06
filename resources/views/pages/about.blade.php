@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="breadcrumb-wrapper">
-                        <h2 class="product-title">من نحن ؟</h2>
+                        <h2 class="product-title">{{__('frontend.nav.who_are_we')}}</h2>
                         <ol class="breadcrumb">
-                            <li><a href="#">الرئيسية /</a></li>
-                            <li class="current">من نحن ؟</li>
+                            <li><a href="{{route('frontend.home')}}">{{__('frontend.nav.home')}} /</a></li>
+                            <li class="current">{{__('frontend.nav.who_are_we')}}</li>
                         </ol>
                     </div>
                 </div>
@@ -25,26 +25,9 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-xs-12">
                     <div class="about-wrapper">
-                        <h2 class="intro-title">نبذة عننا</h2>
+                        <h2 class="intro-title">{{__('frontend.who_are_we.brief_desc')}}</h2>
                         <p class="intro-desc">
-                            هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد
-                            هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو
-                            العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها
-                            التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص
-                            العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي
-                            أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه
-                            الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة
-                            حقيقية لتصميم الموقع.
-                        </p>
-                        <p class="intro-desc">
-                            هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد
-                            هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو
-                            العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها
-                            التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص
-                            العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي
-                            أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه
-                            الخصوص، حيث يحتاج العميل فى كثير من الأحيان أن يطلع على صورة
-                            حقيقية لتصميم الموقع.
+                            {{getSettings('whoAreWeBriefDesc','')}}
                         </p>
                     </div>
                 </div>
@@ -63,12 +46,9 @@
                             <div class="frame">
                                 <img src="{{asset('frontend/assets/img/blog/img-1.jpg')}}" class="img-responsive" />
                             </div>
-                            <h4>رؤيتنا</h4>
+                            <h4>{{__('frontend.who_are_we.our_vision')}}</h4>
                             <p>
-                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما
-                                سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع
-                                الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم
-                                إيبسوم لأنها تعطي توزيعاَ طبيعياَ
+                                {{getSettings('whoAreWeOurVision','')}}
                             </p>
                         </div>
                     </div>
@@ -77,12 +57,9 @@
                             <div class="frame">
                                 <img src="{{asset('frontend/assets/img/blog/img-2.jpg')}}" class="img-responsive" />
                             </div>
-                            <h4>هدفنا</h4>
+                            <h4>{{__('frontend.who_are_we.our_goal')}}</h4>
                             <p>
-                                مهناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما
-                                سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع
-                                الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم
-                                إيبسوم لأنها تعطي توزيعاَ طبيعياَ
+                                {{getSettings('whoAreWeOurGoal','')}}
                             </p>
                         </div>
                     </div>
@@ -91,12 +68,9 @@
                             <div class="frame">
                                 <img src="{{asset('frontend/assets/img/blog/img-3.jpg')}}" class="img-responsive" />
                             </div>
-                            <h4>قيمتنا</h4>
+                            <h4>{{__('frontend.who_are_we.our_value')}}</h4>
                             <p>
-                                مهناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما
-                                سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع
-                                الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم
-                                إيبسوم لأنها تعطي توزيعاَ طبيعياَ
+                                {{getSettings('whoAreWeOurValue','')}}
                             </p>
                         </div>
                     </div>
@@ -112,7 +86,7 @@
                     <div class="counter">
                         <div class="icon"><i class="lni-layers"></i></div>
                         <h2 class="counterUp">{{getSettings('adsCount','100')}}</h2>
-                        <p>اعلان</p>
+                        <p>{{__('frontend.who_are_we.ad')}}</p>
                     </div>
                 </div>
 
@@ -120,7 +94,7 @@
                     <div class="counter">
                         <div class="icon"><i class="lni-users"></i></div>
                         <h2 class="counterUp">{{getSettings('usersCount','40')}}</h2>
-                        <p>مستخدمين</p>
+                        <p>{{__('frontend.who_are_we.user')}}</p>
                     </div>
                 </div>
 
@@ -128,7 +102,7 @@
                     <div class="counter">
                         <div class="icon"><i class="lni-briefcase"></i></div>
                         <h2 class="counterUp">{{getSettings('categoriesCount','15')}}</h2>
-                        <p>صنف</p>
+                        <p>{{__('frontend.who_are_we.category')}}</p>
                     </div>
                 </div>
 
@@ -136,7 +110,7 @@
                     <div class="counter">
                         <div class="icon"><i class="lni-map"></i></div>
                         <h2 class="counterUp">{{getSettings('ratingsCount','12')}}</h2>
-                        <p>تقييم ايجابي</p>
+                        <p>{{__('frontend.who_are_we.rating')}}</p>
                     </div>
                 </div>
             </div>

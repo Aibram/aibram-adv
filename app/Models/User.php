@@ -11,7 +11,12 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens,HasFactory, Notifiable;
-
+    protected $with = [
+        'city',
+        'country',
+        'myRatings',
+        'givenRatings',
+    ];
     /**
      * The attributes that are mass assignable.
      *

@@ -17,7 +17,13 @@ class Advertisement extends BaseModel
 {
     use SoftDeletes,Taggable,Sluggable,HasFactory,SluggableScopeHelpers;
     protected $morphClass = 'Advertisement';
-
+    protected $with = [
+        'category',
+        'country',
+        'city',
+        'user',
+        'properties',
+    ];
     protected $casts = [
         'avg_rate' => 'integer',
     ];

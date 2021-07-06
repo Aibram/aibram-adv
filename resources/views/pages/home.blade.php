@@ -98,14 +98,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="section-title">كيف نعمل؟</h3>
+                    <h3 class="section-title">{{__('frontend.home.how_we_work')}}</h3>
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
                         <div class="icon-box">
                             <i class="fa fa-users"></i>
                         </div>
-                        <p>انشئ حساب</p>
+                        <p>{{__('frontend.home.register')}}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12">
@@ -113,7 +113,7 @@
                         <div class="icon-box">
                             <i class="lni-bookmark-alt"></i>
                         </div>
-                        <p>انشر إعلانك</p>
+                        <p>{{__('frontend.home.create_ad')}}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12">
@@ -121,7 +121,7 @@
                         <div class="icon-box">
                             <i class="lni-thumbs-up"></i>
                         </div>
-                        <p>اتمام الاتفاق</p>
+                        <p>{{__('frontend.home.complete')}}</p>
                     </div>
                 </div>
                 <hr class="works-line" />
@@ -133,7 +133,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="section-title">المميزات</h3>
+                    <h3 class="section-title">{{__('frontend.home.advantages')}}</h3>
                 </div>
 
                 <div class="col-md-6 col-lg-4 col-xs-12">
@@ -142,11 +142,8 @@
                             <i class="fa fa-leaf"></i>
                         </div>
                         <div class="services-content">
-                            <h3><a href="#">تصنيفات متنوعة</a></h3>
-                            <p>
-                                هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                                توليد هذا النص من مولد النص العربى،
-                            </p>
+                            <h3><a href="#">{{__('frontend.home.various_categories')}}</a></h3>
+                            <p>{{getSettings('homeVariousCategories','')}}</p>
                         </div>
                     </div>
                 </div>
@@ -157,11 +154,8 @@
                             <i class="fa fa-desktop"></i>
                         </div>
                         <div class="services-content">
-                            <h3><a href="#">سهولة في الاستخدام</a></h3>
-                            <p>
-                                هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                                توليد هذا النص من مولد النص العربى،
-                            </p>
+                            <h3><a href="#">{{__('frontend.home.easy_use')}}</a></h3>
+                            <p>{{getSettings('homeEasyUse','')}}</p>
                         </div>
                     </div>
                 </div>
@@ -172,11 +166,8 @@
                             <i class="lni-color-pallet"></i>
                         </div>
                         <div class="services-content">
-                            <h3><a href="#">تصميم فريد</a></h3>
-                            <p>
-                                هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                                توليد هذا النص من مولد النص العربى،
-                            </p>
+                            <h3><a href="#">{{__('frontend.home.unique_design')}}</a></h3>
+                            <p>{{getSettings('homeUniqueDesign','')}}</p>
                         </div>
                     </div>
                 </div>
