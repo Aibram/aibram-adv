@@ -350,7 +350,7 @@
         margin-left: 10px;
     }
     .agent-inner .agent-title .agent-photo span {
-        color: #000 !important;
+        /* color: #000 !important; */
         font-weight: bold;
     }
     .agent-inner .agent-title .agent-photo i {

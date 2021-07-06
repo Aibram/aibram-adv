@@ -44,7 +44,7 @@
                                             </a>
                                         @endif
                                     @else
-                                        <a class="btn btn-common green w-110" href="#loginModal" data-toggle="modal">
+                                        <a class="btn btn-common green w-110" href = "javascript:;" onClick = "openLogin();">
                                             <i class="fa fa-plus ml-2"></i>
                                             {{ __('frontend.profile.add_rating') }}
                                         </a>
@@ -56,7 +56,7 @@
                                             <i class="fa fa-comment"></i>{{ __('frontend.profile.chat') }}
                                         </a>
                                     @else
-                                        <a class="btn btn-common green w-110" href="#loginModal" data-toggle="modal">
+                                        <a class="btn btn-common green w-110" href = "javascript:;" onClick = "openLogin();">
                                             <i class="fa fa-comment"></i>{{ __('frontend.profile.chat') }}
                                         </a>
                                     @endif

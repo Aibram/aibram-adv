@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Facades\NotificationInitator;
+use App\Facades\SeoInit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\ReportRequest;
 use App\Interfaces\AdvertisementRepositoryInterface;
@@ -28,7 +29,10 @@ class FrontendController extends Controller
     public function home()
     {
         // dd(request()->route()->getName());
-        return view('pages.home');
+        SeoInit::list('Aibram','مرحبًا بكم في أكبر منصة للاعلانات',route('frontend.home'),asset('frontend/assets/img/hero-area.jpg'),['Aibram','Ads','ads','categories']);
+        $latestAds = $this->adRepo->filterAds(['home'=>1],3,1,['created_at' => 'desc']);
+        $featuredAds = checkLoggedIn('user') ? $this->adRepo->featuredAds(currUser('user')) : [];
+        return view('pages.home',compact('latestAds','featuredAds'));
     }
 
     public function profile($id,Request $request)

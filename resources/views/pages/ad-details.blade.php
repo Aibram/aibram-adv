@@ -105,7 +105,7 @@
                                                 </a>
                                             @endif
                                         @elseif(!checkLoggedIn('user'))
-                                            <a class="btn-common btn" href="#loginModal" data-toggle="modal">
+                                            <a class="btn-common btn" href = "javascript:;" onClick = "openLogin();">
                                                 <p class="text-white text-bold">
                                                     <i class="fa fa-plus ml-2"></i>
                                                     {{ __('frontend.details.add_rating') }}
@@ -153,17 +153,17 @@
                             @elseif(checkLoggedIn('user') && currUser('user')->id == $ad['user_id'])
                             @else
                                 <li class="single-contact green">
-                                    <a href="#loginModal" data-toggle="modal"><i class="fa fa-whatsapp"></i>
+                                    <a href = "javascript:;" onClick = "openLogin();"><i class="fa fa-whatsapp"></i>
                                         <p>{{ __('frontend.details.contact_whatsapp') }}</p>
                                     </a>
                                 </li>
                                 <li class="single-contact yellow">
-                                    <a href="#loginModal" data-toggle="modal"><i class="fa fa-comment"></i>
+                                    <a href = "javascript:;" onClick = "openLogin();"><i class="fa fa-comment"></i>
                                         <p>{{ __('frontend.details.contact_website') }}</p>
                                     </a>
                                 </li>
                                 <li class="single-contact blue">
-                                    <a href="#loginModal" data-toggle="modal"><i class="fa fa-phone"></i>
+                                    <a href = "javascript:;" onClick = "openLogin();"><i class="fa fa-phone"></i>
                                         <p>{{ __('frontend.details.call') }} <span>xxx-xxxxxxxxxx</span></p>
                                     </a>
                                 </li>
@@ -183,7 +183,7 @@
                                         <i class="fa fa-heart ml-2"></i>{{__('frontend.details.add_to_favorite')}}
                                     </a>
                                 @else
-                                    <a href="#loginModal" data-toggle="modal" class="btn btn-common ml-2 fav-add">
+                                    <a href = "javascript:;" onClick = "openLogin();" class="btn btn-common ml-2 fav-add">
                                         <i class="fa fa-heart ml-2"></i>{{__('frontend.details.add_to_favorite')}}
                                     </a>
                                 @endif
@@ -191,7 +191,7 @@
                                     <a class="btn btn-warning" href="{{getFullLink(route('frontend.report'),['type'=>'Advertisement','id'=>$ad['id']])}}"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
                                 @elseif(checkLoggedIn('user') && currUser('user')->id == $ad['user_id'])
                                 @else
-                                    <a class="btn btn-warning" href="#loginModal" data-toggle="modal"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
+                                    <a class="btn btn-warning" href = "javascript:;" onClick = "openLogin();"><i class="fa fa-flag ml-2"></i>{{__('frontend.details.report')}}</a>
                                 @endif
                                 @if (checkLoggedIn('user') && currUser('user')->id ==$ad['user_id'])
                                     <div class="d-flex w-100 mt-4">

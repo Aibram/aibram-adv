@@ -36,6 +36,9 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
 
     public function filterAds($data,$count=4,$page=1,$ordering=[]){
         $newModel = $this->model->active(1);
+        if(isset($data['home']) && $data['home']){
+            $newModel=$newModel->where('home',$data['home']);
+        }
         if(isset($data['city_id']) && $data['city_id']){
             $newModel=$newModel->where('city_id',$data['city_id']);
         }
@@ -50,6 +53,30 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
         }
         $newModel=$newModel->paginate($count,['*'],'page',$page);
         return $newModel;
+    }
+
+    public function featuredAds($user,$count = 4 , $page = 1 , $ordering = ['created_at' => 'desc'] , $paginate=false){
+        $this->model = $this->model->newQuery()
+            ->join('ad_marketings', function ($q) {
+                $q->on('ad_marketings.advertisement_id', '=', 'advertisements.id');
+            })
+            ->where(function ($query) use($user){
+                $query->where('ad_marketings.gender', '=', $user->gender)
+                        ->orWhere('ad_marketings.gender', '=', 'all');
+            })
+            ->where(function ($query) use($user){
+                $query->where('ad_marketings.age_from', '>=', $user->age)
+                        ->orWhere('ad_marketings.age_to', '<=', $user->age);
+            });
+        $this->applyConditions(['advertisements.featured' => 1,'ad_marketings.city_id'=>$user->city_id]);
+        $this->model = $this->model->groupBy('advertisements.id');
+        $this->orderBy($ordering);
+        $this->model = $this->model->select(
+            [
+                'advertisements.*',
+            ]
+        );
+        return $paginate ? $this->model->paginate($count,['*'],'page',$page) : $this->model->get();
     }
 
     public function updateAd($id,$data){

@@ -7,7 +7,7 @@
                         <span class="bg-green"><i class="fa fa-heart"></i></span>
                     </div>
                 @else
-                    <a href="#loginModal" data-toggle="modal" class="icon fav-add">
+                    <a href = "javascript:;" onClick = "openLogin();" class="icon fav-add">
                         <span class="bg-green"><i class="fa fa-heart"></i></span>
                     </a>
                 @endif

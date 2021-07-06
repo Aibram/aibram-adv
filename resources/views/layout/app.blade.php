@@ -30,6 +30,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/magnific-popup.css')}}" />
 
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/font-awesome.min.css')}}" />
+    <link href="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet" type="text/css" />
+
     @yield('custom_css')
     @toastr_css
     <style>
@@ -114,9 +116,27 @@
     <script src="{{asset('frontend/assets/js/form-validator.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/contact-form-script.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/summernote.js')}}"></script>
+    <script src="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
+	<script src="{{asset('assets/vendors/custom/js/vendors/sweetalert2.init.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/ajaxReq.js')}}"></script>
     <script src="{{asset('js/favorite.js')}}"></script>
+    @if(!checkLoggedIn('user'))
+    <script>
+        function openLogin(){
+            swal.fire({
+                title: '',
+                text: "{{ __('frontend.nav.login_first') }}",
+                type: 'error',
+                confirmButtonText: "{{__('frontend.nav.agree')}}"
+            }).then(function(result) {
+                if (result.value) {
+                    window.location = "{{route('frontend.login')}}";
+                }
+            });
+        }
+    </script>
+    @endif
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     @if(checkLoggedIn('user'))
         @include('vendor.pusher')

@@ -33,6 +33,20 @@ class AdvertisementController extends BaseController
         ]);
     }
 
+    public function getHomeAds(Request $request)
+    {
+        if($request->get('user_id',null)){
+            Auth::guard('user')->setUser(User::find($request->user_id));
+        }
+        $latestAds = $this->repository->filterAds(['home'=>1],3,$request->get('page',1));
+        $items = collect($latestAds->items())->map->format();
+        return APIResponse::sendResponse($this->getMsg(),[
+            'list' => view('parts.ads.latest-home', ['ads'=>$items])->render(),
+            'adsCount' => $latestAds->count(),
+            'hasMorePages' => $latestAds->hasMorePages()
+        ]);
+    }
+
     public function addtoFavorite(Request $request)
     {
         $favItem = $this->favRepo->getFirstBy(['user_id'=>$request->user_id,'advertisement_id'=>$request->advertisement_id]);

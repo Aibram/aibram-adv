@@ -63,23 +63,23 @@
 
 
 @section('content')
-    @php($latestAds = getAds(['home'=>1],null,6))
-    @if(count($latestAds)>0)
+    @if($latestAds->count() > 0)
     <section class="featured section-padding">
         <div class="container">
             <h1 class="section-title">{{ __('frontend.home.recent_ads') }}</h1>
-            <div class="row">
-                @include('parts.ads.latest-home',['ads'=>$latestAds])
+            <div class="row" id="latestAdsList">
+                @include('parts.ads.latest-home',['ads'=>collect($latestAds->items())->map->format()])
             </div>
-            <div class="section-btn text-center mt-4">
-                <a href="{{route('frontend.ads')}}" class="btn btn-common btn-lg text-white px-3">
-                    <i class="lni-arrow-down"></i>
-                    <span class="">{{ __('frontend.home.see_more') }}</span></a>
-            </div>
+            @if($latestAds->hasMorePages())
+                <div class="section-btn text-center mt-4">
+                    <a  href="javascript:;" id="loadMore" class="btn btn-common btn-lg text-white px-3">
+                        <i class="lni-arrow-down"></i>
+                        <span class="">{{ __('frontend.home.see_more') }}</span></a>
+                </div>
+            @endif
         </div>
     </section>
     @endif
-    @php($featuredAds = getFeaturedAds(currUser('user')))
     @if(count($featuredAds)>0)
         <section class="featured-lis section-padding">
             <div class="container">
@@ -87,7 +87,7 @@
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                         <h3 class="section-title">{{ __('frontend.home.featured_ads') }}</h3>
                         <div id="new-products" class="owl-carousel owl-theme">
-                            @include('parts.ads.featured-home',['ads'=>$featuredAds])
+                            @include('parts.ads.featured-home',['ads'=>$featuredAds->map->format()])
                         </div>
                     </div>
                 </div>
@@ -215,4 +215,29 @@
             </div>
         </div>
     </section>
+@endsection
+@section('custom_js')
+<script>
+    (function () {
+        var params = {
+            page : 1,
+            user_id : "{{checkLoggedIn('user')?currUser('user')->id:''}}"
+        };
+        function callAjax(latestAdsList,reload = false) {
+            sendAjaxReq(params, "POST", "{{route('getHomeAds')}}", function(data) {
+                if (reload) {
+                    $(latestAdsList).html(data.list);
+                } else {
+                    $(latestAdsList).append(data.list);
+                }
+                data.hasMorePages && $('#loadMore').show();
+                !data.hasMorePages && $('#loadMore').hide();
+            },false,true)
+        }
+        $('#loadMore').click(function(){
+            params.page++
+            callAjax('#latestAdsList')
+        });
+    }());
+</script>
 @endsection

@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 Route::group( ['name' => 'ajax.','prefix'=>'ajax'],function(){
     Route::get('/cat-jstree',[CategoryController::class,'getCatList'])->name('catList');
     Route::post('/getAds',[AdvertisementController::class,'getAds'])->name('getAds');
+    Route::post('/getHomeAds',[AdvertisementController::class,'getHomeAds'])->name('getHomeAds');
     Route::post('/getMessages/{id}',[ChatController::class,'getMessages'])->name('getMessages');
     Route::post('/sendMessage/{id}',[ChatController::class,'sendMessage'])->name('sendMessage');
     Route::post('/readMessages/{id}',[ChatController::class,'readMessages'])->name('readMessages');

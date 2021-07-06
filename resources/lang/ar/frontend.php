@@ -16,7 +16,7 @@ return [
         'welcome' => 'مرحبًا :name',
         'new_ad' => 'اضافة اعلان جديد',
         'login_first' => 'سجل دخولك اولًا',
-        'agree' => 'أوافق',
+        'agree' => 'موافق',
     ],
     'footer' => [
         'city' => 'المدينة',
