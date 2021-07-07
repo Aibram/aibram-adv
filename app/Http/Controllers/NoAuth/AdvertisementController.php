@@ -26,8 +26,8 @@ class AdvertisementController extends BaseController
         $ads = $this->repository->filterAds($request->only(['city_id','category_id','title']),4,$request->get('page',1));
         $items = collect($ads->items())->map->format();
         return APIResponse::sendResponse($this->getMsg(),[
-            'grid' => view('parts.ads.ad-grid', ['ads'=>$items])->render(),
-            'list' => view('parts.ads.ad-list', ['ads'=>$items])->render(),
+            'grid' => view('parts.ads.ad-grid', ['ads'=>$items,'lazy' => false])->render(),
+            'list' => view('parts.ads.ad-list', ['ads'=>$items,'lazy' => false])->render(),
             'adsCount' => count($ads),
             'hasMorePages' => $ads->hasMorePages()
         ]);
@@ -41,7 +41,7 @@ class AdvertisementController extends BaseController
         $latestAds = $this->repository->filterAds(['home'=>1],3,$request->get('page',1));
         $items = collect($latestAds->items())->map->format();
         return APIResponse::sendResponse($this->getMsg(),[
-            'list' => view('parts.ads.latest-home', ['ads'=>$items])->render(),
+            'list' => view('parts.ads.latest-home', ['ads'=>$items,'lazy' => false])->render(),
             'adsCount' => $latestAds->count(),
             'hasMorePages' => $latestAds->hasMorePages()
         ]);

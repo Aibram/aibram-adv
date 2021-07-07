@@ -48,6 +48,7 @@ class Advertisement extends BaseModel
         'no_chatlists',
         'no_ratings',
         'no_favorites',
+        'no_visits',
         'uid'
     ];
 

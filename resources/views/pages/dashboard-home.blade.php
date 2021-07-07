@@ -12,7 +12,7 @@
 @endsection
 @section('breadcrump')
 
-    <div class="page-header mobile-hidden" style="background: url({{ asset('frontend/assets/img/hero-area.jpg') }})">
+    <div class="page-header mobile-hidden lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -49,7 +49,7 @@
                             <h1 class="section-title mx-auto desktop-hidden">
                                 {{ __('frontend.dashboard.ads') }} ({{ $ads->total() }})
                             </h1>
-                            @include('parts.ads.dashboard',['ads'=>collect($ads->items())->map->format()])
+                            @include('parts.ads.dashboard',['ads'=>collect($ads->items())->map->format(),'lazy' => true])
                         </div>
                         <div class="row" style="justify-content: center;">
                             {{$ads->links()}}

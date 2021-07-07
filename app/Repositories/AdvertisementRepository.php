@@ -31,7 +31,28 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
     }
 
     public function firstBySlug($slug){
-        return $this->model->findBySlugOrFail($slug);
+        $ad = $this->model->findBySlugOrFail($slug);
+        $ad->no_visits += 1;
+        $ad->save();
+        $this->assignVisitToUser($ad);
+        return $ad;
+    }
+
+    public function assignVisitToUser($ad){
+        foreach(config('app.main_guards') as $guard){
+            if(checkLoggedIn('user')){
+                $ad->visitedUsers()->save(currUser($guard));
+            }
+        }
+    }
+
+    public function findById($id, array $with = [])
+    {
+        $ad = $this->findOrFail($id,$with);
+        $ad->increment('no_visits');
+        $this->resetModel();
+        $this->assignVisitToUser($ad);
+        return $ad;
     }
 
     public function filterAds($data,$count=4,$page=1,$ordering=[]){

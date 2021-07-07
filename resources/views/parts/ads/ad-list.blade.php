@@ -12,8 +12,14 @@
                     </a>
                 @endif
                 <a href="{{ $ad['detailsUrl'] }}">
-                    <img class="img-fluid" src="{{ $ad['photo'] }}" alt="{{ $ad['title'] }}"
+                    @if($lazy)
+                        <img loading="lazy" class="img-fluid" data-src="{{ $ad['photo'] }}" alt="{{ $ad['title'] }}"
+                            style="width: 246px;height: 150px;" />
+                    @else
+                        <img class="img-fluid" src="{{ $ad['photo'] }}" alt="{{ $ad['title'] }}"
                         style="width: 246px;height: 150px;" />
+                    @endif
+                    
                 </a>
             </div>
             <div class="feature-content">

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('breadcrump')
-    <div id="hero-area">
+    <div id="hero-area" class="lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
         <div class="overlay"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -68,7 +68,7 @@
         <div class="container">
             <h1 class="section-title">{{ __('frontend.home.recent_ads') }}</h1>
             <div class="row" id="latestAdsList">
-                @include('parts.ads.latest-home',['ads'=>collect($latestAds->items())->map->format()])
+                @include('parts.ads.latest-home',['ads'=>collect($latestAds->items())->map->format(),'lazy' => true])
             </div>
             @if($latestAds->hasMorePages())
                 <div class="section-btn text-center mt-4">
@@ -87,7 +87,7 @@
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                         <h3 class="section-title">{{ __('frontend.home.featured_ads') }}</h3>
                         <div id="new-products" class="owl-carousel owl-theme">
-                            @include('parts.ads.featured-home',['ads'=>$featuredAds->map->format()])
+                            @include('parts.ads.featured-home',['ads'=>$featuredAds->map->format(),'lazy' => true])
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                         @foreach (getTestimonials() as $item)
                             <div class="item">
                                 <div class="img-thumb">
-                                    <img src="{{$item->photo}}" alt="{{$item->name}}" style="width:44px;height:44px"/>
+                                    <img loading="lazy" src="{{$item->photo}}" alt="{{$item->name}}" style="width:44px;height:44px"/>
                                 </div>
                                 <div class="testimonial-item">
                                     <div class="content">

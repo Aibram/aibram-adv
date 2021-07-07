@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('breadcrump')
-    <div class="page-header mobile-hidden" style="background: url({{asset('frontend/assets/img/hero-area.jpg')}})">
+    <div class="page-header mobile-hidden lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

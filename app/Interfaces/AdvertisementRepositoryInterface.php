@@ -16,5 +16,8 @@ interface AdvertisementRepositoryInterface  extends BaseInterface
     public function updateAdmin($id,$data);
 
     public function featuredAds($user,$count = 4 , $page = 1 , $ordering = ['created_at' => 'desc'] , $paginate=false);
+
+    public function assignVisitToUser($ad);
+
     
 }

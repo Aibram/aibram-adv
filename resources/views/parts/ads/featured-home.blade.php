@@ -2,7 +2,11 @@
     <div class="item">
         <div class="product-item">
             <div class="carousel-thumb">
-                <img class="img-fluid" src="{{$item['photo']}}" alt="{{$item['title']}}" style="width: 340px;height:225px"/>
+                @if($lazy)
+                    <img loading="lazy" class="img-fluid" data-src="{{$item['photo']}}" alt="{{$item['title']}}" style="width: 340px;height:225px"/>
+                @else
+                    <img class="img-fluid" src="{{$item['photo']}}" alt="{{$item['title']}}" style="width: 340px;height:225px"/>
+                @endif
                 <div class="overlay">
                     <div>
                         <a class="btn btn-common" href="{{$item['detailsUrl']}}">{{__('frontend.home.show_details')}}</a>

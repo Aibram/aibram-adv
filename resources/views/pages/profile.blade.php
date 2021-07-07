@@ -4,7 +4,7 @@
 @endsection
 @section('breadcrump')
 
-    <div class="page-header mobile-hidden" style="background: url({{asset('frontend/assets/img/hero-area.jpg')}})">
+    <div class="page-header mobile-hidden lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -99,7 +99,7 @@
                                     <h1 class="section-title mx-auto desktop-hidden">
                                         {{ __('frontend.profile.user_ads') }}
                                     </h1>
-                                    @include('parts.ads.ad-list',['ads'=>$user->advertisements->map->format()])
+                                    @include('parts.ads.ad-list',['ads'=>$user->advertisements->map->format(),'lazy' => true])
                                 </div>
                             </div>
                         </div>

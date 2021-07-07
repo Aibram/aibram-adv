@@ -4,8 +4,14 @@
             <div class="d-flex">
                 <div class="figure">
                     <a href="{{$item['detailsUrl']}}">
-                        <img class="img-fluid" src="{{$item['photo']}}"
-                            alt="{{$item['title']}}" style="width:220px;height:140px" /></a>
+                        @if($lazy)
+                            <img loading="lazy" class="img-fluid" data-src="{{$item['photo']}}"
+                            alt="{{$item['title']}}" style="width:220px;height:140px" />
+                        @else
+                            <img class="img-fluid" src="{{$item['photo']}}"
+                            alt="{{$item['title']}}" style="width:220px;height:140px" />
+                        @endif
+                    </a>
                 </div>
                 <div class="feature-content">
                     <div class="product mobile-hidden">
