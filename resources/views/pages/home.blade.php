@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('breadcrump')
-    <div id="hero-area" class="lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
+    <div id="hero-area" class="lazy" data-src="/frontend/assets/img/hero-area.jpg">
         <div class="overlay"></div>
         <div class="container">
             <div class="row justify-content-center">

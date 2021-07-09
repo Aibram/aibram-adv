@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('breadcrump')
-    <div class="page-header mobile-hidden lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
+    <div class="page-header mobile-hidden lazy" data-src="/frontend/assets/img/hero-area.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -73,9 +73,9 @@
 @endsection
 
 @section('custom_js')
-    <script src="{{asset('frontend/assets/js/intlTelInput-jquery.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/intlTelInput.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/verification.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/main-rtl.js')}}"></script>
+    <script src="/frontend/assets/js/intlTelInput-jquery.min.js"></script>
+    <script src="/frontend/assets/js/intlTelInput.min.js"></script>
+    <script src="/frontend/assets/js/verification.js"></script>
+    <script src="/frontend/assets/js/main-rtl.js"></script>
     {!! JsValidator::formRequest('App\Http\Requests\Website\ForgetPasswordRequest') !!}
 @endsection

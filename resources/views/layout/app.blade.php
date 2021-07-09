@@ -11,26 +11,16 @@
         <meta name="user_id" content="null" />
     @endif
     {!! SEO::generate(true) !!}
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/bootstrap.min.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/bootstrap-rtl.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/fonts/line-icons.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/slicknav.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/color-switcher.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/animate.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/owl.carousel.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/main-rtl.css')}}" />
-    
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/responsive.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/magnific-popup.css')}}" />
-
-    <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/font-awesome.min.css')}}" />
-    <link href="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/minified/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/css/slicknav.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/css/color-switcher.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/css/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/minified/style.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/css/magnific-popup.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/frontend/assets/fonts/line-icons.css" />
+    <link href="/assets/vendors/general/sweetalert2/dist/sweetalert2.css" rel="stylesheet" type="text/css" />
 
     @yield('custom_css')
     @toastr_css
@@ -102,28 +92,28 @@
         var favWord = "{{ __('frontend.details.favorites') }}"
     </script>
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{asset('frontend/assets/js/jquery-min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/popper.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/color-switcher.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/jquery.counterup.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/waypoints.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/wow.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/jquery.slicknav.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/main-rtl.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/form-validator.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/contact-form-script.min.js')}}"></script>
-    <script src="{{asset('frontend/assets/js/summernote.js')}}"></script>
-    <script src="{{asset('assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
-	<script src="{{asset('assets/vendors/custom/js/vendors/sweetalert2.init.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
+    <script src="/frontend/assets/js/jquery-min.js"></script>
+    <script src="/frontend/assets/js/popper.min.js"></script>
+    <script src="/frontend/assets/js/bootstrap.min.js"></script>
+    <script src="/frontend/assets/js/color-switcher.js"></script>
+    <script src="/frontend/assets/js/jquery.counterup.min.js"></script>
+    <script src="/frontend/assets/js/waypoints.min.js"></script>
+    <script src="/frontend/assets/js/wow.js"></script>
+    <script src="/frontend/assets/js/owl.carousel.min.js"></script>
+    <script src="/frontend/assets/js/jquery.slicknav.js"></script>
+    <script src="/frontend/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/frontend/assets/js/main-rtl.js"></script>
+    <script src="/frontend/assets/js/form-validator.min.js"></script>
+    <script src="/frontend/assets/js/contact-form-script.min.js"></script>
+    <script src="/frontend/assets/js/summernote.js"></script>
+    <script src="/assets/vendors/general/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
+	<script src="/assets/vendors/custom/js/vendors/sweetalert2.init.js" type="text/javascript"></script>
+    <script src="/assets/vendors/general/block-ui/jquery.blockUI.js" type="text/javascript"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
-    <script src="{{asset('js/lazyloading.js')}}"></script>
-    <script src="{{asset('js/ajaxReq.js')}}"></script>
-    <script src="{{asset('js/favorite.js')}}"></script>
+    <script src="/js/lazyloading.js"></script>
+    <script src="/js/ajaxReq.js"></script>
+    <script src="/js/favorite.js"></script>
     @if(!checkLoggedIn('user'))
     <script>
         function openLogin(){
@@ -140,7 +130,7 @@
         }
     </script>
     @endif
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="/vendor/jsvalidation/js/jsvalidation.js"></script>
     @if(checkLoggedIn('user'))
         @include('vendor.pusher')
     @endif

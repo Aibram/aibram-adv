@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('breadcrump')
-    <div class="page-header lazy" data-src="{{asset('frontend/assets/img/hero-area.jpg')}}">
+    <div class="page-header lazy" data-src="/frontend/assets/img/hero-area.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xs-12">
-                    <img loading="lazy" class="img-fluid aboutUs-img" data-src="{{asset('frontend/assets/img/about/about.jpg')}}" alt="" />
+                    <img loading="lazy" class="img-fluid aboutUs-img" data-src="/frontend/assets/img/about/about.jpg" alt="" />
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="frame">
-                                <img loading="lazy" data-src="{{asset('frontend/assets/img/blog/img-1.jpg')}}" class="img-responsive" />
+                                <img loading="lazy" data-src="/frontend/assets/img/blog/img-1.jpg" class="img-responsive" />
                             </div>
                             <h4>{{__('frontend.who_are_we.our_vision')}}</h4>
                             <p>
@@ -55,7 +55,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="frame">
-                                <img loading="lazy" data-src="{{asset('frontend/assets/img/blog/img-2.jpg')}}" class="img-responsive" />
+                                <img loading="lazy" data-src="/frontend/assets/img/blog/img-2.jpg" class="img-responsive" />
                             </div>
                             <h4>{{__('frontend.who_are_we.our_goal')}}</h4>
                             <p>
@@ -66,7 +66,7 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="frame">
-                                <img loading="lazy" data-src="{{asset('frontend/assets/img/blog/img-3.jpg')}}" class="img-responsive" />
+                                <img loading="lazy" data-src="/frontend/assets/img/blog/img-3.jpg" class="img-responsive" />
                             </div>
                             <h4>{{__('frontend.who_are_we.our_value')}}</h4>
                             <p>
