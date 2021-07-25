@@ -26,5 +26,15 @@ class ConfigurationServiceProvider extends ServiceProvider
     {
         // date_default_timezone_set('Africa/Cairo');
         Schema::defaultStringLength(125);
+        $this->app->singleton('notificationsCount', function($app) {
+            $notificationsCount = 0;
+            foreach(config('app.main_guards') as $guard){
+                if(checkLoggedIn($guard)){
+                    $notificationsCount = currUser('user')->unreadNotifications()->count();
+                    break;
+                }
+            }
+            return $notificationsCount;
+        });
     }
 }

@@ -33,7 +33,8 @@ class ProhibitedWordsController extends BaseController
     public function updateAll()
     {
         $request = app($this->updateRequest);
-        $this->repository->updateWords($request->words);
+        $model = $this->repository->updateWords($request->words);
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 }

@@ -24,14 +24,15 @@ class CommentReportController extends BaseController
     {
         $request = app($this->updateRequest);
         $data = $request->notify;
-        $row = $this->repository->findById($id);
+        $model = $this->repository->findById($id);
         if($data){
-            NotificationInitator::init($row,'admin_notification',$data,$row->reportable->user,AdminSendNotification::class);
+            NotificationInitator::init($model,'admin_notification',$data,$model->reportable->user,AdminSendNotification::class);
         }
-        NotificationInitator::init($row,'comment_report_confirmed',__('notifications.report_confirmed'),$row->user,ReportConfirmed::class);
-        NotificationInitator::init($row,'comment_removed_admin',__('notifications.comment_removed_admin',['title' => $row->reportable->comment]),$row->reportable->user,CommentRemovedAdmin::class);
-        $row->reportable->delete();
-        // $row->delete();
+        NotificationInitator::init($model,'comment_report_confirmed',__('notifications.report_confirmed'),$model->user,ReportConfirmed::class);
+        NotificationInitator::init($model,'comment_removed_admin',__('notifications.comment_removed_admin',['title' => $model->reportable->comment]),$model->reportable->user,CommentRemovedAdmin::class);
+        $model->reportable->delete();
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
+        // $model->delete();
         return redirect()->route($this->route.'.index');
     }
 }

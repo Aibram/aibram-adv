@@ -22,6 +22,7 @@ class ProhibitedWordRepository extends BaseAbstract implements ProhibitedWordRep
             ];
         })->toArray();
         $this->deleteBy();
-        return $this->insert($data);
+        $this->insert($data);
+        return $this->getModel()->newQuery()->latest()->first();
     }
 }

@@ -102,7 +102,7 @@
             page : 1,
             message_type : "text",
             advertisement_id: {{request()->query('id','null')}},
-            sender_id : "{{auth()->guard('user')->user()->id}}",
+            sender_id : "{{currUser('user')->id}}",
             receiver_id : "{{$chat['receiver']->id}}"
         };
         function getMessages(scroll=true) {

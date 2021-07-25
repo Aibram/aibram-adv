@@ -16,6 +16,7 @@ class CategoryObserver
     {
         $maxOrdering = Category::max('ordering');
         $category->ordering = $maxOrdering? $maxOrdering+1 : 1;
+        $category->category_hierarchy = $category->category_hierarchy_ids;
         $category->save();
     }
 

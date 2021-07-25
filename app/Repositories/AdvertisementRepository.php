@@ -17,7 +17,7 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
     
     public function createAd($data){
         $data['mobile'] = !empty($data['mobile']) ? $data['ext'].$data['mobile'] : null;
-        $data['user_id'] = auth()->guard('user')->user()->id;
+        $data['user_id'] = currUser('user')->id;
         $data['no_properties'] = count($data['properties']);
         $data['address'] = "";
         $ad = $this->create($data);
@@ -40,7 +40,7 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
 
     public function assignVisitToUser($ad){
         foreach(config('app.main_guards') as $guard){
-            if(checkLoggedIn('user')){
+            if(checkLoggedIn($guard)){
                 $ad->visitedUsers()->save(currUser($guard));
             }
         }
@@ -126,6 +126,7 @@ class AdvertisementRepository extends BaseAbstract implements AdvertisementRepos
         foreach($data['marketing'] as $item){
             $ad->admarketing()->create($item);
         }
-
+        $ad->refresh();
+        return $ad;
     }
 }

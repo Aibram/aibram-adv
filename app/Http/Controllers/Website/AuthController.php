@@ -29,7 +29,7 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        if(Auth::guard('user')->check()){
+        if(checkLoggedIn('user')){
             return redirect()->route('frontend.home');
         }
         return view('pages.login');

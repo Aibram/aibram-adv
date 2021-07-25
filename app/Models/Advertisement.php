@@ -52,10 +52,11 @@ class Advertisement extends BaseModel
         'uid'
     ];
 
-    public function format(){
-        $item = FavoriteItem::where(['advertisement_id'=>$this->id,'user_id'=>optional(auth()->guard('user')->user())->id])->first();
+    public function format($columns=[]){
+        $item = FavoriteItem::where(['advertisement_id'=>$this->id,'user_id'=>optional(currUser('user'))->id])->first();
         $user = $this->user;
-        return [
+        $currUserBool = checkLoggedIn('user') ?? checkLoggedIn('user-api');
+        $return = [
             "id" => $this->id,
             "title" => $this->title,
             "title_formatted" => $this->title_formatted,
@@ -67,10 +68,8 @@ class Advertisement extends BaseModel
             "user_id" => $this->user_id,
             "user_name" => $user->name,
             "user_photo" => $user->photo,
-            "favorited" => auth()->guard('user')->user() && $item,
+            "favorited" => $currUserBool && $item,
             "photo" => $this->photo,
-            "secondary_photos" => $this->secondary_photos,
-            "comments" => AdComment::where(['advertisement_id'=>$this->id,'parent_id'=>null])->get(),
             "searchCategoryUrl" => getFullLink(route('frontend.ads'),['category_id'=>$this->category_hierarchy_ids]),
             "searchCityUrl" => getFullLink(route('frontend.ads'),['city_id'=>$this->city_id]),
             "profileUrl" => getFullLink(route('frontend.profile',['id'=>$this->user_id]),['id'=>$this->id]),
@@ -80,7 +79,6 @@ class Advertisement extends BaseModel
             "category_hierarchy_ids" => $this->category_hierarchy_ids,
             "city_id" => $this->city_id,
             "city_name" => $this->city_name,
-            "taglist" => $this->taglist,
             "properties" => $this->properties,
             "created_at" => $this->created_at,
             "created_at_w3c" => $this->created_at->toW3CString(),
@@ -88,6 +86,13 @@ class Advertisement extends BaseModel
             "mobile" => '+'.$this->ad_mobile,
             "uid" => $this->uid,
         ];
+        if(in_array('comments',$columns))
+            $return["comments"] = AdComment::where(['advertisement_id'=>$this->id,'parent_id'=>null])->get();
+        if(in_array('taglist',$columns))
+            $return["taglist"] = $this->taglist;
+        if(in_array('secondary_photos',$columns))
+            $return["secondary_photos"] = $this->secondary_photos;
+        return $return;
     }
 
     public function registerMediaGroups()

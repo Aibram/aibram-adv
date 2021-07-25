@@ -40,6 +40,7 @@ class AdminRepository extends BaseAbstract implements AdminRepositoryInterface
         if(array_key_exists('permissions',$data) && count($data['permissions']) >0){
             $admin->syncPermissions(array_keys($data['permissions']));
         }
+        $admin->refresh();
         return $admin;
     }
 

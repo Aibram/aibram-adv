@@ -47,6 +47,8 @@ Route::middleware('auth:admin')->group(function(){
     Route::get('/settings/{id}/save', [SettingsController::class, 'edit'])->name('settings.save');
     Route::get('/contactus/{id}/confirm', [ContactUsController::class, 'edit'])->name('contactus.confirm');
     Route::get('/home', [AdminController::class, 'dashboard'])->name('home');
+    Route::get('/reports/ad', [AdvertisementController::class, 'getAdReports'])->name('advertisements.report');
+    Route::get('/reports/user', [UserController::class, 'getUserReports'])->name('users.report');
     Route::name('admins.profile.')->group(function(){
         Route::get('/profile', [AdminController::class, 'showProfile'])->name('get');
         Route::post('/profile', [AdminController::class, 'profile'])->name('post');

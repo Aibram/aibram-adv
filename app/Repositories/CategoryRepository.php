@@ -56,14 +56,23 @@ class CategoryRepository extends BaseAbstract implements CategoryRepositoryInter
         $data['status'] = 1;
         $data['desc'] = !empty($data['desc']) ? $data['desc'] : '';
         $data['icon'] = !empty($data['icon']) ? $data['icon'] : 'fas fa-bars';
-        return $this->create($data);
+        $cat = $this->create($data);
+        updateHierarchyThrough($cat->parent);
+        return $cat;
     }
     public function deleteCatAdmin($adminId,$data){
         $admin = Admin::find($adminId);
         if(!$admin->hasPermissionTo('categories.destroy','admin') && !$admin->hasRole('Super Admin','admin')){
             throw new UnauthorizedException(401,__('base.notAuthorized'));
         }
-        return $this->deleteById($data['id']);
+        $cat = $this->findById($data['id']);
+        $parentCat = $cat->parent;
+        $this->deleteById($cat->id);
+        if($parentCat){
+            $parentCat->refresh();
+        }
+        updateHierarchyThrough($parentCat);
+        return $cat;
     }
-
+    
 }

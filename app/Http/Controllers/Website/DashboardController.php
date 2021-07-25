@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $this->favoriteRepo = $favoriteRepo;
         $this->chatlistRepo = $chatlistRepo;
         $this->middleware(function ($request, $next) {
-            $this->me = auth()->guard('user')->user();
+            $this->me = currUser('user');
             return $next($request);
         });
     }
@@ -42,7 +42,7 @@ class DashboardController extends Controller
 
     public function chats(Request $request)
     {
-        $chats = $this->chatlistRepo->getAllChatlistPerUser(auth()->guard('user')->user()->id);
+        $chats = $this->chatlistRepo->getAllChatlistPerUser(currUser('user')->id);
         return view('pages.dashboard-chats',compact('chats'));
     }
 

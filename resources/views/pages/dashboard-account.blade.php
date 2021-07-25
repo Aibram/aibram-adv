@@ -30,7 +30,7 @@
                     <aside>
                         <div class="sidebar-box">
                             <div class="user">
-                                @include('parts.dashboard.sidebar',['active'=>'account','user'=>auth()->guard('user')->user()])
+                                @include('parts.dashboard.sidebar',['active'=>'account','user'=>currUser('user')])
                             </div>
                         </div>
                     </aside>
@@ -92,12 +92,14 @@
                                             class="font-size-16 font-weight-bold">{{ __('frontend.dashboard.profile_picture') }}</label>
                                         <label class="form-control upload d-flex align-items-center" for="tg-photogallery">
                                             <div class="placeholder d-flex justify-content-between w-100">
-                                                <span class="font-size-18">{{ __('frontend.dashboard.photo') }}</span>
+                                                <span id="photo_name" class="font-size-18">{{ __('frontend.dashboard.photo') }}</span>
                                                 <i class="fa fa-upload text-primary"></i>
                                             </div>
 
                                             <input id="tg-photogallery" class="tg-fileinput" type="file" name="photo" />
                                         </label>
+                                        <div class="uploaded-images d-flex my-3 flex-wrap" id="primaryPhoto">
+                                        </div>
                                     </div>
 
                                     <div class="button">
@@ -117,5 +119,21 @@
 
 @section('custom_js')
     {!! JsValidator::formRequest('App\Http\Requests\Website\UpdateProfile') !!}
+    <script>
+        function previewImages(inputSelector, previewSelector) {
+            $(inputSelector).on('change', function(event) {
+                $(previewSelector).empty()
+                const files = event.target.files
+                console.log(files);
+                $('#photo_name').html(files[0].name)
+                $(previewSelector).append(
+                    `<div class="img-container">
+                        <img src="${URL.createObjectURL(files[0])}" />
+                    </div>`
+                );
+            });
+        }
+        previewImages('#tg-photogallery','#primaryPhoto');
 
+    </script>
 @endsection

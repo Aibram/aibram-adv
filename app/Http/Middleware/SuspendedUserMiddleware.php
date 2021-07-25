@@ -16,7 +16,7 @@ class SuspendedUserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->guard('user')->user()->status==1)
+        if(currUser('user')->status==1)
             return $next($request);
         else{
             toastr()->error(__('base.error.notAuthorized'), __('base.error.notAuthorized'));

@@ -38,7 +38,7 @@
                     <aside>
                         <div class="sidebar-box">
                             <div class="user">
-                                @include('parts.dashboard.sidebar',['active'=>'ads','user'=>auth()->guard('user')->user()])
+                                @include('parts.dashboard.sidebar',['active'=>'ads','user'=>currUser('user')])
                             </div>
                         </div>
                     </aside>

@@ -21,12 +21,14 @@ class BaseController extends Controller
                 $datatable,
                 $redirectTo = '/admin',
                 $guard = "admin",
+                $me,
                 $fullView;
     public function __construct(BaseInterface $repository,$datatable)
     {
         $this->repository = $repository;
         $this->datatable = $datatable;
         $this->fullView = $this->view.$this->viewPart;
+        $this->me = currUser('admin');
     }
     /**
      * Display a listing of the resource.
@@ -58,8 +60,8 @@ class BaseController extends Controller
     public function store()
     {
         $request = app($this->storeRequest);
-
-        $this->repository->create($request->all());
+        $model = $this->repository->create($request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'store']);
         return redirect()->route($this->route.'.index');
     }
 
@@ -98,7 +100,8 @@ class BaseController extends Controller
     public function update($id)
     {
         $request = app($this->updateRequest);
-        $this->repository->updateById($id,$request->all());
+        $model = $this->repository->updateById($id,$request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 
@@ -110,7 +113,8 @@ class BaseController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->deleteById($id);
+        $model = $this->repository->deleteById($id);
+        logAction($this->me,$model);
         return redirect()->route($this->route.'.index');
     }
 }

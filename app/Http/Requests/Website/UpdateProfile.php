@@ -26,7 +26,7 @@ class UpdateProfile extends FormRequest
     {
         return [
             'ext'           =>  ['required', Rule::exists('countries', 'ext')->whereNull('deleted_at')],
-            'mobile'        =>  ['required', 'string', Rule::unique('users', 'mobile')->where('ext', $this->get('ext'))->ignore(auth()->guard('user')->user()->id, 'id')],
+            'mobile'        =>  ['required', 'string', Rule::unique('users', 'mobile')->where('ext', $this->get('ext'))->ignore(currUser('user')->id, 'id')],
             'city_id'       => 'required|exists:cities,id',
             'name'          => 'required',
             'photo'         => 'nullable|image|max:2048',

@@ -9,6 +9,7 @@ use App\DataTables\UserDataTable;
 use App\Http\Requests\Admin\UserCreate;
 use App\Http\Requests\Admin\UserUpdate;
 use App\Interfaces\UserRepositoryInterface;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
@@ -24,14 +25,16 @@ class UserController extends BaseController
     public function store()
     {
         $request = app($this->storeRequest);
-        $this->repository->createFullUser($request->all());
+        $model = $this->repository->createFullUser($request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'store']);
         return redirect()->route($this->route.'.index');
     }
     
     public function update($id)
     {
         $request = app($this->updateRequest);
-        $this->repository->updateFullUser($id,$request->all());
+        $model = $this->repository->updateFullUser($id,$request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 
@@ -53,5 +56,10 @@ class UserController extends BaseController
     public function getAdvertisements($id,AdvertisementDataTable $ratingDataTable)
     {
         return $ratingDataTable->with(['user_id'=>$id])->render($this->fullView.'.view');
+    }
+
+    public function getUserReports(Request $request,UserDataTable $userDataTable)
+    {
+        return $userDataTable->with($request->except('_token','csrf'))->render('admin::pages.reports.user');
     }
 }

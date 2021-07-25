@@ -91,11 +91,9 @@
         var addFavoriteURL = "{{route('addtoFavorite')}}";
         var favWord = "{{ __('frontend.details.favorites') }}"
     </script>
-    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="/frontend/assets/js/jquery-min.js"></script>
     <script src="/frontend/assets/js/popper.min.js"></script>
     <script src="/frontend/assets/js/bootstrap.min.js"></script>
-    <script src="/frontend/assets/js/color-switcher.js"></script>
     <script src="/frontend/assets/js/jquery.counterup.min.js"></script>
     <script src="/frontend/assets/js/waypoints.min.js"></script>
     <script src="/frontend/assets/js/wow.js"></script>

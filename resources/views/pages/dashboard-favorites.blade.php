@@ -38,7 +38,7 @@
                     <aside>
                         <div class="sidebar-box">
                             <div class="user">
-                                @include('parts.dashboard.sidebar',['active'=>'favorites','user'=>auth()->guard('user')->user()])
+                                @include('parts.dashboard.sidebar',['active'=>'favorites','user'=>currUser('user')])
                             </div>
                         </div>
                     </aside>
@@ -88,7 +88,7 @@
                               </div>
                               <div class="icon-trash pl-2">
                                 <a
-                                  href="{{route('frontend.ad.remove_from_favorites',['id'=>$item->advertisement->id])}}"
+                                  href = "javascript:;" onClick = "favRemove('{{route('frontend.ad.remove_from_favorites',['id'=>$item->advertisement->id])}}');"
                                   class="btn btn-danger btn-icon font-size-14 py-2 px-2"
                                   ><i class="fa fa-trash font-size-18"></i
                                 ></a>
@@ -112,5 +112,23 @@
 @endsection
 
 @section('custom_js')
-
+  @if(checkLoggedIn('user'))
+    <script>
+        function favRemove(url){
+            swal.fire({
+                title: '',
+                text: "هل تريد حذف الاعلان من المفضلة",
+                showCancelButton: true,
+                cancelButtonText: "لا",
+                confirmButtonText: "نعم",
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+            }).then(function(result) {
+                if (result.value) {
+                    window.location = url;
+                }
+            });
+        }
+    </script>
+  @endif
 @endsection

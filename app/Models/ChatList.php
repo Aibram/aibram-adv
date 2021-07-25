@@ -20,7 +20,7 @@ class ChatList extends BaseModel
     ];
 
     public function format(){
-        $user = auth()->guard('user')->user();
+        $user = currUser('user');
         $receiver = $user->id == $this->sender_id ? $this->receiver : $this->sender;
         $lastMessage = optional($this->last_message);
         $isOnline = checkOnline($receiver->id);

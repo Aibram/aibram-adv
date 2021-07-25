@@ -6,7 +6,9 @@ use App\Http\Controllers\Website\ChatController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Website\DashboardController;
 use App\Http\Controllers\Website\FrontendController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +79,13 @@ Route::middleware('auth:user')->group(function(){
     Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });
 
+Route::get('/update_cat_hierarchy',function(Request $request){
+    $categories = Category::whereIn('id',explode(",",$request->ids))->get();
+    foreach($categories as $cat){
+        updateHierarchyThrough($cat);
+    }
+    return "Done";
+});
 Route::get('/generate_uid',function(){
     $ads = App\Models\Advertisement::all();
     foreach($ads as $ad){

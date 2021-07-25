@@ -39,7 +39,7 @@
                                                     <select name="category_id">
                                                         <option value="">جميع التصنيفات</option>
                                                         @foreach (categoriesFilter() as $item)
-                                                            <option value="{{$item->category_hierarchy_ids}}">{{$item->name}}</option>
+                                                            <option value="{{$item->category_hierarchy}}">{{$item->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -183,7 +183,7 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div id="testimonials" class="owl-carousel">
-                        @foreach (getTestimonials() as $item)
+                        @foreach (app('testimonials') as $item)
                             <div class="item">
                                 <div class="img-thumb">
                                     <img loading="lazy" src="{{$item->photo}}" alt="{{$item->name}}" style="width:44px;height:44px"/>

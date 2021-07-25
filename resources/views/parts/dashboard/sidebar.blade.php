@@ -63,6 +63,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.all')}}" class="btn btn-border category d-flex @if ($active=='ads' ) active @endif">
             <div class="icon ml-2 position-relative">
+                <div class="circle">{{$user->no_ads}}</div>
                 <i class="fa fa-flag"></i>
             </div>
             {{__('frontend.dashboard.myads')}}
@@ -71,7 +72,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.chats')}}" class="btn btn-border category d-flex @if ($active=='chats' ) active @endif">
             <div class="icon ml-2 position-relative">
-                {{-- <div class="circle">3</div> --}}
+                <div class="circle">{{$user->no_chats}}</div>
                 <i class="fa fa-comment"></i>
             </div>
             {{__('frontend.dashboard.mychats')}}
@@ -80,7 +81,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.ratings')}}" class="btn btn-border category d-flex @if ($active=='ratings' ) active @endif">
             <div class="icon ml-2 position-relative">
-                {{-- <div class="circle">3</div> --}}
+                <div class="circle">{{$user->no_ratings}}</div>
                 <i class="fa fa-thumbs-up"></i>
             </div>
             {{__('frontend.dashboard.myratings')}}
@@ -89,6 +90,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.favorites')}}" class="btn btn-border category d-flex @if ($active=='favorites' ) active @endif">
             <div class="icon ml-2 position-relative">
+                <div class="circle">{{$user->no_favorites}}</div>
                 <i class="fa fa-heart"></i>
             </div>
             {{__('frontend.dashboard.myfavorites')}}
@@ -97,6 +99,7 @@
     <div class="item">
         <a href="{{route('frontend.dashboard.notifications')}}" class="btn btn-border category d-flex @if ($active=='notifications' ) active @endif">
             <div class="icon ml-2 position-relative">
+                <div class="circle">{{app('notificationsCount')}}</div>
                 <i class="fa fa-bell"></i>
             </div>
             {{__('frontend.dashboard.notifications')}}

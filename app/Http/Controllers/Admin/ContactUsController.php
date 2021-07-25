@@ -24,7 +24,8 @@ class ContactUsController extends BaseController
         $data = $request->all();
         $data['contacted_at'] = now();
         $this->repository->checkRequestCheckBoxExists($data,'contacted');
-        $this->repository->updateById($id,$data,false);
+        $model = $this->repository->updateById($id,$data,false);
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 }

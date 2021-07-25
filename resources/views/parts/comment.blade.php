@@ -11,14 +11,14 @@
                     <h4 class="name">{{$comment->user->name}}</h4>
                 </a>
                 <span class="comment-date"><i class="fa fa-clock-o"></i> {{$comment->created_at}}</span>
-                @if (auth()->guard('user')->user() && auth()->guard('user')->user()->id == $comment->advertisement->user_id)
+                @if (currUser('user') && currUser('user')->id == $comment->advertisement->user_id)
                     <a href="javascript:;" data-id="{{$comment->id}}" class="reply-link reply_now"><i class="fa fa-reply"></i> {{__('frontend.details.reply')}}</a>
                 @endif
             </div>
             <p>
                 {{$comment->comment}}
             </p>
-            @if (auth()->guard('user')->user())
+            @if (currUser('user'))
             <a href="{{getFullLink(route('frontend.report'),['type'=>'Comment','id'=>$comment->id])}}" class="reply-link report-link"><i class="fa fa-warning"></i>
                 {{__('frontend.details.report')}}</a>
             @endif

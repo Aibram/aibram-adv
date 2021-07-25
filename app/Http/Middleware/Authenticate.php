@@ -20,11 +20,11 @@ class Authenticate extends Middleware
     {
         if (! $request->is('api/*')) {
             if (strpos(url()->current(),"/admin/")) {
-                if(!Auth::Guard('admin')->check())
+                if(!checkLoggedIn('admin'))
                     return route('admin.login');
             }
             else{
-                if(!Auth::Guard('user')->check())
+                if(!checkLoggedIn('user'))
                     return route('frontend.login');
             }
         }

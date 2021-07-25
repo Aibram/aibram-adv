@@ -54,7 +54,7 @@
                                 <div class="select">
                                     <select class="form-control" id="cat" name="category_id">
                                         <option selected>{{ __('frontend.ad_create.category') }}*</option>
-                                        @include('parts.categories.categories-option-input',['categories'=>categoriesFilter(),'level'=>1])
+                                        @include('parts.categories.categories-option-input',['categories'=>categoriesFilter(),'level'=>1, 'value'=>null,'key'=>'id'])
                                     </select>
                                 </div>
                             </div>
@@ -71,8 +71,9 @@
                             <div class="form-group mb-4">
                                 <div class="input-icon">
                                     <input type="text" class="form-control placeholder-font-14" name="region"
-                                        placeholder="{{ __('frontend.ad_create.region') }}" />
+                                        placeholder="المنطقة أو المديرية" />
                                 </div>
+                                <p style="font-size:14px">يمكن تركه فارغا</p>
                             </div>
                             <div class="form-group mb-4">
                                 <div class="input-icon">
@@ -85,6 +86,7 @@
                                     <input type="number" class="form-control placeholder-font-14" name="price"
                                         placeholder="{{ __('frontend.ad_create.price') }}" />
                                 </div>
+                                <p style="font-size:14px">يمكن تركه فارغا</p>
                             </div>
                             <div class="form-group inputwithicon mb-4">
                                 <label class="d-block text-bold">{{ __('frontend.ad_create.contact_method') }}:</label>
@@ -129,9 +131,10 @@
                             </div>
                             <div class="my-repeater">
                                 <div class="form-group  row">
-                                    <div data-repeater-list="properties" class="col-lg-9">
+                                    
+                                    <div data-repeater-list="properties" class="col-lg-12">
                                         <div data-repeater-item class="kt-margin-b-10 mb-4 row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-12">
                                                 <div class="kt-form__group--inline">
                                                     <div class="kt-form__control">
                                                         <input type="text" class="form-control"
@@ -141,17 +144,11 @@
                                                 </div>
                                                 <div class="d-md-none kt-margin-b-10"></div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <a href="javascript:;" data-repeater-delete=""
-                                                    class="btn btn btn-danger log-btn btn-block">
-                                                    حذف
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-12">
                                         <div data-repeater-create="" class="btn btn btn-warning log-btn btn-block">
-                                            إضافة
+                                            إضافة خصائص
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +192,7 @@
 
 @section('custom_js')
     {!! JsValidator::formRequest('App\Http\Requests\Website\AdvertisementCreate'); !!}
-    @include('admin::CustomFiles.form-repeater')
+    @include('admin::CustomFiles.form-repeater',['selector'=>'.my-repeater','initEmpty'=>true])
     @include('admin::CustomFiles.tag-input')
     <script>
         var check = function() {

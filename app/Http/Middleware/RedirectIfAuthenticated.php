@@ -20,9 +20,9 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        // dump(Auth::guard('admin')->check());
+        // dump(checkLoggedIn('admin'));
         // dd(Route::currentRouteName());
-        // dd(Auth::guard('admin')->check());
+        // dd(checkLoggedIn('admin'));
         foreach ($guards as $guard) {
             if($guard == 'admin' && Auth::guard("admin")->check()){
                 return redirect(RouteServiceProvider::ADMINHOME);

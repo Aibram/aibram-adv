@@ -47,6 +47,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Online Minutes 
+    |--------------------------------------------------------------------------
+    |
+    */
+    'online_mins' => 3,
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
@@ -196,7 +204,7 @@ return [
         App\Providers\RepositoriesServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FacadesServiceProvider::class,
-
+        App\Providers\CacheServiceProvider::class,
     ],
 
     /*

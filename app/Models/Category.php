@@ -54,7 +54,7 @@ class Category extends BaseModel
     private function getCategoryHierarchyIds($category_id,$list)
     {
         array_push($list,$category_id);
-        $children = Category::where(['id'=>$category_id])->withTrashed()->first()->activeChildren;
+        $children = Category::where(['id'=>$category_id])->withTrashed()->first()->children;
         foreach($children as $child){
             $list = $this->getCategoryHierarchyIds($child->id,$list);
         }

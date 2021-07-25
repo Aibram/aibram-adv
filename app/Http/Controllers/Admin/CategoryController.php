@@ -23,7 +23,8 @@ class CategoryController extends BaseController
         $request = app($this->updateRequest);
         $data = $request->all();
         $data['icon'] = $request->input('icon','');
-        $this->repository->updateById($id,$data);
+        $model = $this->repository->updateById($id,$data);
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 }

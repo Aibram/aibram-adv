@@ -57,7 +57,8 @@ class AdminController extends BaseController
     public function store()
     {
         $request = app($this->storeRequest);
-        $this->repository->createAdmin($request->all());
+        $model = $this->repository->createAdmin($request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'store']);
         return redirect()->route($this->route.'.index');
     }
 
@@ -79,7 +80,8 @@ class AdminController extends BaseController
     public function update($id)
     {
         $request = app($this->updateRequest);
-        $this->repository->updateAdmin($id,$request->all());
+        $model = $this->repository->updateAdmin($id,$request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 }

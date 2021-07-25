@@ -254,7 +254,7 @@ abstract class BaseAbstract implements BaseInterface
         $resp = $item->delete();
         $this->resetModel();
         toastr()->success(__('base.success.deleted'), __('base.success.done'));
-        return $resp;
+        return $item;
     }
 
     public function count(array $condition = [])

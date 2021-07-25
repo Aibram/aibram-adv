@@ -21,7 +21,7 @@ class ChatController extends Controller
         $this->adRepo = $adRepo;
     }
     public function single($id,Request $request){
-        $user1 = auth()->guard('user')->user()->id;
+        $user1 = currUser('user')->id;
         $user2 = $id;
         $chat = $this->repository->firstOrNewChat($user1,$user2)->format();
         $advertisement = null;

@@ -32,7 +32,8 @@ class SettingsController extends BaseController
         $data = $request->all();
         $data['value'] = is_array($data['value']) ? implode(",",$data['value']) : $data['value'];
         // dd($data);
-        $this->repository->updateById($id,$data);
+        $model = $this->repository->updateById($id,$data);
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 }

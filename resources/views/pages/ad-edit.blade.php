@@ -54,20 +54,7 @@
                                 <div class="select">
                                     <select class="form-control" id="cat" name="category_id">
                                         <option selected>{{ __('frontend.ad_edit.category') }}*</option>
-                                        @foreach (allCategories() as $category)
-                                            <option @if($ad->category->parent_id == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4 inputwithicon">
-                                <div class="select">
-                                    <select class="form-control" id="subCat" name="subCategory_id">
-                                        <option selected>{{ __('frontend.ad_edit.sub_category') }}*</option>
-                                        @foreach (allCategories(false) as $category)
-                                            <option data-parent="{{ $category->parent->id }}"
-                                                value="{{ $category->id }}" @if($ad->category_id == $category->id) selected @endif >{{ $category->name }}</option>
-                                        @endforeach
+                                        @include('parts.categories.categories-option-input',['categories'=>categoriesFilter(),'level'=>1, 'value'=>$ad->category_id,'key'=>'id'])
                                     </select>
                                 </div>
                             </div>
@@ -84,8 +71,9 @@
                             <div class="form-group mb-4">
                                 <div class="input-icon">
                                     <input type="text" class="form-control placeholder-font-14" name="region"
-                                        value="{{$ad->region}}" placeholder="{{ __('frontend.ad_edit.region') }}" />
+                                        value="{{$ad->region}}" placeholder="المنطقة أو المديرية" />
                                 </div>
+                                <p style="font-size:14px">يمكن تركه فارغا</p>
                             </div>
                             <div class="form-group mb-4">
                                 <div class="input-icon">
@@ -98,6 +86,7 @@
                                     <input type="number" class="form-control placeholder-font-14" name="price"
                                         value="{{$ad->price}}" placeholder="{{ __('frontend.ad_edit.price') }}" />
                                 </div>
+                                <p style="font-size:14px">يمكن تركه فارغا</p>
                             </div>
                             <div class="form-group inputwithicon mb-4">
                                 <label class="d-block text-bold">{{ __('frontend.ad_edit.contact_method') }}:</label>
@@ -143,7 +132,7 @@
                             <div class="my-repeater">
                                 <div class="form-group  row">
                                     <div data-repeater-list="properties" class="col-lg-9">
-                                        @foreach ($ad->properties as $prop)
+                                        @forelse ($ad->properties as $prop)
                                             <div data-repeater-item class="kt-margin-b-10 mb-4 row">
                                                 <div class="col-md-8">
                                                     <div class="kt-form__group--inline">
@@ -155,18 +144,25 @@
                                                     </div>
                                                     <div class="d-md-none kt-margin-b-10"></div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <a href="javascript:;" data-repeater-delete=""
-                                                        class="btn btn btn-danger log-btn btn-block">
-                                                        {{ __('frontend.ad_edit.remove') }}
-                                                    </a>
+                                            </div>
+                                        @empty($record)
+                                            <div data-repeater-item class="kt-margin-b-10 mb-4 row">
+                                                <div class="col-md-12">
+                                                    <div class="kt-form__group--inline">
+                                                        <div class="kt-form__control">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="{{ __('frontend.ad_create.properties') }}"
+                                                                name="property">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-md-none kt-margin-b-10"></div>
                                                 </div>
                                             </div>
-                                        @endforeach
+                                        @endforelse
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-12">
                                         <div data-repeater-create="" class="btn btn btn-warning log-btn btn-block">
-                                            {{ __('frontend.ad_edit.add') }}
+                                            إضافة خصائص
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +218,7 @@
 
 @section('custom_js')
     {!! JsValidator::formRequest('App\Http\Requests\Website\AdvertisementUpdate'); !!}
-    @include('admin::CustomFiles.form-repeater')
+    @include('admin::CustomFiles.form-repeater',['selector'=>'.my-repeater','initEmpty'=>true])
     @include('admin::CustomFiles.tag-input')
     <script>
         var check = function() {

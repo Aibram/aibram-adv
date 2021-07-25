@@ -22,14 +22,16 @@ class TestimonialController extends BaseController
     {
         $request = app($this->storeRequest);
 
-        $this->repository->createTestimonial($request->all());
+        $model = $this->repository->createTestimonial($request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'store']);
         return redirect()->route($this->route.'.index');
     }
 
     public function update($id)
     {
         $request = app($this->updateRequest);
-        $this->repository->updateTestimonial($id,$request->all());
+        $model = $this->repository->updateTestimonial($id,$request->all());
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 }

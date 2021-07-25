@@ -123,7 +123,7 @@
             title : '',
             city_id : '',
             page : 1,
-            user_id : '{{auth()->guard('user')->user()?auth()->guard('user')->user()->id:""}}'
+            user_id : '{{currUser('user')?currUser('user')->id:""}}'
         };
         function callAjax(reload = false) {
             sendAjaxReq(params, "POST", "{{route('getAds')}}", function(data) {

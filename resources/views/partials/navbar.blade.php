@@ -36,8 +36,8 @@
           <div class="notification desktop-hidden">
             <a href="{{route('frontend.dashboard.notifications')}}">
               <div class="icon">
-                @if(currUser('user')->unreadNotifications()->count()>0)
-                  <div class="circle">{{currUser('user')->unreadNotifications()->count()}}</div>
+                @if(app('notificationsCount')>0)
+                  <div class="circle">{{app('notificationsCount')}}</div>
                 @endif
                 <i class="fa fa-bell"></i>
               </div>
@@ -100,8 +100,8 @@
           <div class="notification mobile-hidden ml-3">
             <a href="{{route('frontend.dashboard.notifications')}}"
               ><div class="icon">
-                @if(currUser('user')->unreadNotifications()->count()>0)
-                  <div class="circle">{{currUser('user')->unreadNotifications()->count()}}</div>
+                @if(app('notificationsCount')>0)
+                  <div class="circle">{{app('notificationsCount')}}</div>
                 @endif
                 <i class="fa fa-bell"></i>
               </div>

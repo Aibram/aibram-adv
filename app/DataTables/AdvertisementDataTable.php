@@ -4,12 +4,10 @@ namespace App\DataTables;
 
 use App\Classes\DatatableAction;
 use App\Models\Advertisement;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
 
 class AdvertisementDataTable extends BaseDatatable
 {
-
+    public $filters = ['user_id','city_id','category_id','title','price_from','price_to','date_from','date_to'];
     public function __construct()
     {
         parent::__construct('advertisementsdatatable-table',[
@@ -24,7 +22,7 @@ class AdvertisementDataTable extends BaseDatatable
             'home'         =>  __('pages.columns.home'),
             'status'       =>  __('pages.columns.status'),
             'no_properties'=>  __('pages.advertisements.columns.no_properties'),
-            'no_chatlists' =>  __('pages.advertisements.columns.no_chatlists'),
+            'no_visits'    =>  __('pages.advertisements.columns.no_visits'),
             'no_ratings'   =>  __('pages.advertisements.columns.no_ratings'),
             'no_favorites' =>  __('pages.advertisements.columns.no_favorites'),
             'created_at'   =>  __('pages.columns.created_at'),
@@ -81,6 +79,34 @@ class AdvertisementDataTable extends BaseDatatable
         if($this->user_id){
             $query = $query->where(['user_id'=>$this->user_id]);
         }
+        if($this->city_id){
+            $query = $query->where(['city_id'=>$this->city_id]);
+        }
+        if($this->category_id){
+            $query = $query->whereIn('category_id',explode(",",$this->category_id));
+        }
+        if($this->title){
+            $query = $query->where('title','like',"%$this->title%");
+        }
+        if($this->price_from){
+            $query = $query->where('price','>=',$this->price_from);
+        }
+        if($this->price_to){
+            $query = $query->where('price','<=',$this->price_from);
+        }
+        if($this->date_from){
+            $query = $query->where('created_at','>=',$this->date_from);
+        }
+        if($this->date_to){
+            $query = $query->where('created_at','<=',$this->date_to);
+        }
         return $query;
+    }
+
+    public function ajaxData(){
+        $newArr = [];
+        foreach($this->filters as $attribute)
+            $newArr[$attribute] = '$("[name='.$attribute.']").val();';
+        return $newArr;
     }
 }

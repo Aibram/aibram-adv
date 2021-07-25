@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Notification;
 
 class AdvertisementObserver
 {
-
+    private $accumulatedAttrs = ['no_ratings','no_favorites','avg_rate','no_visits'];
     public function creating(Advertisement $advertisement)
     {
         $advertisement->status = 1;
@@ -20,7 +20,7 @@ class AdvertisementObserver
         $advertisement->category_name = $advertisement->category->name;
         $advertisement->city_name = $advertisement->city->name;
         $advertisement->country_id = $advertisement->city->country_id;
-        $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy_ids;
+        $advertisement->category_hierarchy_ids = $advertisement->category->category_hierarchy;
         $advertisement->avg_rate = 0;
         $advertisement->uid = generateAdUniqueId(7);
     }
@@ -97,7 +97,7 @@ class AdvertisementObserver
         if($advertisement->isDirty(['status']) && $advertisement->status){
             NotificationInitator::init($advertisement,'advertisement_removed',__('notifications.ad_remove',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
         }
-        else{
+        elseif(!$advertisement->isDirty($this->accumulatedAttrs)){
             NotificationInitator::init($advertisement,'advertisement_updated',__('notifications.ad_update',['title' => $advertisement->title]),$advertisement->user,AdvertisementUpdate::class);
         }
     }

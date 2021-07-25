@@ -153,7 +153,7 @@
                             @elseif(checkLoggedIn('user') && currUser('user')->id == $ad['user_id'])
                             @else
                                 <li class="single-contact green">
-                                    <a href = "javascript:;" onClick = "openLogin();"><i class="fa fa-whatsapp"></i>
+                                    <a href = "{{ toWhatsappGateway($ad['mobile']) }}"><i class="fa fa-whatsapp"></i>
                                         <p>{{ __('frontend.details.contact_whatsapp') }}</p>
                                     </a>
                                 </li>
@@ -163,8 +163,8 @@
                                     </a>
                                 </li>
                                 <li class="single-contact blue">
-                                    <a href = "javascript:;" onClick = "openLogin();"><i class="fa fa-phone"></i>
-                                        <p>{{ __('frontend.details.call') }} <span>xxx-xxxxxxxxxx</span></p>
+                                    <a href ="{{ 'tel:' . $ad['mobile'] }}"><i class="fa fa-phone"></i>
+                                        <p>{{ __('frontend.details.call') }} <span>{{ $ad['mobile'] }}</span></p>
                                     </a>
                                 </li>
                             @endif

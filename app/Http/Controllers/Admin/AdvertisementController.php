@@ -25,7 +25,8 @@ class AdvertisementController extends BaseController
     {
         $request = app($this->updateRequest);
         $data = $request->all();
-        $this->repository->updateAdmin($id,$data);
+        $model = $this->repository->updateAdmin($id,$data);
+        logAction($this->me,$model,['model'=>$this->repository->getTable(),'operation'=>'update']);
         return redirect()->route($this->route.'.index');
     }
 
@@ -38,4 +39,10 @@ class AdvertisementController extends BaseController
     {
         return $statusDataTable->with(['advertisement_id'=>$id])->render($this->fullView.'.view');
     }
+
+    public function getAdReports(Request $request,AdvertisementDataTable $adDataTable)
+    {
+        return $adDataTable->with($request->except('_token','csrf'))->render('admin::pages.reports.ad');
+    }
+    
 }

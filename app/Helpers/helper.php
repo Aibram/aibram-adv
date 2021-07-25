@@ -9,6 +9,7 @@ use App\Models\Setting;
 use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\UserRating;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -72,6 +73,18 @@ if (!function_exists('getCitiesOfYemen')) {
     function getCitiesOfYemen()
     {
         return Country::where(['ext'=>'967'])->first()->city;
+    }
+}
+
+if (!function_exists('getActiveUsers')) {
+
+    /**
+     * @param $query
+     * @return string
+     */
+    function getActiveUsers($status = 1)
+    {
+        return User::active($status)->get();
     }
 }
 
@@ -228,6 +241,7 @@ if (!function_exists('getTestimonials')) {
         return Testimonial::active(1)->get();
     }
 }
+
 if (!function_exists('getInputTypes')) {
 
     /**
@@ -246,17 +260,20 @@ if (!function_exists('getInputTypes')) {
     }
 }
 if (!function_exists('getSettings')) {
-
-    /**
-     * @param $query
-     * @return string
-     */
     function getSettings($key,$default='')
     {
-        $setting = Setting::where('key',$key)->first();
-        return $setting ? $setting->value : $default ;
+        $settings = app('settings');
+        $filtered = $settings->where('key', $key)->first();
+        return $filtered ? $filtered->value : $default ;
     }
 }
+if (!function_exists('getAllSettings')) {
+    function getAllSettings()
+    {
+        return Setting::all();
+    }
+}
+
 if (!function_exists('ratedBefore')) {
 
     /**
@@ -333,6 +350,18 @@ if (!function_exists('currUser')) {
         return auth()->guard($guard)->user();
     }
 }
+
+if (!function_exists('logAction')) {
+
+    function logAction($causer , $model , $properties = [], $description = '')
+    {
+        return activity()
+        ->performedOn($model)
+        ->causedBy($causer)
+        ->withProperties($properties)
+        ->log($description);
+    }
+}
 if (!function_exists('generateAdUniqueId')) {
 
     function generateAdUniqueId($length=7) {
@@ -344,6 +373,68 @@ if (!function_exists('generateAdUniqueId')) {
         return $number;
     }
 }
+if (!function_exists('updateHierarchyThrough')) {
+
+    //Recursion
+    function updateHierarchyThrough($cat){
+        if(!$cat){
+            return;
+        }
+        $cat->category_hierarchy = $cat->category_hierarchy_ids;
+        $cat->save();
+        return updateHierarchyThrough($cat->parent);
+    }
+}
+
+if ( ! function_exists('constants'))
+{
+    function constants($key)
+    {
+       return config('constants.' . $key);
+    }
+}
+
+if (!function_exists('manipulateCache')) {
+
+    /**
+     * @param $cacheConstant
+     * @param $data
+     * @param $remember #second#
+     * @return string
+     */
+    function manipulateCache($cacheConstant,$cacheDataConfigConstant,$remember = null)
+    {
+        $settings_key = constants($cacheConstant);
+        if(!Cache::has($settings_key)){
+            if(!$remember){
+                Cache::rememberForever($settings_key, function () use($cacheDataConfigConstant){
+                    return constants($cacheDataConfigConstant)::all();
+                });
+            }
+            else{
+                $expire = Carbon::now()->addSeconds($remember);
+                Cache::remember($settings_key,$expire ,function () use($cacheDataConfigConstant){
+                    return constants($cacheDataConfigConstant)::all();
+                });
+            }
+        }
+        return Cache::get($settings_key);
+    }
+}
+
+if (!function_exists('forgetCache')) {
+
+    /**
+     * @param $cacheConstant
+     * @return string
+     */
+    function forgetCache($cacheConstant)
+    {
+        $settings_key = constants($cacheConstant);
+        return Cache::forget($settings_key);
+    }
+}
+
 if (!function_exists('checkUserIdExists')) {
 
     function checkUserIdExists($number) {

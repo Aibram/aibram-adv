@@ -22,6 +22,7 @@ class UserDataTable extends BaseDatatable
             'status'       =>  __('pages.columns.status'),
             'no_ads'       =>  __('pages.users.columns.no_ads'),
             'no_chats'     =>  __('pages.users.columns.no_chats'),
+            'no_visits'    =>  __('pages.users.columns.no_visits'),
             'no_ratings'   =>  __('pages.users.columns.no_ratings'),
             'no_favorites' =>  __('pages.users.columns.no_favorites'),
             'created_at'   =>  __('pages.columns.created_at'),

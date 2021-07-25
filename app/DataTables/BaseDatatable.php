@@ -65,7 +65,7 @@ class BaseDatatable extends DataTable
         return $this->builder()
                     ->setTableId($this->id)
                     ->columns($this->getColumns())
-                    ->minifiedAjax($this->url)
+                    ->minifiedAjax($this->url,null,$this->ajaxData())
                     ->dom('lrtip')
                     ->orderBy(0,'asc')
                     ->scrollX(true)
@@ -79,6 +79,10 @@ class BaseDatatable extends DataTable
     public function getColumns()
     {
         return $this->formattedColumns;
+    }
+
+    public function ajaxData(){
+        return [];
     }
 
     /**

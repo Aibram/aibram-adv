@@ -270,7 +270,7 @@
 
 @section('scripts')
 
-    @include('admin::CustomFiles.form-repeater')
+    @include('admin::CustomFiles.form-repeater',['selector'=>'.my-repeater','initEmpty'=>false])
 <!--begin:: Global Optional Vendors -->
     <script src="{{asset('assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
     <!--end:: Global Optional Vendors -->

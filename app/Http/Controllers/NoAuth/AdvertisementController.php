@@ -38,7 +38,7 @@ class AdvertisementController extends BaseController
         if($request->get('user_id',null)){
             Auth::guard('user')->setUser(User::find($request->user_id));
         }
-        $latestAds = $this->repository->filterAds(['home'=>1],3,$request->get('page',1));
+        $latestAds = $this->repository->filterAds(['home'=>1],6,$request->get('page',1));
         $items = collect($latestAds->items())->map->format();
         return APIResponse::sendResponse($this->getMsg(),[
             'list' => view('parts.ads.latest-home', ['ads'=>$items,'lazy' => false])->render(),
